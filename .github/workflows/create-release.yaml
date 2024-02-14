@@ -1,0 +1,237 @@
+name: Create release
+
+on:
+  pull_request:
+    types:
+      - closed
+    paths:
+      - wellsmart/**
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/wellsmart
+
+jobs:
+  test:
+    if: |
+      github.event_name == 'pull_request' &&
+      contains(github.event.pull_request.base.ref, 'main') &&
+      contains(github.event.pull_request.head.ref, 'release/') &&
+      github.event.pull_request.merged == true
+
+    name: Test
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: wellsmart
+        shell: bash
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        id: set-up-jdk
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          server-id: github
+          settings-path: ${{ github.workspace }}
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2-
+
+      - name: "Check out the repo"
+        uses: "actions/checkout@v4"
+        with:
+          fetch-depth: 0
+
+      - name: Set execute permissions for mvnw
+        run: chmod +x mvnw
+
+      - name: Build with Maven
+        run: ./mvnw test -Dspring.profiles.active=test --file pom.xml
+
+  #      - name: List all directory contents
+  #        run: |
+  #          ls -la
+  new-version:
+
+    needs: [ test ]
+
+    name: New Version
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    defaults:
+      run:
+        working-directory: wellsmart
+        shell: bash
+
+    outputs:
+      new-release-version: ${{ steps.set-release-version.outputs.new-release-version }}
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GIT_TOKEN }}
+          fetch-depth: 0
+
+      - name: Set up JDK 17
+        id: set-up-jdk
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+          settings-path: ${{ github.workspace }} # location for the settings.xml file
+        # Cache and restore Maven dependencies
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2-
+
+      - name: Set execute permissions for mvnw
+        run: chmod +x mvnw
+
+      - name: Set Release version env variable
+        id: set-release-version
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+        run: |
+          ./mvnw build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion} versions:commit --file pom.xml
+          echo "new-release-version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
+
+      - name: Echo Number New Release
+        run: |
+          echo "Relese number: ${{steps.set-release-version.outputs.new-release-version}}"
+
+      - name: Push Action
+        run: |
+          git config  --local user.name 'github-actions'
+          git config  --local user.email ${{ secrets.GIT_EMAIL }}
+          git add .
+          git commit -m "[Github Action] updated version in pom.xml"
+  #          git push
+
+  Publish-image-registry:
+    needs: [ new-version ]
+
+    name: Publish image docker registry
+    runs-on: ubuntu-latest
+
+    env:
+      IMAGE_TAG: ''
+
+    # permissão
+    permissions:
+      contents: read
+      packages: write
+
+    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    defaults:
+      run:
+        working-directory: wellsmart
+        shell: bash
+
+    steps:
+
+      - name: "Check out the repo"
+        uses: "actions/checkout@v4"
+        with:
+          fetch-depth: 0
+
+      - name: Echo Number New Release
+        run: |
+          echo "Relese number: ${{needs.new-version.outputs.new-release-version}}"
+
+      - name: "docker login"
+        uses: "docker/login-action@v2"
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.IMAGE_NAME }}
+          tags: |
+            latest
+            ${{needs.new-version.outputs.new-release-version}}
+
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: ./wellsmart
+          file: ./wellsmart/Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+  tag:
+    needs: [ new-version ]
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.tag.outputs.tag }}
+    steps:
+      - name: Echo Number New Release
+        run: |
+          echo "Relese number: ${{needs.new-version.outputs.new-release-version}}"
+      - name: Extract branch tag
+        id: tag
+        run: |
+          BRANCH=${{ github.head_ref }}
+          TAG_VERSION="${{needs.new-version.outputs.new-release-version}}.${{github.run_number}}"
+          echo "TAG=$TAG_VERSION" >> $GITHUB_OUTPUT
+
+  release:
+    needs:
+      [ tag ]
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ needs.tag.outputs.tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Echo Number TAG
+        run: |
+          echo "TAG number: ${{ needs.tag.outputs.tag }}"
+
+      - name: Push tag
+        uses: mathieudutour/github-tag-action@v6.1
+        with:
+          custom_tag: ${{ env.TAG }}
+          github_token: ${{ secrets.GIT_TOKEN }}
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+        with:
+          tag_name: ${{ env.TAG }}
+          release_name: Release ${{ github.ref }} - ${{ env.TAG }}
+          draft: false
+          prerelease: false
