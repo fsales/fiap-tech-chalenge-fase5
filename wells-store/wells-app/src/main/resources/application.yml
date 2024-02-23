@@ -1,0 +1,29 @@
+#spring:
+#  application:
+#    name: @project.name@
+#    description: @project.version@
+#    version: @project.description@
+
+springdoc:
+  swagger-ui:
+    path: /docs-welld-store.html
+  api-docs:
+    path: /docs-welld-store
+  packages-to-scan: br.com.fsales.wells.app.usuario.presentation.rest
+
+#https://medium.com/@yohanesdwikiwitman/spring-boot-3-template-part-8-spring-actuator-07a5f9affe17
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+
+
+#  health:
+#    binders:
+#      enabled: true
+#  endpoint:
+#    include: health,info,metrics,prometheus

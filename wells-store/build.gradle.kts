@@ -15,6 +15,13 @@ allprojects{
         targetCompatibility = JavaVersion.VERSION_17
     }
 
+    configurations {
+        compileOnly {
+            extendsFrom(configurations.annotationProcessor.get())
+        }
+    }
+
+
     repositories{
         mavenLocal()
         mavenCentral()
@@ -29,6 +36,8 @@ allprojects{
 subprojects{
 
     dependencies {
+
+        // test
         testImplementation(platform("org.junit:junit-bom:5.10.2"))
         testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
     }

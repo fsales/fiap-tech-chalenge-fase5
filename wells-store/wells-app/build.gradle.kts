@@ -11,6 +11,24 @@ springBoot{
 
 
 dependencies{
+
+    // spring
     implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+    // swagger
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
+
+    // lombok
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+
+    // swagger
+
+    // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }
