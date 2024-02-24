@@ -1,0 +1,34 @@
+plugins {
+
+    id("java")
+    id("org.springframework.boot") version "3.2.3"
+    id("io.spring.dependency-management") version "1.1.4"
+}
+
+springBoot{
+    mainClass.set("br.com.fsales.wells.app.WellsUsuarioAppApllication")
+}
+
+
+dependencies{
+
+    // spring
+    implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+
+    developmentOnly("org.springframework.boot:spring-boot-devtools")
+
+    // swagger
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
+
+    // lombok
+    compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+
+    // swagger
+
+    // test
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+}

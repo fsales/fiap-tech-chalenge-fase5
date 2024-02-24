@@ -1,3 +1,3 @@
 rootProject.name = "wells-store"
-include("wells-app")
+include("wells-usuario")
 include("wells-core")
