@@ -2,10 +2,10 @@ package br.com.fsales.wells.app;
 
 import org.junit.jupiter.api.Test;
 
-class WellsUsuarioAppApllicationTest {
+class WellsUsuarioAppApllicationTestEntity {
 
     @Test
-    void teste(){
+    void teste() {
 
     }
 }

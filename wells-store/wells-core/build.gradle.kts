@@ -2,6 +2,6 @@ plugins {
     id("java")
 }
 
-dependencies{
+dependencies {
 
 }

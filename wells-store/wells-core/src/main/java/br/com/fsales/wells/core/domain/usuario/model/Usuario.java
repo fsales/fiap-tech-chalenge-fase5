@@ -20,17 +20,17 @@ public record Usuario(
         return new Usuario(username, password, role, LocalDateTime.now(), Optional.empty());
     }
 
-    public Usuario alterar(LocalDateTime novaDataAlteracao, String password, Role role) {
-        Objects.requireNonNull(novaDataAlteracao, "O campo 'novaDataAlteracao' não pode ser nulo");
-
-        return new Usuario(username, password, role, dataCriacao, Optional.of(novaDataAlteracao));
-    }
-
     public static void main(String[] args) {
         var a = Usuario.criar(
                 "",
                 "",
                 Role.ADMIN
         );
+    }
+
+    public Usuario alterar(LocalDateTime novaDataAlteracao, String password, Role role) {
+        Objects.requireNonNull(novaDataAlteracao, "O campo 'novaDataAlteracao' não pode ser nulo");
+
+        return new Usuario(username, password, role, dataCriacao, Optional.of(novaDataAlteracao));
     }
 }

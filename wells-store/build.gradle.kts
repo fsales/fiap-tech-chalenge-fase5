@@ -4,13 +4,13 @@ plugins {
     id("io.spring.dependency-management") version "1.1.4"
 }
 
-allprojects{
-    apply( plugin = "java")
+allprojects {
+    apply(plugin = "java")
 
     group = "br.com.fsales"
-    version = "1.0-SNAPSHOT"
+    version = "1.0"
 
-    java{
+    java {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
@@ -22,7 +22,7 @@ allprojects{
     }
 
 
-    repositories{
+    repositories {
         mavenLocal()
         mavenCentral()
     }
@@ -33,7 +33,7 @@ allprojects{
 
 }
 
-subprojects{
+subprojects {
 
     dependencies {
 

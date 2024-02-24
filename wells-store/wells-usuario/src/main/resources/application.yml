@@ -1,24 +1,26 @@
+spring:
+  application:
+    name: Wells Usuario
+  datasource:
+    url: ${WELLS_USUARIO_SPRING_DATASOURCE_URL:}
+    username: ${WELLS_USUARIO_SPRING_DATASOURCE_USERNAME:}
+    password: ${WELLS_USUARIO_SPRING_DATASOURCE_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+  profiles:
+    active: ${PROFILE_ENVIRONMENT:prod}
+    include: actuator, springdoc
+
+logging:
+  pattern:
+    console: "%d{ABSOLUTE_MICROS} [%-5level] [%t] %c{1} - %msg%n"
+  level:
+    br:
+      com:
+        fsales: info
+
 server:
+  error:
+    include-stacktrace: never # desabilitar stacktrace no json que e retornado em caso de erro
   port: ${PORT:8081}
-#spring:
-#  application:
-#    name: @project.name@
-#    description: @project.version@
-#    version: @project.description@
-
-springdoc:
-  swagger-ui:
-    path: /docs-welld-usuario.html
-  api-docs:
-    path: /docs-welld-usuario
-  packages-to-scan: br.com.fsales.wells.app.presentation.rest
-
-#https://medium.com/@yohanesdwikiwitman/spring-boot-3-template-part-8-spring-actuator-07a5f9affe17
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "*"
-  endpoint:
-    health:
-      show-details: always

@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 class MainTest {
 
     @Test
-    void teste(){
+    void teste() {
 
     }
 
