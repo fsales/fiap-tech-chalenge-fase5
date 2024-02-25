@@ -5,32 +5,24 @@ import java.util.Objects;
 import java.util.Optional;
 
 public record Usuario(
-        String username,
-        String password,
+        String usuario,
+        String senha,
         Role role,
         LocalDateTime dataCriacao,
         Optional<LocalDateTime> dataAlteracao
 ) {
 
-    public static Usuario criar(String username, String password, Role role) {
-        Objects.requireNonNull(username, "O campo 'username' não pode ser nulo");
-        Objects.requireNonNull(password, "O campo 'password' não pode ser nulo");
+    public static Usuario criar(String usuario, String senha, Role role) {
+        Objects.requireNonNull(usuario, "O campo 'usuario' não pode ser nulo");
+        Objects.requireNonNull(senha, "O campo 'senha' não pode ser nulo");
         Objects.requireNonNull(role, "O campo 'role' não pode ser nulo");
 
-        return new Usuario(username, password, role, LocalDateTime.now(), Optional.empty());
+        return new Usuario(usuario, senha, role, LocalDateTime.now(), Optional.empty());
     }
 
-    public static void main(String[] args) {
-        var a = Usuario.criar(
-                "",
-                "",
-                Role.ADMIN
-        );
-    }
-
-    public Usuario alterar(LocalDateTime novaDataAlteracao, String password, Role role) {
+    public Usuario alterar(LocalDateTime novaDataAlteracao, String senha, Role role) {
         Objects.requireNonNull(novaDataAlteracao, "O campo 'novaDataAlteracao' não pode ser nulo");
 
-        return new Usuario(username, password, role, dataCriacao, Optional.of(novaDataAlteracao));
+        return new Usuario(usuario, senha, role, dataCriacao, Optional.of(novaDataAlteracao));
     }
 }

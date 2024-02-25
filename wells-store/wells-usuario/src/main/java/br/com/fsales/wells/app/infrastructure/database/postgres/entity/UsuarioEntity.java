@@ -65,8 +65,17 @@ public class UsuarioEntity implements Serializable {
     @Column(name = "MODIFICADO_POR")
     private String modificadoPor;
 
+    public static void main(String[] args) {
+        UsuarioEntity usu = new UsuarioEntity();
+        usu.setRole(UsuarioEntity.Role.ROLE_ADMIN);
+
+        br.com.fsales.wells.core.domain.usuario.model.Role role = br.com.fsales.wells.core.domain.usuario.model.Role.valueOf("ROLE_ADMIN");
+
+        System.out.println(role);
+
+    }
+
     public enum Role {
         ROLE_ADMIN, ROLE_CLIENTE;
     }
-
 }

@@ -1,19 +1,13 @@
 package br.com.fsales.wells.core.domain.usuario.model;
 
 public enum Role {
-    ADMIN("Administração do Sistema", Permissao.ADMIN),
-    USER("Usuário Padrão", Permissao.USER);
+    ROLE_ADMIN(Permissao.ADMIN),
+    ROLE_CLIENTE(Permissao.CLIENTE);
 
-    private final String descricao;
     private final Permissao permissao;
 
-    Role(String descricao, Permissao permissao) {
-        this.descricao = descricao;
+    Role(Permissao permissao) {
         this.permissao = permissao;
-    }
-
-    public String getDescricao() {
-        return descricao;
     }
 
     public Permissao getPermissao() {
@@ -21,6 +15,18 @@ public enum Role {
     }
 
     public enum Permissao {
-        ADMIN, USER
+
+        ADMIN("Administração do Sistema"),
+        CLIENTE("Usuário cliente");
+        private final String descricao;
+
+        Permissao(String descricao) {
+            this.descricao = descricao;
+        }
+
+        public String getDescricao() {
+            return descricao;
+        }
+
     }
 }
