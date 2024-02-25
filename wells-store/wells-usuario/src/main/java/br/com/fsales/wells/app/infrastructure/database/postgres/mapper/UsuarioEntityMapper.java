@@ -41,6 +41,7 @@ public final class UsuarioEntityMapper {
             UsuarioEntity usuarioEntity
     ) {
         return new Usuario(
+                usuarioEntity.getId(),
                 usuarioEntity.getUsuario(),
                 usuarioEntity.getSenha(),
                 Role.valueOf(
@@ -49,10 +50,7 @@ public final class UsuarioEntityMapper {
                                 .name()
                 ),
                 usuarioEntity.getDataCriacao(),
-                Optional.of(
-                        usuarioEntity
-                                .getDataModificacao()
-                )
+                usuarioEntity.getDataModificacao()
         );
     }
 }

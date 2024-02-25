@@ -1,6 +1,7 @@
 package br.com.fsales.wells.app.presentation.rest.controller.usuario;
 
 
+import br.com.fsales.wells.app.presentation.rest.controller.usuario.dto.mapper.UsuarioDtoMapper;
 import br.com.fsales.wells.app.presentation.rest.controller.usuario.dto.request.UsuarioCadastrarDto;
 import br.com.fsales.wells.app.presentation.rest.controller.usuario.dto.response.UsuarioResponseDto;
 import br.com.fsales.wells.app.presentation.rest.controller.usuario.swagger.UsuarioControllerSwagger;
@@ -29,6 +30,10 @@ public class UsuarioController implements UsuarioControllerSwagger {
             @RequestBody
             UsuarioCadastrarDto cadastrarDto
     ) {
-        return null;
+       var usuario = UsuarioDtoMapper.convertToUsuario(cadastrarDto);
+       var usuarioSalvo = cadastrarUsuarioUseCase.execute(usuario);
+       var usuarioResponseDto = UsuarioDtoMapper.convertToUsuarioResponseDto(usuarioSalvo);
+
+        return ResponseEntity.ok(usuarioResponseDto);
     }
 }

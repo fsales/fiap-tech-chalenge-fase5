@@ -38,7 +38,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 public class UsuarioEntity implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "USUARIO", nullable = true, length = 100)
@@ -64,16 +64,6 @@ public class UsuarioEntity implements Serializable {
     @LastModifiedBy
     @Column(name = "MODIFICADO_POR")
     private String modificadoPor;
-
-    public static void main(String[] args) {
-        UsuarioEntity usu = new UsuarioEntity();
-        usu.setRole(UsuarioEntity.Role.ROLE_ADMIN);
-
-        br.com.fsales.wells.core.domain.usuario.model.Role role = br.com.fsales.wells.core.domain.usuario.model.Role.valueOf("ROLE_ADMIN");
-
-        System.out.println(role);
-
-    }
 
     public enum Role {
         ROLE_ADMIN, ROLE_CLIENTE;
