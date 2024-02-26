@@ -5,6 +5,11 @@ plugins {
     id("org.sonarqube") version "4.4.1.3373"
 }
 
+tasks.named("bootJar"){
+    enabled = false
+}
+
+
 allprojects {
     apply(plugin = "java")
 
@@ -31,6 +36,7 @@ allprojects {
     tasks.withType<Test> {
         useJUnitPlatform()
     }
+
     sonar {
         properties {
             property("sonar.projectKey", "fsales_fiap-tech-chalenge-fase5")
@@ -48,6 +54,7 @@ subprojects {
         testImplementation(platform("org.junit:junit-bom:5.10.2"))
         testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
     }
+
 }
 
 
