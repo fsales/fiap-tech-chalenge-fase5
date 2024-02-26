@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: Wells Usuario
+  datasource:
+    url: ${WELLS_USUARIO_SPRING_DATASOURCE_URL:}
+    username: ${WELLS_USUARIO_SPRING_DATASOURCE_USERNAME:}
+    password: ${WELLS_USUARIO_SPRING_DATASOURCE_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+  profiles:
+    active: ${PROFILE_ENVIRONMENT:prod}
+    include: actuator, springdoc
+
+logging:
+  pattern:
+    console: "%d{ABSOLUTE_MICROS} [%-5level] [%t] %c{1} - %msg%n"
+  level:
+    br:
+      com:
+        fsales: info
+
+server:
+  error:
+    include-stacktrace: never # desabilitar stacktrace no json que e retornado em caso de erro
+  port: ${PORT:8081}

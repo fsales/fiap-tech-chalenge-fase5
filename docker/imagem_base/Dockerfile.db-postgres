@@ -1,0 +1,10 @@
+FROM postgres:16.2
+LABEL authors="Sales, Fábio de Oliviera"
+LABEL maintainer="Sales, Fábio de Oliviera"
+
+RUN apt-get -qq update
+
+# timezone
+ENV TZ "America/Sao_Paulo"
+
+
