@@ -5,13 +5,17 @@ on:
       - main
       - develop
     paths:
-      - wells-store/**
+      - wells-store
   pull_request:
     types: [opened, synchronize, reopened]
 jobs:
   build:
     name: Build and analyze
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: wells-store
+        shell: bash
     steps:
       - uses: actions/checkout@v3
         with:

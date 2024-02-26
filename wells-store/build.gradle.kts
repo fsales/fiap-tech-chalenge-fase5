@@ -36,14 +36,6 @@ allprojects {
     tasks.withType<Test> {
         useJUnitPlatform()
     }
-
-    sonar {
-        properties {
-            property("sonar.projectKey", "fsales_fiap-tech-chalenge-fase5")
-            property("sonar.organization", "fsales")
-            property("sonar.host.url", "https://sonarcloud.io")
-        }
-    }
 }
 
 subprojects {
@@ -57,5 +49,12 @@ subprojects {
 
 }
 
+sonar {
+    properties {
+        property("sonar.projectKey", "fsales_fiap-tech-chalenge-fase5")
+        property("sonar.organization", "fsales")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
+}
 
 
