@@ -5,11 +5,11 @@ on:
     types:
       - closed
     paths:
-      - 'wellsmart/**'
+      - 'wells-store/**'
 
 env:
 
-  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/wellsmart
+  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/wells-store
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -55,7 +55,7 @@ jobs:
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
       run:
-        working-directory: wellsmart
+        working-directory: wells-store
         shell: bash
     steps:
 
@@ -87,8 +87,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./wellsmart
-          file: ./wellsmart/Dockerfile
+          context: ./wells-store
+          file: ./wells-store/Dockerfile
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

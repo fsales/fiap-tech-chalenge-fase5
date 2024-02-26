@@ -1,7 +1,5 @@
 package br.com.fsales.wells.app.infrastructure.database.postgres.mapper;
 
-import java.util.Optional;
-
 import br.com.fsales.wells.app.infrastructure.database.postgres.entity.UsuarioEntity;
 import br.com.fsales.wells.core.domain.usuario.model.Role;
 import br.com.fsales.wells.core.domain.usuario.model.Usuario;

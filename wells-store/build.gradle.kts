@@ -2,6 +2,7 @@ plugins {
     id("java")
     id("org.springframework.boot") version "3.2.3"
     id("io.spring.dependency-management") version "1.1.4"
+    id("org.sonarqube") version "4.4.1.3373"
 }
 
 allprojects {
@@ -30,7 +31,13 @@ allprojects {
     tasks.withType<Test> {
         useJUnitPlatform()
     }
-
+    sonar {
+        properties {
+            property("sonar.projectKey", "fsales_fiap-tech-chalenge-fase5")
+            property("sonar.organization", "fsales")
+            property("sonar.host.url", "https://sonarcloud.io")
+        }
+    }
 }
 
 subprojects {
