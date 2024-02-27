@@ -5,4 +5,6 @@ plugins {
 
 dependencies {
 
+    implementation("org.springframework.security:spring-security-crypto:6.1.5")
+    implementation("org.springframework.security:spring-security-crypto:6.1.5")
 }

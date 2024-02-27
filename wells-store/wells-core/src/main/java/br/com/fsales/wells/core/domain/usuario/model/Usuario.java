@@ -28,7 +28,16 @@ public record Usuario(
         Objects.requireNonNull(senha, "O campo 'senha' não pode ser nulo");
         Objects.requireNonNull(role, "O campo 'role' não pode ser nulo");
 
-        return new Usuario(Optional.empty(), usuario, senha, role, Optional.empty(), Optional.empty());
+        var senhaCriptografada = SenhaCriptografada.criptografar(senha);
+
+        return new Usuario(
+                Optional.empty(),
+                usuario,
+                senhaCriptografada.valor(),
+                role,
+                Optional.empty(),
+                Optional.empty()
+        );
     }
 
     public Usuario alterar(
@@ -39,11 +48,11 @@ public record Usuario(
         Objects.requireNonNull(id, "O campo 'id' não pode ser nulo");
         Objects.requireNonNull(senha, "O campo 'senha' não pode ser nulo");
         Objects.requireNonNull(role, "O campo 'role' não pode ser nulo");
-
+        var senhaCriptografada = SenhaCriptografada.criptografar(senha);
         return new Usuario(
                 Optional.of(id),
                 usuario,
-                senha,
+                senhaCriptografada.valor(),
                 role,
                 dataCriacao,
                 dataAlteracao
