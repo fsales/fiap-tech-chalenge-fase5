@@ -14,9 +14,8 @@ dependencies {
     implementation("commons-logging:commons-logging:$commonsLoggingVersion")
 
     // lombok
-    compileOnly("org.projectlombok:lombok:1.18.30")
-   // implementation("org.projectlombok:lombok:$lombokVersion")
-
+    compileOnly("org.projectlombok:lombok:$lombokVersion")
+    annotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
     testImplementation("org.assertj:assertj-core:$assertjVersion")
 }
