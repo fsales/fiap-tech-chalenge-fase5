@@ -5,6 +5,8 @@ plugins {
     id("io.spring.dependency-management") version "1.1.4"
 }
 
+val springDocVersion = "2.3.0"
+
 springBoot {
     mainClass.set("br.com.fsales.wells.app.WellsUsuarioAppApllication")
 }
@@ -26,7 +28,7 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
     // swagger
-    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion")
 
     // lombok
     compileOnly("org.projectlombok:lombok")
