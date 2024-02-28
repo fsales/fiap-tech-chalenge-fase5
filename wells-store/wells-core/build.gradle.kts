@@ -18,7 +18,7 @@ dependencies {
 configurations{
     all {
         resolutionStrategy {
-            force("commons-logging:commons-logging:$commonsLoggingVersion")
+            force("commons-logging:commons-logging:1.3.0")
         }
     }
 }

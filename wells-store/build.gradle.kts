@@ -5,6 +5,7 @@ plugins {
     id("org.sonarqube") version "4.4.1.3373"
 }
 
+
 // Defina uma variável para a versão de dependências
 val junitVersion = "5.10.2"
 val mockitoVersion = "5.7.0"
@@ -40,7 +41,7 @@ allprojects {
     tasks.withType<Test> {
         useJUnitPlatform()
     }
-
+    
     sonar {
         properties {
             property("sonar.projectKey", "fsales_fiap-tech-chalenge-fase5")
@@ -48,6 +49,7 @@ allprojects {
             property("sonar.host.url", "https://sonarcloud.io")
         }
     }
+
 }
 
 subprojects {
