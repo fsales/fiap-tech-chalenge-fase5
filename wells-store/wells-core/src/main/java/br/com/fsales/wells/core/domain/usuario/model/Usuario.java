@@ -1,39 +1,21 @@
 package br.com.fsales.wells.core.domain.usuario.model;
 
+import br.com.fsales.wells.core.domain.usuario.exception.UsuarioInvalidoException;
+import lombok.NonNull;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.Optional;
 
-import br.com.fsales.wells.core.domain.usuario.exception.UsuarioInvalidoException;
-
+import static br.com.fsales.wells.core.util.EmailUtil.isValidEmail;
 
 public record Usuario(
-        Optional<Long> id,
-        String usuario,
-        String senha,
-        Role role,
-        Optional<LocalDateTime> dataCriacao,
-        Optional<LocalDateTime> dataAlteracao
+        Long id,
+        @NonNull String usuario,
+        @NonNull String senha,
+        @NonNull Role role,
+        LocalDateTime dataCriacao,
+        LocalDateTime dataAlteracao
 ) {
-
-    public Usuario(
-            Long id,
-            String usuario,
-            String senha,
-            Role role,
-            LocalDateTime dataCriacao,
-            LocalDateTime dataAlteracao
-    ) {
-        this(
-                Optional.of(id),
-                usuario,
-                senha,
-                role,
-                Optional.of(dataCriacao),
-                Optional.of(dataAlteracao)
-        );
-
-    }
 
     public static Usuario criar(
             String usuario,
@@ -41,18 +23,15 @@ public record Usuario(
             Role role
     ) {
         validarCamposObrigatorios(usuario, senha, role);
-
         validarEmail(usuario);
 
-        var senhaCriptografada = SenhaCriptografada.criptografar(senha);
-
         return new Usuario(
-                Optional.empty(),
+                null,
                 usuario,
-                senhaCriptografada.valor(),
+                SenhaCriptografada.criptografar(senha).valor(),
                 role,
-                Optional.empty(),
-                Optional.empty()
+                LocalDateTime.now(),
+                null
         );
     }
 
@@ -63,23 +42,16 @@ public record Usuario(
     ) {
         Objects.requireNonNull(id, "O campo 'id' não pode ser nulo");
 
-        validarCamposObrigatorios(
-                usuario,
-                senha,
-                role
-        );
-
+        validarCamposObrigatorios(usuario, senha, role);
         validarEmail(usuario);
 
-        var senhaCriptografada = SenhaCriptografada.criptografar(senha);
-
         return new Usuario(
-                Optional.of(id),
+                id,
                 usuario,
-                senhaCriptografada.valor(),
+                SenhaCriptografada.criptografar(senha).valor(),
                 role,
                 dataCriacao,
-                dataAlteracao
+                LocalDateTime.now()
         );
     }
 
@@ -88,19 +60,27 @@ public record Usuario(
             String senha,
             Role role
     ) {
-        Objects.requireNonNull(usuario, "O campo 'usuario' não pode ser nulo");
-        Objects.requireNonNull(senha, "O campo 'senha' não pode ser nulo");
+        validarNaoVazio(usuario, "usuario");
+        validarNaoVazio(senha, "senha");
         Objects.requireNonNull(role, "O campo 'role' não pode ser nulo");
+    }
+
+    private static void validarNaoVazio(
+            String campo,
+            String nomeCampo
+    ) {
+        if (campo == null || campo.trim().isEmpty()) {
+            throw new UsuarioInvalidoException(String.format("O campo '%s' é obrigatório e não pode consistir apenas em espaços em branco.", nomeCampo));
+        }
     }
 
     private static void validarEmail(
             String usuario
     ) {
-        if (
-                usuario != null &&
-                !usuario.matches("^[a-z0-9.+-]+@[a-z0-9.-]+\\.[a-z]{2,}$")
-        ) {
-            throw new UsuarioInvalidoException("O campo 'usuario' não tem um e-mail válido");
+        if (!isValidEmail(usuario)) {
+            throw new UsuarioInvalidoException("O campo 'usuario' não é um e-mail válido");
         }
     }
+
+
 }
