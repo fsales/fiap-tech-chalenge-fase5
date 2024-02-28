@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import br.com.fsales.wells.core.domain.usuario.exception.UsuarioInvalidoException;
+import lombok.NonNull;
 
 
 public record Usuario(
@@ -40,7 +41,11 @@ public record Usuario(
             String senha,
             Role role
     ) {
-        validarCamposObrigatorios(usuario, senha, role);
+        validarCamposObrigatorios(
+                usuario,
+                senha,
+                role
+        );
 
         validarEmail(usuario);
 
@@ -84,13 +89,22 @@ public record Usuario(
     }
 
     private static void validarCamposObrigatorios(
-            String usuario,
-            String senha,
-            Role role
+            @NonNull String usuario,
+            @NonNull String senha,
+            @NonNull Role role
     ) {
-        Objects.requireNonNull(usuario, "O campo 'usuario' não pode ser nulo");
-        Objects.requireNonNull(senha, "O campo 'senha' não pode ser nulo");
+        validarNaoVazio(usuario, "usuario");
+        validarNaoVazio(senha, "senha");
         Objects.requireNonNull(role, "O campo 'role' não pode ser nulo");
+    }
+
+    private static void validarNaoVazio(
+            String campo,
+            String nomeCampo
+    ) {
+        if (campo.trim().isEmpty()) {
+            throw new UsuarioInvalidoException(String.format("O campo '%s' é obrigatório e não pode consistir apenas em espaços em branco.", nomeCampo));
+        }
     }
 
     private static void validarEmail(

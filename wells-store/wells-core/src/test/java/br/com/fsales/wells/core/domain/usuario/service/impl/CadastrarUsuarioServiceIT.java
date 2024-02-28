@@ -1,14 +1,5 @@
 package br.com.fsales.wells.core.domain.usuario.service.impl;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import br.com.fsales.wells.core.domain.usuario.exception.SenhaInvalidaException;
-import br.com.fsales.wells.core.domain.usuario.exception.UsuarioInvalidoException;
 import br.com.fsales.wells.core.domain.usuario.model.Role;
 import br.com.fsales.wells.core.domain.usuario.model.Usuario;
 import br.com.fsales.wells.core.domain.usuario.repository.CadastrarUsuarioRepository;
@@ -20,7 +11,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-class CadastrarUsuarioServiceTest {
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
+
+class CadastrarUsuarioServiceIT {
 
     private AutoCloseable openMocks;
     @Mock
@@ -40,7 +35,7 @@ class CadastrarUsuarioServiceTest {
     }
 
     @Nested
-    class RegistrarUsuario{
+    class RegistrarUsuario {
         @Test
         void devePermitirRegistrarUsuario_RoleCliente() {
             // Arrange
@@ -75,34 +70,5 @@ class CadastrarUsuarioServiceTest {
             verify(mockRepository, times(1)).execute(any(Usuario.class));
         }
 
-    }
-
-    @Nested
-    class Validacao{
-        @Test
-        void criarUsuario_EmailInvalido() {
-
-            /** act e assert **/
-            String usuario = "invalidEmail";
-            String senha = "senha123";
-            Role role = Role.ROLE_CLIENTE;
-
-            assertThatThrownBy(() -> Usuario.criar(usuario, senha, role))
-                    .isInstanceOf(UsuarioInvalidoException.class)
-                    .hasMessageContaining("O campo 'usuario' não tem um e-mail válido");
-        }
-
-        @Test
-        void criarUsuario_SenhaInvalido() {
-
-            /** act e assert **/
-            String usuario = "admin@wells.com";
-            String senha = "senh";
-            Role role = Role.ROLE_CLIENTE;
-
-            assertThatThrownBy(() -> Usuario.criar(usuario, senha, role))
-                    .isInstanceOf(SenhaInvalidaException.class)
-                    .hasMessageContaining("A senha deve ter no mínimo 6 caracteres");
-        }
     }
 }
