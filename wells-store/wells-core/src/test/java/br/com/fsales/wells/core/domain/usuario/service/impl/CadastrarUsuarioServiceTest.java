@@ -42,7 +42,7 @@ class CadastrarUsuarioServiceTest {
     @Nested
     class RegistrarUsuario{
         @Test
-        public void devePermitirRegistrarUsuario_RoleCliente() {
+        void devePermitirRegistrarUsuario_RoleCliente() {
             // Arrange
             var usuario = Usuario.criar("cliente@wells.com", "123456", Role.ROLE_CLIENTE);
             when(mockRepository.execute(any(Usuario.class))).thenReturn(usuario);
@@ -59,7 +59,7 @@ class CadastrarUsuarioServiceTest {
         }
 
         @Test
-        public void devePermitirRegistrarUsuario_RoleAdmin() {
+        void devePermitirRegistrarUsuario_RoleAdmin() {
             // Arrange
             var usuario = Usuario.criar("admin@wells.com", "123456", Role.ROLE_ADMIN);
             when(mockRepository.execute(any(Usuario.class))).thenReturn(usuario);

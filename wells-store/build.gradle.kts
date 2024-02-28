@@ -5,6 +5,10 @@ plugins {
     id("org.sonarqube") version "4.4.1.3373"
 }
 
+// Defina uma variável para a versão de dependências
+val junitVersion = "5.10.2"
+val mockitoVersion = "5.7.0"
+
 tasks.named("bootJar"){
     enabled = false
 }
@@ -51,11 +55,11 @@ subprojects {
     dependencies {
 
         // test
-        testImplementation(platform("org.junit:junit-bom:5.10.2"))
-        testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
-        testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.2")
-        testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
-        testImplementation("org.mockito:mockito-core:5.7.0")
+        testImplementation(platform("org.junit:junit-bom:$junitVersion"))
+        testImplementation("org.junit.jupiter:junit-jupiter:$junitVersion")
+        testImplementation("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+        testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+        testImplementation("org.mockito:mockito-core:$mockitoVersion")
     }
 
 }
