@@ -8,10 +8,8 @@ import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 
-import java.time.LocalDateTime;
-import java.util.Optional;
-
-import static org.assertj.core.api.AssertionsForClassTypes.*;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class UsuarioTest {
 
@@ -101,7 +99,7 @@ class UsuarioTest {
 
             assertThatThrownBy(() -> Usuario.criar(usuario, senha, role))
                     .isInstanceOf(UsuarioInvalidoException.class)
-                    .hasMessageContaining("O campo 'usuario' não tem um e-mail válido");
+                    .hasMessageContaining("O campo 'usuario' não é um e-mail válido");
         }
 
         @Test
