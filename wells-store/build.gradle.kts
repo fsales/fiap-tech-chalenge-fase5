@@ -36,6 +36,14 @@ allprojects {
     tasks.withType<Test> {
         useJUnitPlatform()
     }
+
+    sonar {
+        properties {
+            property("sonar.projectKey", "fsales_fiap-tech-chalenge-fase5")
+            property("sonar.organization", "fsales")
+            property("sonar.host.url", "https://sonarcloud.io")
+        }
+    }
 }
 
 subprojects {
@@ -45,16 +53,11 @@ subprojects {
         // test
         testImplementation(platform("org.junit:junit-bom:5.10.2"))
         testImplementation("org.junit.jupiter:junit-jupiter:5.10.2")
+        testImplementation("org.junit.jupiter:junit-jupiter-engine:5.10.2")
+        testImplementation("org.junit.jupiter:junit-jupiter-api:5.10.2")
+        testImplementation("org.mockito:mockito-core:5.7.0")
     }
 
-}
-
-sonar {
-    properties {
-        property("sonar.projectKey", "fsales_fiap-tech-chalenge-fase5")
-        property("sonar.organization", "fsales")
-        property("sonar.host.url", "https://sonarcloud.io")
-    }
 }
 
 
