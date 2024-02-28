@@ -29,10 +29,10 @@ public final class UsuarioDtoMapper {
             Usuario usuario
     ) {
         return new UsuarioResponseDto(
-                usuario.id().orElse(null),
+                usuario.id(),
                 usuario.usuario(),
                 usuario.role().name(),
-                usuario.dataCriacao().orElse(null)
+                usuario.dataCriacao()
         );
     }
 }
