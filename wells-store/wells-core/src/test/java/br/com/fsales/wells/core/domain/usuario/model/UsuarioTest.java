@@ -1,16 +1,15 @@
 package br.com.fsales.wells.core.domain.usuario.model;
 
-import br.com.fsales.wells.core.domain.usuario.exception.SenhaInvalidaException;
-import br.com.fsales.wells.core.domain.usuario.exception.UsuarioInvalidoException;import br.com.fsales.wells.core.domain.usuario.model.Role;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
+import br.com.fsales.wells.core.domain.usuario.exception.SenhaInvalidaException;
+import br.com.fsales.wells.core.domain.usuario.exception.UsuarioInvalidoException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
-
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class UsuarioTest {
 
@@ -59,7 +58,8 @@ class UsuarioTest {
             // Verifica se a senha não é nula e nem vazia
             assertThat(result.senha())
                     .isNotBlank()
-                    .isNotEqualTo(senha);;
+                    .isNotEqualTo(senha);
+            ;
         }
 
 

@@ -1,10 +1,12 @@
 package br.com.fsales.wells.app.infrastructure.spring.config;
 
-import br.com.fsales.wells.app.infrastructure.database.postgres.adpter.CadastrarUsuarioAdpter;
+import br.com.fsales.wells.app.infrastructure.database.postgres.adpter.CadastrarUsuarioAdapter;
+import br.com.fsales.wells.app.infrastructure.database.postgres.adpter.ConsultarUsuarioPorUsernameAdapter;
 import br.com.fsales.wells.app.infrastructure.database.postgres.repository.UsuarioEntityRepository;
 import br.com.fsales.wells.app.usecase.usuario.CadastrarUsuarioUseCase;
 import br.com.fsales.wells.app.usecase.usuario.CadastrarUsuarioUseCaseImpl;
 import br.com.fsales.wells.core.domain.usuario.repository.CadastrarUsuarioRepository;
+import br.com.fsales.wells.core.domain.usuario.repository.ConsultarUsuarioPorUsernameRepository;
 import br.com.fsales.wells.core.domain.usuario.service.CadastrarUsuarioService;
 import br.com.fsales.wells.core.domain.usuario.service.impl.CadastrarUsuarioServiceImpl;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +23,20 @@ public class CoreConfig {
     public CadastrarUsuarioRepository cadastrarUsuarioRepository(
             UsuarioEntityRepository usuarioEntityRepository
     ) {
-        return new CadastrarUsuarioAdpter(
+        return new CadastrarUsuarioAdapter(
+                usuarioEntityRepository
+        );
+    }
+
+    /**
+     * @param usuarioEntityRepository
+     * @return
+     */
+    @Bean
+    public ConsultarUsuarioPorUsernameRepository consultarUsuarioPorUsernameRepository(
+            UsuarioEntityRepository usuarioEntityRepository
+    ) {
+        return new ConsultarUsuarioPorUsernameAdapter(
                 usuarioEntityRepository
         );
     }
@@ -32,11 +47,13 @@ public class CoreConfig {
      */
     @Bean
     public CadastrarUsuarioService cadastrarUsuarioService(
-            CadastrarUsuarioRepository cadastrarUsuarioRepository
+            CadastrarUsuarioRepository cadastrarUsuarioRepository,
+            ConsultarUsuarioPorUsernameRepository consultarUsuarioPorUsernameRepository
     ) {
 
         return new CadastrarUsuarioServiceImpl(
-                cadastrarUsuarioRepository
+                cadastrarUsuarioRepository,
+                consultarUsuarioPorUsernameRepository
         );
     }
 

@@ -5,11 +5,11 @@ import br.com.fsales.wells.app.infrastructure.database.postgres.repository.Usuar
 import br.com.fsales.wells.core.domain.usuario.model.Usuario;
 import br.com.fsales.wells.core.domain.usuario.repository.CadastrarUsuarioRepository;
 
-public class CadastrarUsuarioAdpter implements CadastrarUsuarioRepository {
+public class CadastrarUsuarioAdapter implements CadastrarUsuarioRepository {
 
     private final UsuarioEntityRepository usuarioEntityRepository;
 
-    public CadastrarUsuarioAdpter(UsuarioEntityRepository usuarioEntityRepository) {
+    public CadastrarUsuarioAdapter(UsuarioEntityRepository usuarioEntityRepository) {
         this.usuarioEntityRepository = usuarioEntityRepository;
     }
 

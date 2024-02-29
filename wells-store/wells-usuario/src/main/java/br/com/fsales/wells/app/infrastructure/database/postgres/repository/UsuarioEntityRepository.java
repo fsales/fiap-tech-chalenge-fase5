@@ -12,4 +12,6 @@ public interface UsuarioEntityRepository extends JpaRepository<UsuarioEntity, Lo
 
     @Query("select u.role from UsuarioEntity u where u.username like :username")
     UsuarioEntity.Role findRoleByUsername(String username);
+
+    boolean existsByUsernameIgnoreCase(String username);
 }

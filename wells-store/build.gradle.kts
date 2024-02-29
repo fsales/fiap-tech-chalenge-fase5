@@ -9,7 +9,7 @@ plugins {
 val junitVersion = "5.10.2"
 val mockitoVersion = "5.7.0"
 
-tasks.named("bootJar"){
+tasks.named("bootJar") {
     enabled = false
 }
 

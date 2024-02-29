@@ -5,12 +5,12 @@
 -- Tabela para armazenar informações de usuários no esquema 'WELLS'
 CREATE TABLE WELLS.USUARIO
 (
-    id               SERIAL PRIMARY KEY,    -- Chave primária autoincrementada para identificação única do usuário
+    id               SERIAL PRIMARY KEY,   -- Chave primária autoincrementada para identificação única do usuário
     USERNAME         VARCHAR(100),         -- Nome de usuário com no máximo 100 caracteres
     SENHA            VARCHAR(200),         -- Senha do usuário com no máximo 200 caracteres
     ROLE             VARCHAR(25) NOT NULL, -- Papel do usuário (Admin ou Cliente) - não pode ser nulo
-    DATA_CRIACAO     TIMESTAMP,             -- Data e hora de criação do registro
-    DATA_MODIFICACAO TIMESTAMP,             -- Data e hora da última modificação do registro
+    DATA_CRIACAO     TIMESTAMP,            -- Data e hora de criação do registro
+    DATA_MODIFICACAO TIMESTAMP,            -- Data e hora da última modificação do registro
     CRIADO_POR       VARCHAR(255),         -- Nome do usuário ou sistema que criou o registro
     MODIFICADO_POR   VARCHAR(255)          -- Nome do usuário ou sistema que modificou o registro
 );
