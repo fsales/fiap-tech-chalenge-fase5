@@ -39,6 +39,16 @@ allprojects {
 
     tasks.withType<Test> {
         useJUnitPlatform()
+        // Configura a codificação de caracteres para os testes
+        systemProperty("file.encoding", "UTF-8")
+    }
+
+    tasks.withType<JavaCompile> {
+        options.encoding = "UTF-8"
+    }
+
+    tasks.withType<JavaExec> {
+        systemProperty("file.encoding", "UTF-8")
     }
 
     sonar {
