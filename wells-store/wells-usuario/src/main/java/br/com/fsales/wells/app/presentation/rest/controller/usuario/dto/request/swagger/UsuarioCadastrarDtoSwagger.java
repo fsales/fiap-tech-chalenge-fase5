@@ -4,8 +4,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public interface UsuarioCadastrarDtoSwagger {
 
-    @Schema(description = "usuario", example = "teste@teste.com")
-    String usuario();
+    @Schema(description = "username", example = "teste@teste.com")
+    String username();
 
     @Schema(description = "senha", example = "123456", minLength = 6, maxLength = 6)
     String senha();

@@ -30,9 +30,9 @@ public class UsuarioController implements UsuarioControllerSwagger {
             @RequestBody
             UsuarioCadastrarDto cadastrarDto
     ) {
-       var usuario = UsuarioDtoMapper.convertToUsuario(cadastrarDto);
-       var usuarioSalvo = cadastrarUsuarioUseCase.execute(usuario);
-       var usuarioResponseDto = UsuarioDtoMapper.convertToUsuarioResponseDto(usuarioSalvo);
+        var usuario = UsuarioDtoMapper.convertToUsuario(cadastrarDto);
+        var usuarioSalvo = cadastrarUsuarioUseCase.execute(usuario);
+        var usuarioResponseDto = UsuarioDtoMapper.convertToUsuarioResponseDto(usuarioSalvo);
 
         return ResponseEntity.ok(usuarioResponseDto);
     }

@@ -41,8 +41,8 @@ public class UsuarioEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "USUARIO", nullable = true, length = 100)
-    private String usuario;
+    @Column(name = "USERNAME", nullable = true, length = 100)
+    private String username;
 
     @Column(name = "SENHA", nullable = true, length = 200)
     private String senha;
@@ -66,6 +66,6 @@ public class UsuarioEntity implements Serializable {
     private String modificadoPor;
 
     public enum Role {
-        ROLE_ADMIN, ROLE_CLIENTE;
+        ROLE_ADMIN, ROLE_CLIENTE
     }
 }

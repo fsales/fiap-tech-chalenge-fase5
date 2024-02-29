@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface UsuarioEntityRepository extends JpaRepository<UsuarioEntity, Long> {
 
-    Optional<UsuarioEntity> findByUsuario(String username);
+    Optional<UsuarioEntity> findByUsername(String username);
 
-    @Query("select u.role from UsuarioEntity u where u.usuario like :usuario")
-    UsuarioEntity.Role findRoleByUsuario(String usuario);
+    @Query("select u.role from UsuarioEntity u where u.username like :username")
+    UsuarioEntity.Role findRoleByUsername(String username);
 }

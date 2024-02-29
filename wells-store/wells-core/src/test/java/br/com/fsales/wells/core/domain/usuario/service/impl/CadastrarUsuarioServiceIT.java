@@ -22,7 +22,7 @@ class CadastrarUsuarioServiceIT {
     private CadastrarUsuarioRepository mockRepository;
 
     @InjectMocks
-    private CadastrarUsuarioServiceImpl usuarioService;
+    private CadastrarUsuarioServiceImpl usernameService;
 
     @BeforeEach
     void setup() {
@@ -39,16 +39,16 @@ class CadastrarUsuarioServiceIT {
         @Test
         void devePermitirRegistrarUsuario_RoleCliente() {
             // Arrange
-            var usuario = Usuario.criar("cliente@wells.com", "123456", Role.ROLE_CLIENTE);
-            when(mockRepository.execute(any(Usuario.class))).thenReturn(usuario);
+            var username = Usuario.criar("cliente@wells.com", "123456", Role.ROLE_CLIENTE);
+            when(mockRepository.execute(any(Usuario.class))).thenReturn(username);
 
             // Act
-            var resultado = usuarioService.execute(usuario);
+            var resultado = usernameService.execute(username);
 
-            assertThat(resultado).isEqualTo(usuario);
-            assertThat(resultado.usuario()).isEqualTo(usuario.usuario());
-            assertThat(resultado.senha()).isEqualTo(usuario.senha());
-            assertThat(resultado.role()).isEqualTo(usuario.role());
+            assertThat(resultado).isEqualTo(username);
+            assertThat(resultado.username()).isEqualTo(username.username());
+            assertThat(resultado.senha()).isEqualTo(username.senha());
+            assertThat(resultado.role()).isEqualTo(username.role());
 
             verify(mockRepository, times(1)).execute(any(Usuario.class));
         }
@@ -56,16 +56,16 @@ class CadastrarUsuarioServiceIT {
         @Test
         void devePermitirRegistrarUsuario_RoleAdmin() {
             // Arrange
-            var usuario = Usuario.criar("admin@wells.com", "123456", Role.ROLE_ADMIN);
-            when(mockRepository.execute(any(Usuario.class))).thenReturn(usuario);
+            var username = Usuario.criar("admin@wells.com", "123456", Role.ROLE_ADMIN);
+            when(mockRepository.execute(any(Usuario.class))).thenReturn(username);
 
             // Act
-            var resultado = usuarioService.execute(usuario);
+            var resultado = usernameService.execute(username);
 
-            assertThat(resultado).isEqualTo(usuario);
-            assertThat(resultado.usuario()).isEqualTo(usuario.usuario());
-            assertThat(resultado.senha()).isEqualTo(usuario.senha());
-            assertThat(resultado.role()).isEqualTo(usuario.role());
+            assertThat(resultado).isEqualTo(username);
+            assertThat(resultado.username()).isEqualTo(username.username());
+            assertThat(resultado.senha()).isEqualTo(username.senha());
+            assertThat(resultado.role()).isEqualTo(username.role());
 
             verify(mockRepository, times(1)).execute(any(Usuario.class));
         }
