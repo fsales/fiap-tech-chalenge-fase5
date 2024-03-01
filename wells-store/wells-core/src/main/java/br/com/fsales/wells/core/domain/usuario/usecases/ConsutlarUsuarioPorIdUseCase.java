@@ -8,5 +8,7 @@ public interface ConsutlarUsuarioPorIdUseCase {
      * @param id
      * @return
      */
-    Usuario find(Long id);
+    Usuario find(
+            final Long id
+    );
 }

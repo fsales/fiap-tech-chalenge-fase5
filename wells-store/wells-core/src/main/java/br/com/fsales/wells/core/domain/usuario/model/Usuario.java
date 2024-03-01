@@ -1,12 +1,12 @@
 package br.com.fsales.wells.core.domain.usuario.model;
 
-import static br.com.fsales.wells.core.util.EmailUtil.isValidEmail;
+import br.com.fsales.wells.core.domain.usuario.exception.UsuarioInvalidoException;
+import lombok.NonNull;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import br.com.fsales.wells.core.domain.usuario.exception.UsuarioInvalidoException;
-import lombok.NonNull;
+import static br.com.fsales.wells.core.util.EmailUtil.isValidEmail;
 
 public record Usuario(
         Long id,
@@ -18,9 +18,9 @@ public record Usuario(
 ) {
 
     public static Usuario criar(
-            String username,
-            String senha,
-            Role role
+            final String username,
+            final String senha,
+            final Role role
     ) {
         validarCamposObrigatorios(username, senha, role);
         validarEmail(username);
@@ -36,9 +36,9 @@ public record Usuario(
     }
 
     private static void validarCamposObrigatorios(
-            String username,
-            String senha,
-            Role role
+            final String username,
+            final String senha,
+            final Role role
     ) {
         validarNaoVazio(username, "username");
         validarNaoVazio(senha, "senha");
@@ -46,8 +46,8 @@ public record Usuario(
     }
 
     private static void validarNaoVazio(
-            String campo,
-            String nomeCampo
+            final String campo,
+            final String nomeCampo
     ) {
         if (campo == null || campo.trim().isEmpty()) {
             throw new UsuarioInvalidoException(String.format("O campo '%s' é obrigatório e não pode consistir apenas em espaços em branco.", nomeCampo));
@@ -55,7 +55,7 @@ public record Usuario(
     }
 
     private static void validarEmail(
-            String username
+            final String username
     ) {
         if (!isValidEmail(username)) {
             throw new UsuarioInvalidoException("O campo 'username' não é um e-mail válido");
@@ -63,9 +63,9 @@ public record Usuario(
     }
 
     public Usuario alterar(
-            Long id,
-            String senha,
-            Role role
+            final Long id,
+            final String senha,
+            final Role role
     ) {
         Objects.requireNonNull(id, "O campo 'id' não pode ser nulo");
 
@@ -79,6 +79,21 @@ public record Usuario(
                 role,
                 dataCriacao,
                 LocalDateTime.now()
+        );
+    }
+
+    /**
+     * @param senha
+     * @return
+     */
+    public Usuario alterar(
+            final String senha
+    ) {
+
+        return alterar(
+                id,
+                senha,
+                role
         );
     }
 

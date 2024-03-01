@@ -7,11 +7,14 @@ val springSecurityCriptoVersion = "6.1.5"
 val commonsLoggingVersion = "1.3.0"
 val assertjVersion = "3.25.3"
 val lombokVersion = "1.18.30"
+val validator = "1.8.0"
 
 dependencies {
 
     implementation("org.springframework.security:spring-security-crypto:$springSecurityCriptoVersion")
+
     implementation("commons-logging:commons-logging:$commonsLoggingVersion")
+    implementation("commons-validator:commons-validator:$validator")
 
     // lombok
     compileOnly("org.projectlombok:lombok:$lombokVersion")

@@ -4,6 +4,8 @@ import br.com.fsales.wells.core.domain.usuario.model.Usuario;
 
 public interface CadastrarUsuarioUseCase {
 
-    Usuario execute(Usuario usuario);
+    Usuario execute(
+            final Usuario usuario
+    );
 
 }

@@ -5,7 +5,7 @@ import br.com.fsales.wells.core.domain.usuario.gateways.ConsutlarUsuarioPorIdGat
 import br.com.fsales.wells.core.domain.usuario.model.Usuario;
 import br.com.fsales.wells.core.domain.usuario.usecases.ConsutlarUsuarioPorIdUseCase;
 
-public class ConsutlarUsuarioPorIdUseCaseImpl implements ConsutlarUsuarioPorIdUseCase {
+public final class ConsutlarUsuarioPorIdUseCaseImpl implements ConsutlarUsuarioPorIdUseCase {
 
     private final ConsutlarUsuarioPorIdGateway consutlarUsuarioPorIdGateway;
 
@@ -15,7 +15,9 @@ public class ConsutlarUsuarioPorIdUseCaseImpl implements ConsutlarUsuarioPorIdUs
 
 
     @Override
-    public Usuario find(Long id) {
+    public Usuario find(
+            final Long id
+    ) {
         return consutlarUsuarioPorIdGateway.find(
                 id
         ).orElseThrow(

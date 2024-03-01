@@ -1,9 +1,9 @@
 package br.com.fsales.wells.app.infrastructure.spring.config;
 
-import java.util.TimeZone;
-
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.TimeZone;
 
 @Configuration
 public class SpringTimezoneConfig {

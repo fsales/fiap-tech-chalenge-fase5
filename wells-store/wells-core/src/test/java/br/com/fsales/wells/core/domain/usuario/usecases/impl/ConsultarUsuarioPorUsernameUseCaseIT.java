@@ -1,24 +1,20 @@
 package br.com.fsales.wells.core.domain.usuario.usecases.impl;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
-
-import java.util.Optional;
-
 import br.com.fsales.wells.core.domain.usuario.exception.EntityNotFoundException;
 import br.com.fsales.wells.core.domain.usuario.gateways.ConsultarUsuarioPorUsernameGateway;
 import br.com.fsales.wells.core.domain.usuario.model.Role;
 import br.com.fsales.wells.core.domain.usuario.model.Usuario;
 import br.com.fsales.wells.core.domain.usuario.usecases.ConsultarUsuarioPorUsernameUseCase;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import java.util.Optional;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.when;
 
 @DisplayName("Testes para ConsultarUsuarioPorUsernameUseCase")
 class ConsultarUsuarioPorUsernameUseCaseIT {

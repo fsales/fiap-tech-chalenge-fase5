@@ -2,20 +2,24 @@ package br.com.fsales.wells.app.presentation.rest.controller.usuario;
 
 
 import br.com.fsales.wells.app.presentation.rest.controller.usuario.dto.mapper.UsuarioDtoMapper;
+import br.com.fsales.wells.app.presentation.rest.controller.usuario.dto.request.UsuarioAtualizarSenhaDto;
 import br.com.fsales.wells.app.presentation.rest.controller.usuario.dto.request.UsuarioCadastrarDto;
 import br.com.fsales.wells.app.presentation.rest.controller.usuario.dto.response.UsuarioResponseDto;
 import br.com.fsales.wells.app.presentation.rest.controller.usuario.swagger.UsuarioControllerSwagger;
+import br.com.fsales.wells.app.presentation.rest.validation.CreateInfo;
+import br.com.fsales.wells.core.domain.usuario.usecases.AlterarSenhaUsuarioUseCase;
 import br.com.fsales.wells.core.domain.usuario.usecases.CadastrarUsuarioUseCase;
+import br.com.fsales.wells.core.domain.usuario.usecases.ConsutlarTodosUsuarioUseCase;
 import br.com.fsales.wells.core.domain.usuario.usecases.ConsutlarUsuarioPorIdUseCase;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/usuarios")
@@ -27,10 +31,14 @@ public class UsuarioController implements UsuarioControllerSwagger {
 
     private final ConsutlarUsuarioPorIdUseCase consutlarUsuarioPorIdUseCase;
 
+    private final AlterarSenhaUsuarioUseCase alterarSenhaUsuarioUseCase;
+
+    private final ConsutlarTodosUsuarioUseCase consutlarTodosUsuarioUseCase;
+
     @PostMapping
     @Override
     public ResponseEntity<UsuarioResponseDto> cadastrar(
-            @Valid
+            @Validated(CreateInfo.class)
             @RequestBody
             UsuarioCadastrarDto cadastrarDto
     ) {
@@ -51,6 +59,47 @@ public class UsuarioController implements UsuarioControllerSwagger {
 
         return ResponseEntity.ok(
                 UsuarioDtoMapper.convertToUsuarioResponseDto(usuario)
+        );
+    }
+
+
+    @PatchMapping("/{id}")
+    @Override
+    public ResponseEntity<Void> alterarSenha(
+            @PathVariable Long id,
+            @Validated(CreateInfo.class) @RequestBody
+            UsuarioAtualizarSenhaDto atualizarSenhaDto
+    ) {
+        alterarSenhaUsuarioUseCase.execute(
+                id,
+                atualizarSenhaDto.senhaAtual(),
+                atualizarSenhaDto.novaSenha(),
+                atualizarSenhaDto.confirmaSenha()
+        );
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    @Override
+    public ResponseEntity<Page<UsuarioResponseDto>> listarTodos(
+            @PageableDefault(page = 0, size = 10)
+            Pageable pageable
+    ) {
+        var paginaUsuario = consutlarTodosUsuarioUseCase.find(
+                pageable.getPageNumber(),
+                pageable.getPageSize()
+        );
+
+        var usuarioResponseDtoPage = new PageImpl<>(
+                paginaUsuario.list(),
+                PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()),
+                paginaUsuario.totalElements()
+        ).map(
+                UsuarioDtoMapper::convertToUsuarioResponseDto
+        );
+
+        return ResponseEntity.ok(
+                usuarioResponseDtoPage
         );
     }
 }

@@ -5,7 +5,7 @@ import br.com.fsales.wells.core.domain.usuario.gateways.ConsultarUsuarioPorUsern
 import br.com.fsales.wells.core.domain.usuario.model.Usuario;
 import br.com.fsales.wells.core.domain.usuario.usecases.ConsultarUsuarioPorUsernameUseCase;
 
-public class ConsultarUsuarioPorUsernameUseCaseImpl implements ConsultarUsuarioPorUsernameUseCase {
+public final class ConsultarUsuarioPorUsernameUseCaseImpl implements ConsultarUsuarioPorUsernameUseCase {
 
     private final ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsernameGateway;
 
@@ -16,7 +16,9 @@ public class ConsultarUsuarioPorUsernameUseCaseImpl implements ConsultarUsuarioP
     }
 
     @Override
-    public Usuario find(String username) {
+    public Usuario find(
+            final String username
+    ) {
 
         return consultarUsuarioPorUsernameGateway
                 .find(

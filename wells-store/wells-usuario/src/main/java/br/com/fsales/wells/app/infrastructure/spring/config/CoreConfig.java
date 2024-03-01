@@ -1,18 +1,10 @@
 package br.com.fsales.wells.app.infrastructure.spring.config;
 
 import br.com.fsales.wells.app.infrastructure.database.postgres.repository.UsuarioEntityRepository;
-import br.com.fsales.wells.app.infrastructure.gateways.usuario.CadastrarUsuarioGatewayImpl;
-import br.com.fsales.wells.app.infrastructure.gateways.usuario.ConsultarUsuarioPorUsernameGatewayImpl;
-import br.com.fsales.wells.app.infrastructure.gateways.usuario.ConsutlarUsuarioPorIdGatewayImpl;
-import br.com.fsales.wells.core.domain.usuario.gateways.CadastrarUsuarioGateway;
-import br.com.fsales.wells.core.domain.usuario.gateways.ConsultarUsuarioPorUsernameGateway;
-import br.com.fsales.wells.core.domain.usuario.gateways.ConsutlarUsuarioPorIdGateway;
-import br.com.fsales.wells.core.domain.usuario.usecases.CadastrarUsuarioUseCase;
-import br.com.fsales.wells.core.domain.usuario.usecases.ConsultarUsuarioPorUsernameUseCase;
-import br.com.fsales.wells.core.domain.usuario.usecases.ConsutlarUsuarioPorIdUseCase;
-import br.com.fsales.wells.core.domain.usuario.usecases.impl.CadastrarUsuarioUseCaseImpl;
-import br.com.fsales.wells.core.domain.usuario.usecases.impl.ConsultarUsuarioPorUsernameUseCaseImpl;
-import br.com.fsales.wells.core.domain.usuario.usecases.impl.ConsutlarUsuarioPorIdUseCaseImpl;
+import br.com.fsales.wells.app.infrastructure.gateways.usuario.*;
+import br.com.fsales.wells.core.domain.usuario.gateways.*;
+import br.com.fsales.wells.core.domain.usuario.usecases.*;
+import br.com.fsales.wells.core.domain.usuario.usecases.impl.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -58,6 +50,33 @@ public class CoreConfig {
         );
     }
 
+
+    /**
+     * @param usuarioEntityRepository
+     * @return
+     */
+    @Bean
+    AlterarSenhaUsuarioGateway alterarSenhaUsuarioGateway(
+            UsuarioEntityRepository usuarioEntityRepository
+    ) {
+        return new AlterarSenhaUsuarioGatewayImpl(
+                usuarioEntityRepository
+        );
+    }
+
+    /**
+     * @param usuarioEntityRepository
+     * @return
+     */
+    @Bean
+    ConsutlarTodosUsuarioGateway consutlarTodosUsuarioGateway(
+            UsuarioEntityRepository usuarioEntityRepository
+    ) {
+        return new ConsutlarTodosUsuarioGatewayImpl(
+                usuarioEntityRepository
+        );
+    }
+
     /**
      * @param cadastrarUsuarioGateway
      * @return
@@ -74,6 +93,10 @@ public class CoreConfig {
         );
     }
 
+    /**
+     * @param consutlarUsuarioPorIdGateway
+     * @return
+     */
     @Bean
     ConsutlarUsuarioPorIdUseCase consutlarUsuarioPorIdUseCase(
             ConsutlarUsuarioPorIdGateway consutlarUsuarioPorIdGateway
@@ -83,6 +106,10 @@ public class CoreConfig {
         );
     }
 
+    /**
+     * @param consultarUsuarioPorUsernameGateway
+     * @return
+     */
     @Bean
     ConsultarUsuarioPorUsernameUseCase consultarUsuarioPorUsernameUseCase(
             ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsernameGateway
@@ -92,4 +119,32 @@ public class CoreConfig {
         );
     }
 
+    /**
+     * @param alterarSenhaUsuarioGateway
+     * @param consutlarUsuarioPorIdUseCase
+     * @return
+     */
+    @Bean
+    AlterarSenhaUsuarioUseCase alterarSenhaUsuarioUseCase(
+            AlterarSenhaUsuarioGateway alterarSenhaUsuarioGateway,
+            ConsutlarUsuarioPorIdUseCase consutlarUsuarioPorIdUseCase
+    ) {
+        return new AlterarSenhaUsuarioUseCaseImpl(
+                alterarSenhaUsuarioGateway,
+                consutlarUsuarioPorIdUseCase
+        );
+    }
+
+    /**
+     * @param consutlarTodosUsuarioGateway
+     * @return
+     */
+    @Bean
+    ConsutlarTodosUsuarioUseCase consutlarTodosUsuarioUseCase(
+            ConsutlarTodosUsuarioGateway consutlarTodosUsuarioGateway
+    ) {
+        return new ConsutlarTodosUsuarioUseCaseImpl(
+                consutlarTodosUsuarioGateway
+        );
+    }
 }

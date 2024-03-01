@@ -6,7 +6,7 @@ import br.com.fsales.wells.core.domain.usuario.gateways.ConsultarUsuarioPorUsern
 import br.com.fsales.wells.core.domain.usuario.model.Usuario;
 import br.com.fsales.wells.core.domain.usuario.usecases.CadastrarUsuarioUseCase;
 
-public class CadastrarUsuarioUseCaseImpl implements CadastrarUsuarioUseCase {
+public final class CadastrarUsuarioUseCaseImpl implements CadastrarUsuarioUseCase {
 
     private final CadastrarUsuarioGateway cadastrarUsuarioGateway;
     private final ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsername;
@@ -20,13 +20,17 @@ public class CadastrarUsuarioUseCaseImpl implements CadastrarUsuarioUseCase {
     }
 
     @Override
-    public Usuario execute(Usuario usuario) {
+    public Usuario execute(
+            final Usuario usuario
+    ) {
         validarUserName(usuario);
 
         return cadastrarUsuarioGateway.execute(usuario);
     }
 
-    private void validarUserName(Usuario usuario) {
+    private void validarUserName(
+            final Usuario usuario
+    ) {
         var username = usuario.username();
         if (username.trim().isEmpty())
             return;

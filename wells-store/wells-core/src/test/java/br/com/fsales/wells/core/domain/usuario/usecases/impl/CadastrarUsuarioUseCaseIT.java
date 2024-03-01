@@ -1,28 +1,21 @@
 package br.com.fsales.wells.core.domain.usuario.usecases.impl;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
 import br.com.fsales.wells.core.domain.usuario.exception.UsernameUniqueViolationException;
 import br.com.fsales.wells.core.domain.usuario.gateways.CadastrarUsuarioGateway;
 import br.com.fsales.wells.core.domain.usuario.gateways.ConsultarUsuarioPorUsernameGateway;
 import br.com.fsales.wells.core.domain.usuario.model.Role;
 import br.com.fsales.wells.core.domain.usuario.model.Usuario;
 import br.com.fsales.wells.core.domain.usuario.usecases.CadastrarUsuarioUseCase;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
 @DisplayName("Testes para CadastrarUsuarioUseCase")
 class CadastrarUsuarioUseCaseIT {
