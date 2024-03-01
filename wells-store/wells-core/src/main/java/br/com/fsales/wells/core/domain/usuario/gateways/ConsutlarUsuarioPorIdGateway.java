@@ -4,8 +4,7 @@ import java.util.Optional;
 
 import br.com.fsales.wells.core.domain.usuario.model.Usuario;
 
-public interface ConsultarUsuarioPorUsernameGateway {
-    Optional<Usuario> find(String username);
+public interface ConsutlarUsuarioPorIdGateway {
 
-    boolean existsByUsername(String username);
+    Optional<Usuario> find(Long id);
 }
