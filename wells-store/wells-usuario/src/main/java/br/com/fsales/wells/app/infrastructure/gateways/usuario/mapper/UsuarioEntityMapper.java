@@ -1,4 +1,4 @@
-package br.com.fsales.wells.app.infrastructure.database.postgres.mapper;
+package br.com.fsales.wells.app.infrastructure.gateways.usuario.mapper;
 
 import br.com.fsales.wells.app.infrastructure.database.postgres.entity.UsuarioEntity;
 import br.com.fsales.wells.core.domain.usuario.model.Role;
@@ -17,7 +17,7 @@ public final class UsuarioEntityMapper {
             Usuario usuario
     ) {
         return UsuarioEntity.builder()
-                .usuario(usuario.usuario())
+                .username(usuario.username())
                 .senha(usuario.senha())
                 .role(
                         UsuarioEntity
@@ -40,7 +40,7 @@ public final class UsuarioEntityMapper {
     ) {
         return new Usuario(
                 usuarioEntity.getId(),
-                usuarioEntity.getUsuario(),
+                usuarioEntity.getUsername(),
                 usuarioEntity.getSenha(),
                 Role.valueOf(
                         usuarioEntity

@@ -1,12 +1,12 @@
 package br.com.fsales.wells.app.infrastructure.spring.config;
 
-import br.com.fsales.wells.app.infrastructure.database.postgres.adpter.CadastrarUsuarioAdpter;
 import br.com.fsales.wells.app.infrastructure.database.postgres.repository.UsuarioEntityRepository;
-import br.com.fsales.wells.app.usecase.usuario.CadastrarUsuarioUseCase;
-import br.com.fsales.wells.app.usecase.usuario.CadastrarUsuarioUseCaseImpl;
-import br.com.fsales.wells.core.domain.usuario.repository.CadastrarUsuarioRepository;
-import br.com.fsales.wells.core.domain.usuario.service.CadastrarUsuarioService;
-import br.com.fsales.wells.core.domain.usuario.service.impl.CadastrarUsuarioServiceImpl;
+import br.com.fsales.wells.app.infrastructure.gateways.usuario.CadastrarUsuarioGatewayImpl;
+import br.com.fsales.wells.app.infrastructure.gateways.usuario.ConsultarUsuarioPorUsernameGatewayImpl;
+import br.com.fsales.wells.core.domain.usuario.gateways.CadastrarUsuarioGateway;
+import br.com.fsales.wells.core.domain.usuario.gateways.ConsultarUsuarioPorUsernameGateway;
+import br.com.fsales.wells.core.domain.usuario.usecases.CadastrarUsuarioUseCase;
+import br.com.fsales.wells.core.domain.usuario.usecases.impl.CadastrarUsuarioUseCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,38 +18,41 @@ public class CoreConfig {
      * @return
      */
     @Bean
-    public CadastrarUsuarioRepository cadastrarUsuarioRepository(
+    public CadastrarUsuarioGateway cadastrarUsuarioGateway(
             UsuarioEntityRepository usuarioEntityRepository
     ) {
-        return new CadastrarUsuarioAdpter(
+        return new CadastrarUsuarioGatewayImpl(
                 usuarioEntityRepository
         );
     }
 
     /**
-     * @param cadastrarUsuarioRepository
+     * @param usuarioEntityRepository
      * @return
      */
     @Bean
-    public CadastrarUsuarioService cadastrarUsuarioService(
-            CadastrarUsuarioRepository cadastrarUsuarioRepository
+    public ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsernameGateway(
+            UsuarioEntityRepository usuarioEntityRepository
     ) {
-
-        return new CadastrarUsuarioServiceImpl(
-                cadastrarUsuarioRepository
+        return new ConsultarUsuarioPorUsernameGatewayImpl(
+                usuarioEntityRepository
         );
     }
 
     /**
-     * @param cadastrarUsuarioService
+     * @param cadastrarUsuarioGateway
      * @return
      */
     @Bean
     public CadastrarUsuarioUseCase cadastrarUsuarioUseCase(
-            CadastrarUsuarioService cadastrarUsuarioService
+            CadastrarUsuarioGateway cadastrarUsuarioGateway,
+            ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsernameGateway
     ) {
+
         return new CadastrarUsuarioUseCaseImpl(
-                cadastrarUsuarioService
+                cadastrarUsuarioGateway,
+                consultarUsuarioPorUsernameGateway
         );
     }
+
 }

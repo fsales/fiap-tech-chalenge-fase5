@@ -1,12 +1,13 @@
 package br.com.fsales.wells.core.util;
 
-import lombok.NonNull;
-
 import java.util.regex.Pattern;
+
+import lombok.NonNull;
 
 public final class EmailUtil {
 
-    private EmailUtil(){}
+    private EmailUtil() {
+    }
 
     /**
      * @param email

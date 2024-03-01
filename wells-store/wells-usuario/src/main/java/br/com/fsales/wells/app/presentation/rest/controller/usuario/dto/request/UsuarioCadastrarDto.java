@@ -10,7 +10,7 @@ public record UsuarioCadastrarDto(
         @NotEmpty(groups = {CreateInfo.class})
         @Email(message = "formato do e-mail está invalido", regexp = "^[a-z0-9.+-]+@[a-z0-9.-]+\\.[a-z]{2,}$", groups = {CreateInfo.class})
         @Size(min = 10, max = 100, message = "O usuário deve ter no 10 caracteres", groups = {CreateInfo.class})
-        String usuario,
+        String username,
         @NotEmpty(groups = {CreateInfo.class})
         @Size(min = 6, max = 6, message = "A senha deve ter no 6 caracteres", groups = {CreateInfo.class})
         String senha

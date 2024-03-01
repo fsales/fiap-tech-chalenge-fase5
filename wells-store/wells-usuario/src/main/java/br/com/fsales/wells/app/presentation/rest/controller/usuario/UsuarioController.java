@@ -5,7 +5,7 @@ import br.com.fsales.wells.app.presentation.rest.controller.usuario.dto.mapper.U
 import br.com.fsales.wells.app.presentation.rest.controller.usuario.dto.request.UsuarioCadastrarDto;
 import br.com.fsales.wells.app.presentation.rest.controller.usuario.dto.response.UsuarioResponseDto;
 import br.com.fsales.wells.app.presentation.rest.controller.usuario.swagger.UsuarioControllerSwagger;
-import br.com.fsales.wells.app.usecase.usuario.CadastrarUsuarioUseCase;
+import br.com.fsales.wells.core.domain.usuario.usecases.CadastrarUsuarioUseCase;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UsuarioController implements UsuarioControllerSwagger {
 
-
     private final CadastrarUsuarioUseCase cadastrarUsuarioUseCase;
 
     @PostMapping
@@ -30,9 +29,9 @@ public class UsuarioController implements UsuarioControllerSwagger {
             @RequestBody
             UsuarioCadastrarDto cadastrarDto
     ) {
-       var usuario = UsuarioDtoMapper.convertToUsuario(cadastrarDto);
-       var usuarioSalvo = cadastrarUsuarioUseCase.execute(usuario);
-       var usuarioResponseDto = UsuarioDtoMapper.convertToUsuarioResponseDto(usuarioSalvo);
+        var usuario = UsuarioDtoMapper.convertToUsuario(cadastrarDto);
+        var usuarioSalvo = cadastrarUsuarioUseCase.execute(usuario);
+        var usuarioResponseDto = UsuarioDtoMapper.convertToUsuarioResponseDto(usuarioSalvo);
 
         return ResponseEntity.ok(usuarioResponseDto);
     }

@@ -100,7 +100,7 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
-          server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
+          server-id: github # Value of the distributionManagement/gateways/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
         # Cache and restore Maven dependencies
 
