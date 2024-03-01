@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public record UsuarioResponseDto(
         Long id,
-        String usuario,
+        String username,
         String role,
         LocalDateTime dataCriacao
 

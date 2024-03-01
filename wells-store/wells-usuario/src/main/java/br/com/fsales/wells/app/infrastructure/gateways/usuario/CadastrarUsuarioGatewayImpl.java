@@ -1,15 +1,15 @@
-package br.com.fsales.wells.app.infrastructure.database.postgres.adpter;
+package br.com.fsales.wells.app.infrastructure.gateways.usuario;
 
-import br.com.fsales.wells.app.infrastructure.database.postgres.mapper.UsuarioEntityMapper;
 import br.com.fsales.wells.app.infrastructure.database.postgres.repository.UsuarioEntityRepository;
+import br.com.fsales.wells.app.infrastructure.gateways.usuario.mapper.UsuarioEntityMapper;
+import br.com.fsales.wells.core.domain.usuario.gateways.CadastrarUsuarioGateway;
 import br.com.fsales.wells.core.domain.usuario.model.Usuario;
-import br.com.fsales.wells.core.domain.usuario.repository.CadastrarUsuarioRepository;
 
-public class CadastrarUsuarioAdpter implements CadastrarUsuarioRepository {
+public class CadastrarUsuarioGatewayImpl implements CadastrarUsuarioGateway {
 
     private final UsuarioEntityRepository usuarioEntityRepository;
 
-    public CadastrarUsuarioAdpter(UsuarioEntityRepository usuarioEntityRepository) {
+    public CadastrarUsuarioGatewayImpl(UsuarioEntityRepository usuarioEntityRepository) {
         this.usuarioEntityRepository = usuarioEntityRepository;
     }
 

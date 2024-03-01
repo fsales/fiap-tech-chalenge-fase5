@@ -7,30 +7,30 @@ import br.com.fsales.wells.core.domain.usuario.model.Usuario;
 
 public final class UsuarioDtoMapper {
 
-        private UsuarioDtoMapper() {
-        }
+    private UsuarioDtoMapper() {
+    }
 
 
     /**
      * @param usuarioDto
      * @return
      */
-        public static Usuario convertToUsuario(
-                UsuarioCadastrarDto usuarioDto
-        ) {
-            return Usuario.criar(
-                    usuarioDto.usuario(),
-                    usuarioDto.senha(),
-                    Role.ROLE_CLIENTE
-            );
-        }
+    public static Usuario convertToUsuario(
+            UsuarioCadastrarDto usuarioDto
+    ) {
+        return Usuario.criar(
+                usuarioDto.username(),
+                usuarioDto.senha(),
+                Role.ROLE_CLIENTE
+        );
+    }
 
     public static UsuarioResponseDto convertToUsuarioResponseDto(
             Usuario usuario
     ) {
         return new UsuarioResponseDto(
                 usuario.id(),
-                usuario.usuario(),
+                usuario.username(),
                 usuario.role().name(),
                 usuario.dataCriacao()
         );
