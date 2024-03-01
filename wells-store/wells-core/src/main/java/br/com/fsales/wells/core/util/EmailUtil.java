@@ -1,8 +1,7 @@
 package br.com.fsales.wells.core.util;
 
-import java.util.regex.Pattern;
-
 import lombok.NonNull;
+import org.apache.commons.validator.routines.EmailValidator;
 
 public final class EmailUtil {
 
@@ -14,7 +13,8 @@ public final class EmailUtil {
      * @return
      */
     public static boolean isValidEmail(@NonNull String email) {
-        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        return Pattern.matches(regex, email);
+
+        return EmailValidator.getInstance()
+                .isValid(email);
     }
 }

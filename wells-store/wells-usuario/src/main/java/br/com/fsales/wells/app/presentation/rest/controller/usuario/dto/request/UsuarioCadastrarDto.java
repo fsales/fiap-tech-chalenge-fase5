@@ -12,7 +12,7 @@ public record UsuarioCadastrarDto(
         @Size(min = 10, max = 100, message = "O usuário deve ter no 10 caracteres", groups = {CreateInfo.class})
         String username,
         @NotEmpty(groups = {CreateInfo.class})
-        @Size(min = 6, max = 6, message = "A senha deve ter no 6 caracteres", groups = {CreateInfo.class})
+        @Size(min = 6, max = 6, message = "A senha deve ter 6 caracteres", groups = {CreateInfo.class})
         String senha
 ) implements UsuarioCadastrarDtoSwagger {
 }

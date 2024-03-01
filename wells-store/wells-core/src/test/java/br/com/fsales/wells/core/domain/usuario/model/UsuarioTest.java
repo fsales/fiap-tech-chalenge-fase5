@@ -1,16 +1,12 @@
 package br.com.fsales.wells.core.domain.usuario.model;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-
 import br.com.fsales.wells.core.domain.usuario.exception.SenhaInvalidaException;
 import br.com.fsales.wells.core.domain.usuario.exception.UsuarioInvalidoException;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.MockitoAnnotations;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 @DisplayName("Testes para UsuarioTest")
 class UsuarioTest {

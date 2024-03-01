@@ -1,11 +1,11 @@
 package br.com.fsales.wells.app.infrastructure.gateways.usuario;
 
-import java.util.Optional;
-
 import br.com.fsales.wells.app.infrastructure.database.postgres.repository.UsuarioEntityRepository;
 import br.com.fsales.wells.app.infrastructure.gateways.usuario.mapper.UsuarioEntityMapper;
 import br.com.fsales.wells.core.domain.usuario.gateways.ConsultarUsuarioPorUsernameGateway;
 import br.com.fsales.wells.core.domain.usuario.model.Usuario;
+
+import java.util.Optional;
 
 public class ConsultarUsuarioPorUsernameGatewayImpl implements ConsultarUsuarioPorUsernameGateway {
 

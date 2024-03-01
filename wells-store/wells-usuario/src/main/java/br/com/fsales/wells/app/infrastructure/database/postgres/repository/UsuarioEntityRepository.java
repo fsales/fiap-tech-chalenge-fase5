@@ -1,10 +1,12 @@
 package br.com.fsales.wells.app.infrastructure.database.postgres.repository;
 
-import java.util.Optional;
-
 import br.com.fsales.wells.app.infrastructure.database.postgres.entity.UsuarioEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import java.util.Optional;
 
 public interface UsuarioEntityRepository extends JpaRepository<UsuarioEntity, Long> {
 
@@ -14,4 +16,6 @@ public interface UsuarioEntityRepository extends JpaRepository<UsuarioEntity, Lo
     UsuarioEntity.Role findRoleByUsername(String username);
 
     boolean existsByUsernameIgnoreCase(String username);
+
+    Page<UsuarioEntity> findAll(Pageable pageable);
 }
