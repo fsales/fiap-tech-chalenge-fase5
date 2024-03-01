@@ -17,7 +17,7 @@ tasks.named("bootJar") {
 allprojects {
     apply(plugin = "java")
 
-    group = "br.com.fsales"
+    group = "br.com.wells"
     version = "1.0"
 
     java {
