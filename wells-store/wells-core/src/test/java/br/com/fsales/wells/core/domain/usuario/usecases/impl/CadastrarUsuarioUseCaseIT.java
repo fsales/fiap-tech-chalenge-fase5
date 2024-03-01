@@ -34,7 +34,7 @@ class CadastrarUsuarioUseCaseIT {
     @Mock
     private ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsernameGateway;
 
-    private CadastrarUsuarioUseCase cadastrarUsuarioService;
+    private CadastrarUsuarioUseCase cadastrarUsuarioUseCase;
 
     @BeforeEach
     void setup() {
@@ -42,7 +42,7 @@ class CadastrarUsuarioUseCaseIT {
 
         /** Instanciação manual dos mocks **/
         // Configuração dos mocks no serviço
-        cadastrarUsuarioService = new CadastrarUsuarioUseCaseImpl(
+        cadastrarUsuarioUseCase = new CadastrarUsuarioUseCaseImpl(
                 cadastrarUsuarioGateway,
                 consultarUsuarioPorUsernameGateway
         );
@@ -75,7 +75,7 @@ class CadastrarUsuarioUseCaseIT {
             ).thenReturn(usuario);
 
             // Act
-            var resultado = cadastrarUsuarioService.execute(usuario);
+            var resultado = cadastrarUsuarioUseCase.execute(usuario);
 
             // Assert
             assertThat(resultado).isEqualTo(usuario);
@@ -105,7 +105,7 @@ class CadastrarUsuarioUseCaseIT {
             ).thenReturn(username);
 
             // Act
-            var resultado = cadastrarUsuarioService.execute(username);
+            var resultado = cadastrarUsuarioUseCase.execute(username);
 
             assertThat(resultado).isEqualTo(username);
             assertThat(resultado.username()).isEqualTo(username.username());
@@ -135,7 +135,7 @@ class CadastrarUsuarioUseCaseIT {
             when(consultarUsuarioPorUsernameGateway.existsByUsername(anyString())).thenReturn(true);
 
             // Act & Assert
-            assertThrows(UsernameUniqueViolationException.class, () -> cadastrarUsuarioService.execute(usuario));
+            assertThrows(UsernameUniqueViolationException.class, () -> cadastrarUsuarioUseCase.execute(usuario));
 
             // Verify
             verify(consultarUsuarioPorUsernameGateway).existsByUsername("cliente@wells.com");
@@ -143,7 +143,7 @@ class CadastrarUsuarioUseCaseIT {
 
             // AssertJ verification
             assertThatThrownBy(
-                    () -> cadastrarUsuarioService.execute(usuario)
+                    () -> cadastrarUsuarioUseCase.execute(usuario)
             )
                     .isInstanceOf(UsernameUniqueViolationException.class)
                     .hasMessageContaining("Usuário já cadastrado");
