@@ -5,7 +5,11 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 import br.com.fsales.wells.core.domain.usuario.exception.SenhaInvalidaException;
 import br.com.fsales.wells.core.domain.usuario.exception.UsuarioInvalidoException;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
 
 @DisplayName("Testes para UsuarioTest")

@@ -1,32 +1,40 @@
-package br.com.fsales.wells.core.domain.usuario.service.impl;
-
-import br.com.fsales.wells.core.domain.usuario.exception.UsernameUniqueViolationException;
-import br.com.fsales.wells.core.domain.usuario.model.Role;
-import br.com.fsales.wells.core.domain.usuario.model.Usuario;
-import br.com.fsales.wells.core.domain.usuario.repository.CadastrarUsuarioRepository;
-import br.com.fsales.wells.core.domain.usuario.repository.ConsultarUsuarioPorUsernameRepository;
-import org.junit.jupiter.api.*;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+package br.com.fsales.wells.core.domain.usuario.usecases.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
-@DisplayName("Testes para CadastrarUsuarioService")
-class CadastrarUsuarioServiceIT {
+import br.com.fsales.wells.core.domain.usuario.exception.UsernameUniqueViolationException;
+import br.com.fsales.wells.core.domain.usuario.gateways.CadastrarUsuarioGateway;
+import br.com.fsales.wells.core.domain.usuario.gateways.ConsultarUsuarioPorUsernameGateway;
+import br.com.fsales.wells.core.domain.usuario.model.Role;
+import br.com.fsales.wells.core.domain.usuario.model.Usuario;
+import br.com.fsales.wells.core.domain.usuario.usecases.CadastrarUsuarioUseCase;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+@DisplayName("Testes para CadastrarUsuarioUseCase")
+class CadastrarUsuarioUseCaseIT {
 
     private AutoCloseable openMocks;
     @Mock
-    private CadastrarUsuarioRepository cadastrarUsuarioRepository;
+    private CadastrarUsuarioGateway cadastrarUsuarioGateway;
 
     @Mock
-    private ConsultarUsuarioPorUsernameRepository consultarUsuarioPorUsernameRepository;
+    private ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsernameGateway;
 
-    private CadastrarUsuarioServiceImpl cadastrarUsuarioService;
+    private CadastrarUsuarioUseCase cadastrarUsuarioService;
 
     @BeforeEach
     void setup() {
@@ -34,9 +42,9 @@ class CadastrarUsuarioServiceIT {
 
         /** Instanciação manual dos mocks **/
         // Configuração dos mocks no serviço
-        cadastrarUsuarioService = new CadastrarUsuarioServiceImpl(
-                cadastrarUsuarioRepository,
-                consultarUsuarioPorUsernameRepository
+        cadastrarUsuarioService = new CadastrarUsuarioUseCaseImpl(
+                cadastrarUsuarioGateway,
+                consultarUsuarioPorUsernameGateway
         );
     }
 
@@ -60,10 +68,10 @@ class CadastrarUsuarioServiceIT {
             );
 
             when(
-                    consultarUsuarioPorUsernameRepository.existsByUsername(anyString())
+                    consultarUsuarioPorUsernameGateway.existsByUsername(anyString())
             ).thenReturn(false);
             when(
-                    cadastrarUsuarioRepository.execute(any(Usuario.class))
+                    cadastrarUsuarioGateway.execute(any(Usuario.class))
             ).thenReturn(usuario);
 
             // Act
@@ -75,8 +83,8 @@ class CadastrarUsuarioServiceIT {
             assertThat(resultado.senha()).isEqualTo(usuario.senha());
             assertThat(resultado.role()).isEqualTo(usuario.role());
 
-            verify(consultarUsuarioPorUsernameRepository, times(1)).existsByUsername(anyString());
-            verify(cadastrarUsuarioRepository, times(1)).execute(any(Usuario.class));
+            verify(consultarUsuarioPorUsernameGateway, times(1)).existsByUsername(anyString());
+            verify(cadastrarUsuarioGateway, times(1)).execute(any(Usuario.class));
         }
 
 
@@ -90,10 +98,10 @@ class CadastrarUsuarioServiceIT {
                     Role.ROLE_ADMIN
             );
             when(
-                    consultarUsuarioPorUsernameRepository.existsByUsername(anyString())
+                    consultarUsuarioPorUsernameGateway.existsByUsername(anyString())
             ).thenReturn(false);
             when(
-                    cadastrarUsuarioRepository.execute(any(Usuario.class))
+                    cadastrarUsuarioGateway.execute(any(Usuario.class))
             ).thenReturn(username);
 
             // Act
@@ -104,15 +112,15 @@ class CadastrarUsuarioServiceIT {
             assertThat(resultado.senha()).isEqualTo(username.senha());
             assertThat(resultado.role()).isEqualTo(username.role());
 
-            verify(consultarUsuarioPorUsernameRepository, times(1)).existsByUsername(anyString());
-            verify(cadastrarUsuarioRepository, times(1)).execute(any(Usuario.class));
+            verify(consultarUsuarioPorUsernameGateway, times(1)).existsByUsername(anyString());
+            verify(cadastrarUsuarioGateway, times(1)).execute(any(Usuario.class));
         }
 
     }
 
     @Nested
     @DisplayName("Método Validar")
-    class Validar{
+    class Validar {
 
         @Test
         @DisplayName("Deve lançar exceção ao cadastrar usuário com username existente")
@@ -124,14 +132,14 @@ class CadastrarUsuarioServiceIT {
                     Role.ROLE_CLIENTE
             );
             // metoodo retona verdadeiro se existir usuario com o mesmo nome cadastrado
-            when(consultarUsuarioPorUsernameRepository.existsByUsername(anyString())).thenReturn(true);
+            when(consultarUsuarioPorUsernameGateway.existsByUsername(anyString())).thenReturn(true);
 
             // Act & Assert
             assertThrows(UsernameUniqueViolationException.class, () -> cadastrarUsuarioService.execute(usuario));
 
             // Verify
-            verify(consultarUsuarioPorUsernameRepository).existsByUsername("cliente@wells.com");
-            verify(cadastrarUsuarioRepository, never()).execute(any(Usuario.class));
+            verify(consultarUsuarioPorUsernameGateway).existsByUsername("cliente@wells.com");
+            verify(cadastrarUsuarioGateway, never()).execute(any(Usuario.class));
 
             // AssertJ verification
             assertThatThrownBy(
