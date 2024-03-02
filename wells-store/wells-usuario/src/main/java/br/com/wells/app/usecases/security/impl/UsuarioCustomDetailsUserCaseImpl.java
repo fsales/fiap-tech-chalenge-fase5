@@ -1,15 +1,12 @@
 package br.com.wells.app.usecases.security.impl;
 
 import br.com.wells.app.infrastructure.spring.config.security.UsuarioCustomDetails;
-import br.com.wells.app.usecases.security.RoleConverter;
 import br.com.wells.app.usecases.security.UsuarioCustomDetailsUserCase;
 import br.com.wells.core.domain.usuario.usecases.ConsultarUsuarioPorUsernameUseCase;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 
-import java.util.List;
-
-public class UsuarioCustomDetailsUserCaseImpl implements UsuarioCustomDetailsUserCase, UserDetailsService {
+public class UsuarioCustomDetailsUserCaseImpl  implements UsuarioCustomDetailsUserCase {
 
     private final ConsultarUsuarioPorUsernameUseCase consultarUsuarioPorUsernameUseCase;
 
@@ -28,8 +25,8 @@ public class UsuarioCustomDetailsUserCaseImpl implements UsuarioCustomDetailsUse
         return new UsuarioCustomDetails(
                 usuario.username(),
                 usuario.senha(),
-                RoleConverter.convertToAuthorities(
-                        List.of(usuario.role())
+                AuthorityUtils.createAuthorityList(
+                        usuario.role().name()
                 )
         );
     }

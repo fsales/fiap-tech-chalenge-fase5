@@ -19,6 +19,8 @@ logging:
       hibernate:
         type: TRACE
         SQL: DEBUG
+      springframework:
+        security: DEBUG
 
 server:
   error:
