@@ -24,3 +24,9 @@ server:
   error:
     include-stacktrace: never # desabilitar stacktrace no json que e retornado em caso de erro
   port: ${PORT:8081}
+
+app:
+  api:
+    security:
+      token:
+        secret: ${WELLS_USUARIO_JWT_SECRET:my-secret-key}

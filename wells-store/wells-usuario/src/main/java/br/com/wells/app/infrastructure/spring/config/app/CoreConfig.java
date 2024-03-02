@@ -2,6 +2,10 @@ package br.com.wells.app.infrastructure.spring.config.app;
 
 import br.com.wells.app.infrastructure.database.postgres.repository.UsuarioEntityRepository;
 import br.com.wells.app.infrastructure.gateways.usuario.*;
+import br.com.wells.app.usecases.security.TokenUserCase;
+import br.com.wells.app.usecases.security.UsuarioCustomDetailsUserCase;
+import br.com.wells.app.usecases.security.impl.TokenUserCaseImpl;
+import br.com.wells.app.usecases.security.impl.UsuarioCustomDetailsUserCaseImpl;
 import br.com.wells.core.domain.usuario.gateways.*;
 import br.com.wells.core.domain.usuario.usecases.*;
 import br.com.wells.core.domain.usuario.usecases.impl.*;
@@ -145,6 +149,32 @@ public class CoreConfig {
     ) {
         return new ConsutlarTodosUsuarioUseCaseImpl(
                 consutlarTodosUsuarioGateway
+        );
+    }
+
+    /**
+     * @param consultarUsuarioPorUsernameUseCase
+     * @return
+     */
+    @Bean
+    UsuarioCustomDetailsUserCase usuarioCustomDetailsUserCase(
+            ConsultarUsuarioPorUsernameUseCase consultarUsuarioPorUsernameUseCase
+    ){
+        return new UsuarioCustomDetailsUserCaseImpl(
+                consultarUsuarioPorUsernameUseCase
+        );
+    }
+
+    /**
+     * @param wellsUsuarioAppProperties
+     * @return
+     */
+    @Bean
+    TokenUserCase tokenUserCase(
+            WellsUsuarioAppProperties wellsUsuarioAppProperties
+    ){
+        return new TokenUserCaseImpl(
+                wellsUsuarioAppProperties
         );
     }
 }

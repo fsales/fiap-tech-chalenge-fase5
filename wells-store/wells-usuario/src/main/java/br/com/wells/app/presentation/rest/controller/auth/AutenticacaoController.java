@@ -1,8 +1,11 @@
 package br.com.wells.app.presentation.rest.controller.auth;
 
+import br.com.wells.app.infrastructure.spring.config.security.UsuarioCustomDetails;
 import br.com.wells.app.presentation.rest.controller.auth.dto.request.UsuarioLoginDto;
+import br.com.wells.app.presentation.rest.controller.auth.dto.response.LoginResponseDTO;
 import br.com.wells.app.presentation.rest.controller.auth.swagger.AutenticacaoControllerSwagger;
 import br.com.wells.app.presentation.rest.validation.FindInfo;
+import br.com.wells.app.usecases.security.TokenUserCase;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,8 @@ public class AutenticacaoController implements AutenticacaoControllerSwagger {
 
     private final AuthenticationManager authenticationManager;
 
+    private final TokenUserCase tokenUserCase;
+
     @PostMapping("/login")
     @Override
     public ResponseEntity<?> autenticar(
@@ -40,6 +45,10 @@ public class AutenticacaoController implements AutenticacaoControllerSwagger {
                 usernamePassword
         );
 
-        return ResponseEntity.ok().build();
+        var usuarioCustomDetails = (UsuarioCustomDetails) auth.getPrincipal();
+
+       var token = tokenUserCase.generateToken(usuarioCustomDetails);
+
+        return ResponseEntity.ok(new LoginResponseDTO(token));
     }
 }

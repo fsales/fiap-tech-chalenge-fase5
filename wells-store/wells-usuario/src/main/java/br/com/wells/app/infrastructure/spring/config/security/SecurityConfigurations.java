@@ -12,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -27,9 +28,10 @@ public class SecurityConfigurations {
 
     @Bean
     public SecurityFilterChain securityFilterChain(
-            HttpSecurity httpSecurity
+            HttpSecurity httpSecurity,
+            SecurityFilter securityFilter
     ) throws Exception {
-        return  httpSecurity
+        return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
@@ -37,20 +39,32 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(
                                 HttpMethod.POST,
-                                "api/v1/usuarios"
+                                "/api/v1/usuarios"
                         ).permitAll()
                         .requestMatchers(
                                 HttpMethod.POST,
-                                "api/v1/auth"
+                                "/api/v1/auth"
                         ).permitAll()
                         .requestMatchers(
                                 DOCUMENTATION_OPENAPI
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
-                //.exceptionHandling(ex -> ex.authenticationEntryPoint(new JwtAuthenticationEntryPoint())
-              //  .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(
+                        securityFilter,
+                        UsernamePasswordAuthenticationFilter.class
+                )
+                .exceptionHandling(
+                        ex -> ex.authenticationEntryPoint(
+                                new JwtAuthenticationEntryPoint()
+                        )
+                )
                 .build();
+    }
+
+    @Bean
+    public SecurityFilter securityFilter() {
+        return new SecurityFilter();
     }
 
 
