@@ -1,6 +1,7 @@
 package br.com.wells.app.presentation.rest.controller.auth;
 
 import br.com.wells.app.infrastructure.spring.config.security.UsuarioCustomDetails;
+import br.com.wells.app.presentation.exception.ErrorMessage;
 import br.com.wells.app.presentation.rest.controller.auth.dto.request.UsuarioLoginDto;
 import br.com.wells.app.presentation.rest.controller.auth.dto.response.LoginResponseDTO;
 import br.com.wells.app.presentation.rest.controller.auth.swagger.AutenticacaoControllerSwagger;
@@ -8,9 +9,12 @@ import br.com.wells.app.presentation.rest.validation.FindInfo;
 import br.com.wells.app.usecases.security.TokenUserCase;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1/auth")
 
 @RequiredArgsConstructor
+@Slf4j
 public class AutenticacaoController implements AutenticacaoControllerSwagger {
 
     private final AuthenticationManager authenticationManager;
@@ -34,21 +39,28 @@ public class AutenticacaoController implements AutenticacaoControllerSwagger {
             @RequestBody
             UsuarioLoginDto usuarioLoginDto,
             HttpServletRequest request
-    ){
+    ) {
+        log.info("Processo de autenticação pelo login {}", usuarioLoginDto.username());
+        try {
+            var usernamePassword = new UsernamePasswordAuthenticationToken(
+                    usuarioLoginDto.username(),
+                    usuarioLoginDto.senha()
+            );
 
-       var usernamePassword = new UsernamePasswordAuthenticationToken(
-               usuarioLoginDto.username(),
-               usuarioLoginDto.senha()
-       );
+            var auth = authenticationManager.authenticate(
+                    usernamePassword
+            );
 
-        var auth = authenticationManager.authenticate(
-                usernamePassword
-        );
+            var usuarioCustomDetails = (UsuarioCustomDetails) auth.getPrincipal();
 
-        var usuarioCustomDetails = (UsuarioCustomDetails) auth.getPrincipal();
+            var token = tokenUserCase.generateToken(usuarioCustomDetails);
+            return ResponseEntity.ok(new LoginResponseDTO(token));
+        } catch (AuthenticationException ex) {
+            log.warn("Bad Credentials from username '{}'", usuarioLoginDto.username());
+        }
 
-       var token = tokenUserCase.generateToken(usuarioCustomDetails);
-
-        return ResponseEntity.ok(new LoginResponseDTO(token));
+        return ResponseEntity
+                .badRequest()
+                .body(new ErrorMessage(request, HttpStatus.BAD_REQUEST, "Credenciais Inválidas"));
     }
 }

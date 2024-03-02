@@ -18,6 +18,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,6 +51,7 @@ public class UsuarioController implements UsuarioControllerSwagger {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') OR ( hasRole('CLIENTE') AND #id == authentication.principal.id)")
     @Override
     public ResponseEntity<UsuarioResponseDto> consultarUsarioPorId(
             @PathVariable
@@ -64,6 +66,7 @@ public class UsuarioController implements UsuarioControllerSwagger {
 
 
     @PatchMapping("/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE') AND (#id == authentication.principal.id)")
     @Override
     public ResponseEntity<Void> alterarSenha(
             @PathVariable Long id,
@@ -80,6 +83,7 @@ public class UsuarioController implements UsuarioControllerSwagger {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public ResponseEntity<Page<UsuarioResponseDto>> listarTodos(
             @PageableDefault(page = 0, size = 10)

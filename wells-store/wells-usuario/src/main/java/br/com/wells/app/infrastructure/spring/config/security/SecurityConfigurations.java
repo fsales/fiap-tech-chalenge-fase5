@@ -1,5 +1,7 @@
 package br.com.wells.app.infrastructure.spring.config.security;
 
+import br.com.wells.app.usecases.security.TokenUserCase;
+import br.com.wells.app.usecases.security.UsuarioCustomDetailsUserCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -43,7 +45,7 @@ public class SecurityConfigurations {
                         ).permitAll()
                         .requestMatchers(
                                 HttpMethod.POST,
-                                "/api/v1/auth"
+                                "/api/v1/auth/login"
                         ).permitAll()
                         .requestMatchers(
                                 DOCUMENTATION_OPENAPI
@@ -63,24 +65,21 @@ public class SecurityConfigurations {
     }
 
     @Bean
-    public SecurityFilter securityFilter() {
-        return new SecurityFilter();
+    public SecurityFilter securityFilter(
+            TokenUserCase tokenUserCase,
+            UsuarioCustomDetailsUserCase usuarioCustomDetailsUserCase
+    ) {
+        return new SecurityFilter(
+                tokenUserCase,
+                usuarioCustomDetailsUserCase
+        );
     }
 
-
-    /**
-     * @return
-     */
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    /**
-     * @param authenticationConfiguration
-     * @return
-     * @throws Exception
-     */
     @Bean
     AuthenticationManager authenticationManager(
             AuthenticationConfiguration authenticationConfiguration

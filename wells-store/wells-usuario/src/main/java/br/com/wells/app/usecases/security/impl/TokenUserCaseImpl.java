@@ -14,9 +14,12 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Collections;
 import java.util.Date;
 
 public class TokenUserCaseImpl implements TokenUserCase {
+
+    public static final String JWT_BEARER = "Bearer ";
 
     private final WellsUsuarioAppProperties wellsUsuarioAppProperties;
 
@@ -42,7 +45,12 @@ public class TokenUserCaseImpl implements TokenUserCase {
             );
 
             return JWT.create()
+                    .withHeader(Collections.singletonMap("typ", "JWT"))
                     .withIssuer("auth-api")
+                    .withClaim(
+                            usuario.getRolesMapKey(),
+                            usuario.getRolesMap().get(usuario.getRolesMapKey())
+                    )
                     .withIssuedAt(
                             issuedAt
                     )
@@ -65,13 +73,15 @@ public class TokenUserCaseImpl implements TokenUserCase {
     @Override
     public String validateToken(String token) {
         try {
+            String cleanedToken = refactorToken(token);
+
             Algorithm algorithm = Algorithm.HMAC256(
                     wellsUsuarioAppProperties.getApi().security().getToken().secret()
             );
             return JWT.require(algorithm)
                     .withIssuer("auth-api")
                     .build()
-                    .verify(token)
+                    .verify(cleanedToken)
                     .getSubject();
         } catch (TokenExpiredException expiredException) {
             throw new TokenValidationException(
@@ -101,5 +111,12 @@ public class TokenUserCaseImpl implements TokenUserCase {
         return end.atZone(
                 ZoneId.systemDefault()
         ).toInstant();
+    }
+
+    private static String refactorToken(String token) {
+        if (token.contains(JWT_BEARER)) {
+            return token.substring(JWT_BEARER.length());
+        }
+        return token;
     }
 }

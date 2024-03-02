@@ -4,6 +4,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UsuarioCustomDetails implements UserDetails {
 
@@ -23,6 +26,20 @@ public class UsuarioCustomDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
+    }
+
+    // Método para obter um Map de roles
+    public Map<String, String> getRolesMap() {
+        Map<String, String> rolesMap = new HashMap<>();
+        for (GrantedAuthority authority : authorities) {
+            rolesMap.put(getRolesMapKey(), authority.getAuthority().substring("ROLE_".length()));
+        }
+        return Collections.unmodifiableMap(rolesMap);
+    }
+
+    // Método para obter a chave utilizada no método getRolesMap()
+    public String getRolesMapKey() {
+        return "role";
     }
 
     @Override

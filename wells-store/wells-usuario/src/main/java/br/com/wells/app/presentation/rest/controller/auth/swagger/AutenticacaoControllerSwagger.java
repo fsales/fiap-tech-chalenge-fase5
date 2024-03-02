@@ -7,9 +7,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 
+@Tag(name = "Autenticação", description = "Recurso para proceder com a autenticação na API")
 public interface AutenticacaoControllerSwagger {
 
     @Operation(summary = "Autenticar na API", description = "Recurso de autenticação na API",
