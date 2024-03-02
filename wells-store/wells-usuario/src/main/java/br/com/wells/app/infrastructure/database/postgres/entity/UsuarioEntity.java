@@ -1,15 +1,29 @@
 package br.com.wells.app.infrastructure.database.postgres.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "USUARIO", schema = "WELLS")
@@ -36,7 +50,7 @@ public class UsuarioEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "role", nullable = false, length = 25)
     @Builder.Default
-    private Role role = Role.ROLE_CLIENTE;
+    private Role role = UsuarioEntity.Role.ROLE_CLIENTE;
 
     @CreatedDate
     @Column(name = "DATA_CRIACAO")
@@ -51,7 +65,7 @@ public class UsuarioEntity implements Serializable {
     @Column(name = "MODIFICADO_POR")
     private String modificadoPor;
 
-    public enum Role {
-        ROLE_ADMIN, ROLE_CLIENTE
+    public enum Role{
+        ROLE_ADMIN, ROLE_CLIENTE;
     }
 }

@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "cbbe1628-0b56-4e7b-be3f-b36d2460121f",
+		"name": "Fase 5 - Api Wells Store",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2550833"
+	},
+	"item": [
+		{
+			"name": "API de cadastro de usuário",
+			"item": [
+				{
+					"name": "Cadastrar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"rose@wellsstore.br\",\r\n    \"senha\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-usuarios}}/api/v1/usuarios",
+							"host": [
+								"{{url-usuarios}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoLWFwaSIsInJvbGUiOiJST0xFX0NMSUVOVEUiLCJpYXQiOjE3MDk0MDEzODMsInN1YiI6ImZhYmlvQHdlbGxzc3RvcmUuYnIiLCJleHAiOjE3MDk0MDMxODN9.IT_oVXBlJTHv8Vcl9d4IfFldTIU0rEZQFeT6mxohems",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url-usuarios}}/api/v1/usuarios",
+							"host": [
+								"{{url-usuarios}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"usuarios"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "API de autenticação",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"username\": \"fabio@wellsstore.br\",\r\n  \"senha\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-usuarios}}/api/v1/auth/login",
+							"host": [
+								"{{url-usuarios}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "url-usuarios",
+			"value": "http://localhost:8081"
+		}
+	]
+}
