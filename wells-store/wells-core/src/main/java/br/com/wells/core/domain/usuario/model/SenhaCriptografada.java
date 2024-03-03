@@ -3,6 +3,7 @@ package br.com.wells.core.domain.usuario.model;
 import br.com.wells.core.domain.usuario.exception.SenhaInvalidaException;
 import lombok.NonNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 public record SenhaCriptografada(
         String valor
@@ -23,9 +24,9 @@ public record SenhaCriptografada(
             throw new SenhaInvalidaException("A senha deve ter no mínimo 6 caracteres");
         }
 
-        BCryptPasswordEncoder encoder = getBCryptPasswordEncoder();
+        var passwordEncoder = passwordEncoder();
         return new SenhaCriptografada(
-                encoder.encode(senha)
+                passwordEncoder.encode(senha)
         );
     }
 
@@ -38,16 +39,16 @@ public record SenhaCriptografada(
             @NonNull final String senhaAtual,
             @NonNull final String confirmarSenha
     ) {
-        var bCryptPasswordEncoder = getBCryptPasswordEncoder();
+        var passwordEncoder = passwordEncoder();
 
         return !senhaAtual.isEmpty() &&
-                bCryptPasswordEncoder.matches(
-                        senhaAtual,
-                        confirmarSenha
-                );
+               passwordEncoder.matches(
+                       senhaAtual,
+                       confirmarSenha
+               );
     }
 
-    private static BCryptPasswordEncoder getBCryptPasswordEncoder() {
+    private static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
