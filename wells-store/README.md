@@ -1,4 +1,10 @@
-# Projeto Wells
+![GitHub](https://img.shields.io/github/license/fsales/fiap-tech-chalenge-fase5)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/fsales/fiap-tech-chalenge-fase5)
+![GitHub language count](https://img.shields.io/github/languages/count/fsales/fiap-tech-chalenge-fase5)
+![GitHub top language](https://img.shields.io/github/languages/top/fsales/fiap-tech-chalenge-fase5)
+
+
+# Projeto Wells Store
 
 Bem-vindo ao Projeto Wells! Este repositório contém a implementação de um sistema utilizando a arquitetura Clean Architecture. Cada módulo do projeto é detalhado abaixo, e a arquitetura Clean Architecture é explicada em documentos individuais.
 
