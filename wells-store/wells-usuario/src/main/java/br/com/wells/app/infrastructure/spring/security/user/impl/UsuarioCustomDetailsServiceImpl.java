@@ -1,16 +1,15 @@
-package br.com.wells.app.usecases.security.impl;
+package br.com.wells.app.infrastructure.spring.security.user.impl;
 
-import br.com.wells.app.infrastructure.spring.config.security.UsuarioCustomDetails;
-import br.com.wells.app.usecases.security.UsuarioCustomDetailsUserCase;
+import br.com.wells.app.infrastructure.spring.security.user.UsuarioCustomDetailsService;
 import br.com.wells.core.domain.usuario.usecases.ConsultarUsuarioPorUsernameUseCase;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class UsuarioCustomDetailsUserCaseImpl  implements UsuarioCustomDetailsUserCase {
+public class UsuarioCustomDetailsServiceImpl implements UsuarioCustomDetailsService {
 
     private final ConsultarUsuarioPorUsernameUseCase consultarUsuarioPorUsernameUseCase;
 
-    public UsuarioCustomDetailsUserCaseImpl(
+    public UsuarioCustomDetailsServiceImpl(
             ConsultarUsuarioPorUsernameUseCase consultarUsuarioPorUsernameUseCase
     ) {
         this.consultarUsuarioPorUsernameUseCase = consultarUsuarioPorUsernameUseCase;
@@ -22,7 +21,7 @@ public class UsuarioCustomDetailsUserCaseImpl  implements UsuarioCustomDetailsUs
     ) {
         var usuario = consultarUsuarioPorUsernameUseCase.find(username);
 
-        return new UsuarioCustomDetails(
+        return new br.com.wells.app.infrastructure.spring.security.user.UsuarioCustomDetails(
                 usuario.username(),
                 usuario.senha(),
                 AuthorityUtils.createAuthorityList(

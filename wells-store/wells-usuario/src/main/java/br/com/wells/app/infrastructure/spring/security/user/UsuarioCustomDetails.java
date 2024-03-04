@@ -1,12 +1,12 @@
-package br.com.wells.app.infrastructure.spring.config.security;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+package br.com.wells.app.infrastructure.spring.security.user;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 public class UsuarioCustomDetails extends User implements UserDetails {
 

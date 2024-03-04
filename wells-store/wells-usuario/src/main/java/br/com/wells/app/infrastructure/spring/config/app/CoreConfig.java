@@ -2,10 +2,9 @@ package br.com.wells.app.infrastructure.spring.config.app;
 
 import br.com.wells.app.infrastructure.database.postgres.repository.UsuarioEntityRepository;
 import br.com.wells.app.infrastructure.gateways.usuario.*;
-import br.com.wells.app.usecases.security.TokenUserCase;
-import br.com.wells.app.usecases.security.UsuarioCustomDetailsUserCase;
-import br.com.wells.app.usecases.security.impl.TokenUserCaseImpl;
-import br.com.wells.app.usecases.security.impl.UsuarioCustomDetailsUserCaseImpl;
+import br.com.wells.app.infrastructure.spring.security.user.UsuarioCustomDetailsService;
+import br.com.wells.app.infrastructure.spring.security.jwt.impl.JWTTokenImpl;
+import br.com.wells.app.infrastructure.spring.security.user.impl.UsuarioCustomDetailsServiceImpl;
 import br.com.wells.core.domain.usuario.gateways.*;
 import br.com.wells.core.domain.usuario.usecases.*;
 import br.com.wells.core.domain.usuario.usecases.impl.*;
@@ -157,10 +156,10 @@ public class CoreConfig {
      * @return
      */
     @Bean
-    UsuarioCustomDetailsUserCase usuarioCustomDetailsUserCase(
+    UsuarioCustomDetailsService usuarioCustomDetailsUserCase(
             ConsultarUsuarioPorUsernameUseCase consultarUsuarioPorUsernameUseCase
     ){
-        return new UsuarioCustomDetailsUserCaseImpl(
+        return new UsuarioCustomDetailsServiceImpl(
                 consultarUsuarioPorUsernameUseCase
         );
     }
@@ -170,10 +169,10 @@ public class CoreConfig {
      * @return
      */
     @Bean
-    TokenUserCase tokenUserCase(
+    br.com.wells.app.infrastructure.spring.security.jwt.JWTToken tokenUserCase(
             WellsUsuarioAppProperties wellsUsuarioAppProperties
     ){
-        return new TokenUserCaseImpl(
+        return new JWTTokenImpl(
                 wellsUsuarioAppProperties
         );
     }

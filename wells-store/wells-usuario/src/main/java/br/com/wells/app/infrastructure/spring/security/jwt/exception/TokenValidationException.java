@@ -1,4 +1,4 @@
-package br.com.wells.app.usecases.security.exception;
+package br.com.wells.app.infrastructure.spring.security.jwt.exception;
 
 public class TokenValidationException extends RuntimeException {
     public TokenValidationException(

@@ -1,7 +1,9 @@
 package br.com.wells.app.infrastructure.spring.config.security;
 
-import br.com.wells.app.usecases.security.TokenUserCase;
-import br.com.wells.app.usecases.security.UsuarioCustomDetailsUserCase;
+import br.com.wells.app.infrastructure.spring.security.jwt.JwtAuthenticationEntryPoint;
+import br.com.wells.app.infrastructure.spring.security.SecurityFilter;
+import br.com.wells.app.infrastructure.spring.security.jwt.JWTToken;
+import br.com.wells.app.infrastructure.spring.security.user.UsuarioCustomDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -68,12 +70,12 @@ public class SecurityConfigurations {
 
     @Bean
     public SecurityFilter securityFilter(
-            TokenUserCase tokenUserCase,
-            UsuarioCustomDetailsUserCase usuarioCustomDetailsUserCase
+            JWTToken JWTToken,
+            UsuarioCustomDetailsService usuarioCustomDetailsService
     ) {
         return new SecurityFilter(
-                tokenUserCase,
-                usuarioCustomDetailsUserCase
+                JWTToken,
+                usuarioCustomDetailsService
         );
     }
 

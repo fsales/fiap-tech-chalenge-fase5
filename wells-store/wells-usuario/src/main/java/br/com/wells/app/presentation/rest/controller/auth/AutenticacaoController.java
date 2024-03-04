@@ -1,12 +1,12 @@
 package br.com.wells.app.presentation.rest.controller.auth;
 
-import br.com.wells.app.infrastructure.spring.config.security.UsuarioCustomDetails;
+import br.com.wells.app.infrastructure.spring.security.user.UsuarioCustomDetails;
 import br.com.wells.app.presentation.exception.ErrorMessage;
 import br.com.wells.app.presentation.rest.controller.auth.dto.request.UsuarioLoginDto;
 import br.com.wells.app.presentation.rest.controller.auth.dto.response.LoginResponseDTO;
 import br.com.wells.app.presentation.rest.controller.auth.swagger.AutenticacaoControllerSwagger;
 import br.com.wells.app.presentation.rest.validation.FindInfo;
-import br.com.wells.app.usecases.security.TokenUserCase;
+import br.com.wells.app.infrastructure.spring.security.jwt.JWTToken;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ public class AutenticacaoController implements AutenticacaoControllerSwagger {
 
     private final AuthenticationManager authenticationManager;
 
-    private final TokenUserCase tokenUserCase;
+    private final JWTToken JWTToken;
 
     @PostMapping("/login")
     @Override
@@ -53,7 +53,7 @@ public class AutenticacaoController implements AutenticacaoControllerSwagger {
 
             var usuarioCustomDetails = (UsuarioCustomDetails) auth.getPrincipal();
 
-            var token = tokenUserCase.generateToken(usuarioCustomDetails);
+            var token = JWTToken.generateToken(usuarioCustomDetails);
             return ResponseEntity.ok(new LoginResponseDTO(token));
         } catch (AuthenticationException ex) {
             log.warn("Bad Credentials from username '{}'", usuarioLoginDto.username());

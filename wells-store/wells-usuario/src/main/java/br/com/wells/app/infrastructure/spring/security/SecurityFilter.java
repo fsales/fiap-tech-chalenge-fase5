@@ -1,8 +1,8 @@
-package br.com.wells.app.infrastructure.spring.config.security;
+package br.com.wells.app.infrastructure.spring.security;
 
 
-import br.com.wells.app.usecases.security.TokenUserCase;
-import br.com.wells.app.usecases.security.UsuarioCustomDetailsUserCase;
+import br.com.wells.app.infrastructure.spring.security.jwt.JWTToken;
+import br.com.wells.app.infrastructure.spring.security.user.UsuarioCustomDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,16 +19,16 @@ import java.io.IOException;
 @Component
 public class SecurityFilter extends  OncePerRequestFilter {
 
-    private final TokenUserCase tokenUserCase;
+    private final JWTToken tokenUserCase;
 
-    private final UsuarioCustomDetailsUserCase usuarioCustomDetailsUserCase;
+    private final UsuarioCustomDetailsService usuarioCustomDetailsService;
 
     public SecurityFilter(
-            TokenUserCase tokenUserCase,
-            UsuarioCustomDetailsUserCase usuarioCustomDetailsUserCase
+            JWTToken JWTToken,
+            UsuarioCustomDetailsService usuarioCustomDetailsService
     ) {
-        this.tokenUserCase = tokenUserCase;
-        this.usuarioCustomDetailsUserCase = usuarioCustomDetailsUserCase;
+        this.tokenUserCase = JWTToken;
+        this.usuarioCustomDetailsService = usuarioCustomDetailsService;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class SecurityFilter extends  OncePerRequestFilter {
             var login = tokenUserCase.validateToken(
                     token
             );
-            UserDetails user = usuarioCustomDetailsUserCase.loadUserByUsername(
+            UserDetails user = usuarioCustomDetailsService.loadUserByUsername(
                     login
             );
 

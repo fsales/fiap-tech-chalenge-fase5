@@ -1,8 +1,8 @@
-package br.com.wells.app.usecases.security;
+package br.com.wells.app.infrastructure.spring.security.jwt;
 
-import br.com.wells.app.infrastructure.spring.config.security.UsuarioCustomDetails;
+import br.com.wells.app.infrastructure.spring.security.user.UsuarioCustomDetails;
 
-public interface TokenUserCase {
+public interface JWTToken {
     /**
      * @param usuario
      * @return

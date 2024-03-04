@@ -1,4 +1,4 @@
-package br.com.wells.app.infrastructure.spring.config.security;
+package br.com.wells.app.infrastructure.spring.security.jwt;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

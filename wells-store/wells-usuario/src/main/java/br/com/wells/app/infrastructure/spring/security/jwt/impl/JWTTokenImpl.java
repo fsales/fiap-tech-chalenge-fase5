@@ -1,10 +1,10 @@
-package br.com.wells.app.usecases.security.impl;
+package br.com.wells.app.infrastructure.spring.security.jwt.impl;
 
 import br.com.wells.app.infrastructure.spring.config.app.WellsUsuarioAppProperties;
-import br.com.wells.app.infrastructure.spring.config.security.UsuarioCustomDetails;
-import br.com.wells.app.usecases.security.TokenUserCase;
-import br.com.wells.app.usecases.security.exception.TokenGenerationException;
-import br.com.wells.app.usecases.security.exception.TokenValidationException;
+import br.com.wells.app.infrastructure.spring.security.jwt.JWTToken;
+import br.com.wells.app.infrastructure.spring.security.user.UsuarioCustomDetails;
+import br.com.wells.app.infrastructure.spring.security.jwt.exception.TokenGenerationException;
+import br.com.wells.app.infrastructure.spring.security.jwt.exception.TokenValidationException;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
@@ -17,7 +17,7 @@ import java.time.ZoneId;
 import java.util.Collections;
 import java.util.Date;
 
-public class TokenUserCaseImpl implements TokenUserCase {
+public class JWTTokenImpl implements JWTToken {
 
     public static final String JWT_BEARER = "Bearer ";
 
@@ -27,7 +27,7 @@ public class TokenUserCaseImpl implements TokenUserCase {
     public static final long EXPIRE_HOURS = 0;
     public static final long EXPIRE_MINUTES = 30;
 
-    public TokenUserCaseImpl(
+    public JWTTokenImpl(
             WellsUsuarioAppProperties wellsUsuarioAppProperties
     ) {
         this.wellsUsuarioAppProperties = wellsUsuarioAppProperties;
