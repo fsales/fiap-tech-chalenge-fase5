@@ -90,5 +90,6 @@ A implementação da Clean Architecture no Projeto Wells segue a seguinte estrut
 
 ## Módulos
 
-- [wells-core](wells-core/README.md)
-- [wells-usuario](wells-usuario/README.md)
+- [wells-store](wells-store/README.md)
+    - [wells-core](wells-store/wells-core/README.md)
+    - [wells-usuario](wells-store/wells-usuario/README.md)
