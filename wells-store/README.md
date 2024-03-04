@@ -19,7 +19,7 @@ O Projeto Wells é uma aplicação que utiliza a arquitetura Clean Architecture 
 
 ### Pré-requisitos
 
-- Java 11 ou superior
+- Java 17 ou superior
 - Gradle
 - Docker
 
