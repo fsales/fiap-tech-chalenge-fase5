@@ -1,29 +1,19 @@
 package br.com.wells.app.infrastructure.database.postgres.entity;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EntityListeners;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import br.com.wells.app.infrastructure.database.postgres.entity.listener.UsuarioEntityListener;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import lombok.*;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "USUARIO", schema = "WELLS")
@@ -34,7 +24,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Builder(toBuilder = true)
 @EqualsAndHashCode(of = {"id"})
 @ToString
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners({AuditingEntityListener.class, UsuarioEntityListener.class})
 public class UsuarioEntity implements Serializable {
 
     @Id
@@ -42,15 +32,22 @@ public class UsuarioEntity implements Serializable {
     private Long id;
 
     @Column(name = "USERNAME", nullable = true, length = 100)
+    @NotEmpty
     private String username;
 
     @Column(name = "SENHA", nullable = true, length = 200)
+    @NotEmpty
     private String senha;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role", nullable = false, length = 25)
+
     @Builder.Default
-    private Role role = UsuarioEntity.Role.ROLE_CLIENTE;
+    @ManyToMany
+    @JoinTable(
+            schema = "wells",
+            name = "USUARIO_ROLE",
+            joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+    private Set<RoleEntity> roles = new HashSet<>();
 
     @CreatedDate
     @Column(name = "DATA_CRIACAO")
@@ -64,8 +61,4 @@ public class UsuarioEntity implements Serializable {
     @LastModifiedBy
     @Column(name = "MODIFICADO_POR")
     private String modificadoPor;
-
-    public enum Role{
-        ROLE_ADMIN, ROLE_CLIENTE;
-    }
 }

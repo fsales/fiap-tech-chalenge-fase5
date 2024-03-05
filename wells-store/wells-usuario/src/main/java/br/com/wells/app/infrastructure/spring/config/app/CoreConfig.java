@@ -1,9 +1,11 @@
 package br.com.wells.app.infrastructure.spring.config.app;
 
+import br.com.wells.app.infrastructure.database.postgres.repository.RoleEntityRepository;
 import br.com.wells.app.infrastructure.database.postgres.repository.UsuarioEntityRepository;
 import br.com.wells.app.infrastructure.gateways.usuario.*;
-import br.com.wells.app.infrastructure.spring.security.user.UsuarioCustomDetailsService;
+import br.com.wells.app.infrastructure.spring.security.jwt.JWTToken;
 import br.com.wells.app.infrastructure.spring.security.jwt.impl.JWTTokenImpl;
+import br.com.wells.app.infrastructure.spring.security.user.UsuarioCustomDetailsService;
 import br.com.wells.app.infrastructure.spring.security.user.impl.UsuarioCustomDetailsServiceImpl;
 import br.com.wells.core.domain.usuario.gateways.*;
 import br.com.wells.core.domain.usuario.usecases.*;
@@ -16,14 +18,17 @@ public class CoreConfig {
 
     /**
      * @param usuarioEntityRepository
+     * @param roleEntityRepository
      * @return
      */
     @Bean
     CadastrarUsuarioGateway cadastrarUsuarioGateway(
-            UsuarioEntityRepository usuarioEntityRepository
+            UsuarioEntityRepository usuarioEntityRepository,
+            RoleEntityRepository roleEntityRepository
     ) {
         return new CadastrarUsuarioGatewayImpl(
-                usuarioEntityRepository
+                usuarioEntityRepository,
+                roleEntityRepository
         );
     }
 
@@ -80,6 +85,15 @@ public class CoreConfig {
         );
     }
 
+    @Bean
+    ConsultarRolePorNomeGateway consultarRolePorNomeGateway(
+            RoleEntityRepository roleEntityRepository
+    ) {
+        return new ConsultarRolePorNomeGatewayImpl(
+                roleEntityRepository
+        );
+    }
+
     /**
      * @param cadastrarUsuarioGateway
      * @return
@@ -87,12 +101,14 @@ public class CoreConfig {
     @Bean
     CadastrarUsuarioUseCase cadastrarUsuarioUseCase(
             CadastrarUsuarioGateway cadastrarUsuarioGateway,
-            ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsernameGateway
+            ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsernameGateway,
+            ConsultarRolePorNomeGateway consultarRolePorNomeGateway
     ) {
 
         return new CadastrarUsuarioUseCaseImpl(
                 cadastrarUsuarioGateway,
-                consultarUsuarioPorUsernameGateway
+                consultarUsuarioPorUsernameGateway,
+                consultarRolePorNomeGateway
         );
     }
 
@@ -158,7 +174,7 @@ public class CoreConfig {
     @Bean
     UsuarioCustomDetailsService usuarioCustomDetailsUserCase(
             ConsultarUsuarioPorUsernameUseCase consultarUsuarioPorUsernameUseCase
-    ){
+    ) {
         return new UsuarioCustomDetailsServiceImpl(
                 consultarUsuarioPorUsernameUseCase
         );
@@ -169,9 +185,9 @@ public class CoreConfig {
      * @return
      */
     @Bean
-    br.com.wells.app.infrastructure.spring.security.jwt.JWTToken tokenUserCase(
+    JWTToken jwtToken(
             WellsUsuarioAppProperties wellsUsuarioAppProperties
-    ){
+    ) {
         return new JWTTokenImpl(
                 wellsUsuarioAppProperties
         );

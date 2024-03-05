@@ -4,6 +4,8 @@ import br.com.wells.app.infrastructure.database.postgres.entity.UsuarioEntity;
 import br.com.wells.core.domain.usuario.model.Role;
 import br.com.wells.core.domain.usuario.model.Usuario;
 
+import java.util.stream.Collectors;
+
 public final class UsuarioEntityMapper {
 
     private UsuarioEntityMapper() {
@@ -16,18 +18,16 @@ public final class UsuarioEntityMapper {
     public static UsuarioEntity convertToUsuarioEntity(
             Usuario usuario
     ) {
+
         return UsuarioEntity.builder()
                 .username(usuario.username())
                 .senha(usuario.senha())
-                .role(
-                        UsuarioEntity
-                                .Role
-                                .valueOf(
-                                        usuario
-                                                .role()
-                                                .name()
-                                )
+                .roles(
+                        usuario.roles().stream().map(
+                                RolerEntityMapper::convertToRoleEntity
+                        ).collect(Collectors.toSet())
                 )
+
                 .build();
     }
 
@@ -42,11 +42,12 @@ public final class UsuarioEntityMapper {
                 usuarioEntity.getId(),
                 usuarioEntity.getUsername(),
                 usuarioEntity.getSenha(),
-                Role.valueOf(
-                        usuarioEntity
-                                .getRole()
-                                .name()
-                ),
+                usuarioEntity
+                        .getRoles()
+                        .stream().map(
+                                u -> Role.criar(u.getNome())
+                        ).collect(Collectors.toSet())
+                ,
                 usuarioEntity.getDataCriacao(),
                 usuarioEntity.getDataModificacao()
         );

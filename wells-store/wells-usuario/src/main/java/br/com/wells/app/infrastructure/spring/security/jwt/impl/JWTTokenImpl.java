@@ -2,9 +2,9 @@ package br.com.wells.app.infrastructure.spring.security.jwt.impl;
 
 import br.com.wells.app.infrastructure.spring.config.app.WellsUsuarioAppProperties;
 import br.com.wells.app.infrastructure.spring.security.jwt.JWTToken;
-import br.com.wells.app.infrastructure.spring.security.user.UsuarioCustomDetails;
 import br.com.wells.app.infrastructure.spring.security.jwt.exception.TokenGenerationException;
 import br.com.wells.app.infrastructure.spring.security.jwt.exception.TokenValidationException;
+import br.com.wells.app.infrastructure.spring.security.user.UsuarioCustomDetails;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;

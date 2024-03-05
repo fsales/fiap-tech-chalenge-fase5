@@ -6,12 +6,14 @@ import lombok.NonNull;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public record Usuario(
         Long id,
         @NonNull String username,
         @NonNull String senha,
-        @NonNull Role role,
+        @NonNull Set<Role> roles,
         LocalDateTime dataCriacao,
         LocalDateTime dataAlteracao
 ) {
@@ -19,16 +21,20 @@ public record Usuario(
     public static Usuario criar(
             final String username,
             final String senha,
-            final Role role
+            final Set<String> nomesRoles
     ) {
-        validarCamposObrigatorios(username, senha, role);
+        validarCamposObrigatorios(username, senha, nomesRoles);
         validarEmail(username);
+
+        Set<Role> roles = nomesRoles.stream()
+                .map(Role::criar)
+                .collect(Collectors.toSet());
 
         return new Usuario(
                 null,
                 username,
                 SenhaCriptografada.criptografar(senha).valor(),
-                role,
+                roles,
                 LocalDateTime.now(),
                 null
         );
@@ -37,11 +43,11 @@ public record Usuario(
     private static void validarCamposObrigatorios(
             final String username,
             final String senha,
-            final Role role
+            final Set<String> nomesRoles
     ) {
         validarNaoVazio(username, "username");
         validarNaoVazio(senha, "senha");
-        Objects.requireNonNull(role, "O campo 'role' não pode ser nulo");
+        Objects.requireNonNull(nomesRoles, "A lista de roles não pode ser nula");
     }
 
     private static void validarNaoVazio(
@@ -53,32 +59,13 @@ public record Usuario(
         }
     }
 
+
     private static void validarEmail(
             final String username
     ) {
         if (!EmailUtil.isValidEmail(username)) {
             throw new UsuarioInvalidoException("O campo 'username' não é um e-mail válido");
         }
-    }
-
-    public Usuario alterar(
-            final Long id,
-            final String senha,
-            final Role role
-    ) {
-        Objects.requireNonNull(id, "O campo 'id' não pode ser nulo");
-
-        validarCamposObrigatorios(username, senha, role);
-        validarEmail(username);
-
-        return new Usuario(
-                id,
-                username,
-                SenhaCriptografada.criptografar(senha).valor(),
-                role,
-                dataCriacao,
-                LocalDateTime.now()
-        );
     }
 
     /**
@@ -88,13 +75,52 @@ public record Usuario(
     public Usuario alterar(
             final String senha
     ) {
+        validarNaoVazio(senha, "senha");
 
-        return alterar(
+        return new Usuario(
                 id,
-                senha,
-                role
+                username,
+                SenhaCriptografada.criptografar(senha).valor(),
+                roles,
+                dataCriacao,
+                dataAlteracao
         );
     }
 
+    public Usuario alterar(
+            final Long id,
+            final String senha
+    ) {
+        validarNaoVazio(senha, "senha");
+
+        return new Usuario(
+                id,
+                username,
+                SenhaCriptografada.criptografar(senha).valor(),
+                roles,
+                dataCriacao,
+                dataAlteracao
+        );
+    }
+
+    /**
+     * @param nomesRoles
+     * @return
+     */
+    public Usuario alterar(
+            final @NonNull Set<Role> nomesRoles
+    ) {
+        if (nomesRoles.isEmpty()) {
+            throw new UsuarioInvalidoException("A role(s) do 'usuário' é de preenchimento obrigatório");
+        }
+        return new Usuario(
+                id,
+                username,
+                senha,
+                nomesRoles,
+                dataCriacao,
+                dataAlteracao
+        );
+    }
 
 }

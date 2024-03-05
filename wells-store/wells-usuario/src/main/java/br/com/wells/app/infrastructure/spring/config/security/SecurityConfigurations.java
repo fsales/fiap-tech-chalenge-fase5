@@ -1,8 +1,8 @@
 package br.com.wells.app.infrastructure.spring.config.security;
 
-import br.com.wells.app.infrastructure.spring.security.jwt.JwtAuthenticationEntryPoint;
 import br.com.wells.app.infrastructure.spring.security.SecurityFilter;
 import br.com.wells.app.infrastructure.spring.security.jwt.JWTToken;
+import br.com.wells.app.infrastructure.spring.security.jwt.JwtAuthenticationEntryPoint;
 import br.com.wells.app.infrastructure.spring.security.user.UsuarioCustomDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

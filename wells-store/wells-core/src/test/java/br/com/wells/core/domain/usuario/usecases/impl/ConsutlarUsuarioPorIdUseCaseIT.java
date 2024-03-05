@@ -11,6 +11,7 @@ import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
@@ -19,6 +20,8 @@ import static org.mockito.Mockito.when;
 
 @DisplayName("Testes para ConsutlarUsuarioPorIdUseCaseIT")
 class ConsutlarUsuarioPorIdUseCaseIT {
+
+    public static final String CLIENTE = "CLIENTE";
 
     private AutoCloseable openMocks;
 
@@ -54,7 +57,7 @@ class ConsutlarUsuarioPorIdUseCaseIT {
                     idUsuario,
                     "cliente@wells.com",
                     "123456",
-                    Role.ROLE_CLIENTE,
+                    Set.of(Role.criar(CLIENTE)),
                     LocalDateTime.now(),
                     LocalDateTime.now()
             );

@@ -6,6 +6,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
+import java.util.Set;
+
 public record UsuarioCadastrarDto(
         @NotEmpty(groups = {CreateInfo.class})
         @Email(message = "formato do e-mail está invalido", regexp = "^[a-z0-9.+-]+@[a-z0-9.-]+\\.[a-z]{2,}$", groups = {CreateInfo.class})
@@ -13,6 +15,7 @@ public record UsuarioCadastrarDto(
         String username,
         @NotEmpty(groups = {CreateInfo.class})
         @Size(min = 6, max = 6, message = "A senha deve ter 6 caracteres", groups = {CreateInfo.class})
-        String senha
+        String senha,
+        Set<String> roles
 ) implements UsuarioCadastrarDtoSwagger {
 }

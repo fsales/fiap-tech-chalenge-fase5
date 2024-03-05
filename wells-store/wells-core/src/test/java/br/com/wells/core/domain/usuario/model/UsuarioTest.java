@@ -5,6 +5,9 @@ import br.com.wells.core.domain.usuario.exception.UsuarioInvalidoException;
 import org.junit.jupiter.api.*;
 import org.mockito.MockitoAnnotations;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
@@ -32,14 +35,15 @@ class UsuarioTest {
         void testCriarUsuario_ComoAdmin() {
             String username = "admin@example.com";
             String senha = "adminPassword123";
-            Role role = Role.ROLE_ADMIN;
+            var roles = Set.of("ADMIN");
 
-            Usuario result = Usuario.criar(username, senha, role);
+            Usuario result = Usuario.criar(username, senha, roles);
 
             assertThat(result)
                     .isNotNull()
-                    .extracting(Usuario::username, Usuario::role)
-                    .containsExactly(username, role);
+                    .extracting(Usuario::username,
+                            user -> user.roles().stream().map(Role::nome).collect(Collectors.toSet()))
+                    .containsExactly(username, roles);
         }
 
         @Test
@@ -47,20 +51,21 @@ class UsuarioTest {
         void testCriarUsuario_ComoCliente() {
             String username = "test@example.com";
             String senha = "password123";
-            Role role = Role.ROLE_CLIENTE;
+            var roles = Set.of("CLIENTE");
 
-            Usuario result = Usuario.criar(username, senha, role);
+            Usuario result = Usuario.criar(username, senha, roles);
 
             assertThat(result)
                     .isNotNull()
-                    .extracting(Usuario::username, Usuario::role)
-                    .containsExactly(username, role);
+                    .extracting(Usuario::username, user -> user.roles().stream().map(Role::nome).collect(Collectors.toSet()))
+                    .containsExactly(username,
+                            roles);
 
             // Verifica se a senha não é nula e nem vazia
             assertThat(result.senha())
                     .isNotBlank()
                     .isNotEqualTo(senha);
-            ;
+
         }
 
 
@@ -71,11 +76,12 @@ class UsuarioTest {
             String username = "test@example.com";
             String senha = "newPassword123";
             String senhaOld = "oldPassword";
-            Role role = Role.ROLE_CLIENTE;
+            var roles = Set.of("CLIENTE");
 
-            Usuario originalUser = Usuario.criar(username, senhaOld, role);
+            Usuario originalUser = Usuario.criar(username, senhaOld, roles);
+            // originalUser.
 
-            Usuario result = originalUser.alterar(id, senha, role);
+            Usuario result = originalUser.alterar(id, senha);
 
             assertThat(result)
                     .isNotNull()
@@ -84,7 +90,9 @@ class UsuarioTest {
                         assertThat(u.senha())
                                 .isNotBlank()
                                 .isNotEqualTo(senhaOld);
-                        assertThat(u.role()).isEqualTo(role);
+                        assertThat(
+                                u.roles().stream().map(Role::nome).collect(Collectors.toSet())
+                        ).isEqualTo(roles);
                         assertThat(u.dataCriacao()).isNotNull();
                     });
         }
@@ -100,9 +108,9 @@ class UsuarioTest {
             /** act e assert **/
             String username = "invalidEmail";
             String senha = "senha123";
-            Role role = Role.ROLE_CLIENTE;
+            var roles = Set.of("CLIENTE");
 
-            assertThatThrownBy(() -> Usuario.criar(username, senha, role))
+            assertThatThrownBy(() -> Usuario.criar(username, senha, roles))
                     .isInstanceOf(UsuarioInvalidoException.class)
                     .hasMessageContaining("O campo 'username' não é um e-mail válido");
         }
@@ -114,9 +122,9 @@ class UsuarioTest {
             /** act e assert **/
             String username = "admin@wells.com";
             String senha = "senh";
-            Role role = Role.ROLE_CLIENTE;
+            var roles = Set.of("CLIENTE");
 
-            assertThatThrownBy(() -> Usuario.criar(username, senha, role))
+            assertThatThrownBy(() -> Usuario.criar(username, senha, roles))
                     .isInstanceOf(SenhaInvalidaException.class)
                     .hasMessageContaining("A senha deve ter no mínimo 6 caracteres");
         }

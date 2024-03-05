@@ -1,12 +1,12 @@
 package br.com.wells.app.presentation.rest.controller.auth;
 
+import br.com.wells.app.infrastructure.spring.security.jwt.JWTToken;
 import br.com.wells.app.infrastructure.spring.security.user.UsuarioCustomDetails;
 import br.com.wells.app.presentation.exception.ErrorMessage;
 import br.com.wells.app.presentation.rest.controller.auth.dto.request.UsuarioLoginDto;
 import br.com.wells.app.presentation.rest.controller.auth.dto.response.LoginResponseDTO;
 import br.com.wells.app.presentation.rest.controller.auth.swagger.AutenticacaoControllerSwagger;
 import br.com.wells.app.presentation.rest.validation.FindInfo;
-import br.com.wells.app.infrastructure.spring.security.jwt.JWTToken;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -5,6 +5,8 @@ import br.com.wells.app.presentation.rest.controller.usuario.dto.response.Usuari
 import br.com.wells.core.domain.usuario.model.Role;
 import br.com.wells.core.domain.usuario.model.Usuario;
 
+import java.util.stream.Collectors;
+
 public final class UsuarioDtoMapper {
 
     private UsuarioDtoMapper() {
@@ -21,7 +23,7 @@ public final class UsuarioDtoMapper {
         return Usuario.criar(
                 usuarioDto.username(),
                 usuarioDto.senha(),
-                Role.ROLE_CLIENTE
+                usuarioDto.roles()
         );
     }
 
@@ -31,7 +33,11 @@ public final class UsuarioDtoMapper {
         return new UsuarioResponseDto(
                 usuario.id(),
                 usuario.username(),
-                usuario.role().name(),
+                usuario.roles()
+                        .stream()
+                        .map(
+                                Role::nome
+                        ).collect(Collectors.toSet()),
                 usuario.dataCriacao()
         );
     }

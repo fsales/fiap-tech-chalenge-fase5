@@ -42,10 +42,10 @@ public record SenhaCriptografada(
         var passwordEncoder = passwordEncoder();
 
         return !senhaAtual.isEmpty() &&
-               passwordEncoder.matches(
-                       senhaAtual,
-                       confirmarSenha
-               );
+                passwordEncoder.matches(
+                        senhaAtual,
+                        confirmarSenha
+                );
     }
 
     private static PasswordEncoder passwordEncoder() {

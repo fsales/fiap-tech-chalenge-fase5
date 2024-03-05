@@ -2,6 +2,9 @@ package br.com.wells.app.presentation.rest.controller.usuario.dto.request.swagge
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public interface UsuarioCadastrarDtoSwagger {
 
     @Schema(description = "username", example = "teste@teste.com")
@@ -9,4 +12,9 @@ public interface UsuarioCadastrarDtoSwagger {
 
     @Schema(description = "senha", example = "123456", minLength = 6, maxLength = 6)
     String senha();
+
+    @Schema(description = "roles", example = "ADMIN, CLIENTE", minLength = 6, maxLength = 100)
+    default Set<String> roles() {
+        return new HashSet<>();
+    }
 }
