@@ -1,7 +1,7 @@
-INSERT INTO wells.usuario (username, senha, data_criacao)
+INSERT INTO wells.usuario (username, senha, data_criacao,CRIADO_POR)
 VALUES
-    ('cliente@wellsstore.br', '$2a$10$TD/.6nyjJl8UDIoLGVvARO0sQykrvXzotbTEx8Lfh2h6IlQ4yu9my', CURRENT_TIMESTAMP),
-    ('admin@wellsstore.br', '$2a$10$TD/.6nyjJl8UDIoLGVvARO0sQykrvXzotbTEx8Lfh2h6IlQ4yu9my', CURRENT_TIMESTAMP);
+    ('cliente@wellsstore.br', '$2a$10$TD/.6nyjJl8UDIoLGVvARO0sQykrvXzotbTEx8Lfh2h6IlQ4yu9my', CURRENT_TIMESTAMP,'anonymousUser'),
+    ('admin@wellsstore.br', '$2a$10$TD/.6nyjJl8UDIoLGVvARO0sQykrvXzotbTEx8Lfh2h6IlQ4yu9my', CURRENT_TIMESTAMP,'anonymousUser');
 
 INSERT INTO wells.role(nome, DATA_CRIACAO)
    values
