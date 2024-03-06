@@ -14,7 +14,7 @@ logging:
   level:
     br:
       com:
-        fsales: debug
+        wells: debug
     org:
       hibernate:
         type: TRACE

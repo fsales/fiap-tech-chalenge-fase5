@@ -1,5 +1,6 @@
 package br.com.wells.app.infrastructure.spring.security.user.impl;
 
+import br.com.wells.app.infrastructure.spring.security.user.UsuarioCustomDetails;
 import br.com.wells.app.infrastructure.spring.security.user.UsuarioCustomDetailsService;
 import br.com.wells.core.domain.usuario.usecases.ConsultarUsuarioPorUsernameUseCase;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -21,14 +22,14 @@ public class UsuarioCustomDetailsServiceImpl implements UsuarioCustomDetailsServ
     ) {
         var usuario = consultarUsuarioPorUsernameUseCase.find(username);
 
-        return new br.com.wells.app.infrastructure.spring.security.user.UsuarioCustomDetails(
+        return new UsuarioCustomDetails(
                 usuario.username(),
                 usuario.senha(),
                 usuario.roles().stream().map(
                         role ->
                                 new SimpleGrantedAuthority("ROLE_".concat(role.nome()))
-                ).toList()
-
+                ).toList(),
+                usuario.id()
         );
     }
 }

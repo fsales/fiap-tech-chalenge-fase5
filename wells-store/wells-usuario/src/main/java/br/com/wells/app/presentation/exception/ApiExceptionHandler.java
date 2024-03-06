@@ -3,6 +3,7 @@ package br.com.wells.app.presentation.exception;
 import br.com.wells.core.domain.usuario.exception.EntityNotFoundException;
 import br.com.wells.core.domain.usuario.exception.SenhaInvalidaException;
 import br.com.wells.core.domain.usuario.exception.UsernameUniqueViolationException;
+import br.com.wells.core.domain.usuario.exception.UsuarioInvalidoException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,8 +20,8 @@ public class ApiExceptionHandler {
 
     private static final String MSG_ERROR = "[Error ] - ";
 
-    @ExceptionHandler(SenhaInvalidaException.class)
-    public ResponseEntity<ErrorMessage> passwordInvalidException(
+    @ExceptionHandler({SenhaInvalidaException.class, UsuarioInvalidoException.class})
+    public ResponseEntity<ErrorMessage> erroBadRequest(
             RuntimeException ex,
             HttpServletRequest request
     ) {

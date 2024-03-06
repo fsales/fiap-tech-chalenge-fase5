@@ -1,5 +1,8 @@
 package br.com.wells.core.domain.usuario.usecases.impl;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 import br.com.wells.core.domain.usuario.exception.UsernameUniqueViolationException;
 import br.com.wells.core.domain.usuario.exception.UsuarioInvalidoException;
 import br.com.wells.core.domain.usuario.gateways.CadastrarUsuarioGateway;
@@ -8,8 +11,6 @@ import br.com.wells.core.domain.usuario.gateways.ConsultarUsuarioPorUsernameGate
 import br.com.wells.core.domain.usuario.model.Role;
 import br.com.wells.core.domain.usuario.model.Usuario;
 import br.com.wells.core.domain.usuario.usecases.CadastrarUsuarioUseCase;
-
-import java.util.stream.Collectors;
 
 public final class CadastrarUsuarioUseCaseImpl implements CadastrarUsuarioUseCase {
 
@@ -29,20 +30,26 @@ public final class CadastrarUsuarioUseCaseImpl implements CadastrarUsuarioUseCas
     }
 
     @Override
-    public Usuario execute(
-            final Usuario usuario
-    ) {
+    public Usuario execute(final Usuario usuario) {
         validarUserName(usuario);
 
-        var roles = consultarRolePorNomeGateway
-                .find(
-                        usuario.roles().stream().map(Role::nome).collect(Collectors.toSet())
-                ).orElseThrow(
-                        () -> new UsuarioInvalidoException("Roles não encontrada")
-                );
+        Set<String> nomesRoles = usuario.roles().stream().map(Role::nome).collect(Collectors.toSet());
 
-        var usuarioSalvar = usuario.alterar(roles);
-        return cadastrarUsuarioGateway.execute(usuarioSalvar);
+        Set<Role> rolesEncontradas = consultarRolePorNomeGateway.find(
+                nomesRoles
+        )
+        .filter(lista -> !lista.isEmpty())
+        .orElseThrow(
+                () -> criarExcecaoRolesNaoEncontradas(nomesRoles)
+        );
+
+        return cadastrarUsuarioGateway.execute(usuario.alterar(rolesEncontradas));
+    }
+
+    private UsuarioInvalidoException criarExcecaoRolesNaoEncontradas(Set<String> nomesRolesNaoEncontradas) {
+        String mensagem = "Roles não encontrada(s): " +
+                          String.join(", ", nomesRolesNaoEncontradas);
+        return new UsuarioInvalidoException(mensagem);
     }
 
     private void validarUserName(
