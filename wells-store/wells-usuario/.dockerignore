@@ -1,0 +1,18 @@
+# .dockerignore
+
+# Arquivos e diretórios específicos
+.env
+#build.gradle.kts
+docker-compose.yaml
+README.md
+
+# Diretórios de compilação
+/build
+/generated
+/libs
+/resources
+/tmp
+/postman-collections
+
+# Outros
+.idea
