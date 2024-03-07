@@ -1,6 +1,6 @@
-plugins {
+import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
 
-    id("java")
+plugins {
     id("org.springframework.boot") version "3.2.3"
     id("io.spring.dependency-management") version "1.1.4"
 }
@@ -45,4 +45,22 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
+}
+
+tasks.named("bootJar") {
+    enabled = true
+}
+//tasks {
+//    bootBuildImage {
+//        imageName = "${rootProject.name}/${project.name}"
+//
+//    }
+//}
+
+tasks.named<BootBuildImage>("bootBuildImage") {
+    builder.set("paketobuildpacks/builder-jammy-base:latest")
+    imageName = "${rootProject.name}/${project.name}"
+    createdDate = "2024-07-03T10:10:10Z"
+    environment = mapOf("BP_JVM_VERSION" to "17.*")
+
 }

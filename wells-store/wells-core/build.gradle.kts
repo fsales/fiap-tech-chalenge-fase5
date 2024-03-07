@@ -1,7 +1,6 @@
-plugins {
-    id("java")
-    id("org.sonarqube") version "4.4.1.3373"
-}
+//plugins {
+//    id("java")
+//}
 
 val springSecurityCriptoVersion = "6.1.5"
 val commonsLoggingVersion = "1.3.0"
@@ -21,4 +20,11 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
     testImplementation("org.assertj:assertj-core:$assertjVersion")
+}
+
+tasks {
+    // Configuração da tarefa 'jar' para criar um arquivo JAR convencional
+    jar {
+        enabled = true
+    }
 }
