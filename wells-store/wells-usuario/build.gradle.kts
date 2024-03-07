@@ -58,7 +58,7 @@ tasks.named("bootJar") {
 //}
 
 tasks.named<BootBuildImage>("bootBuildImage") {
-    builder.set("paketobuildpacks/builder-jammy-base:latest")
+    //builder.set("paketobuildpacks/builder-jammy-base:latest")
     imageName = "${rootProject.name}/${project.name}"
     createdDate = "2024-07-03T10:10:10Z"
     environment = mapOf("BP_JVM_VERSION" to "17.*")
