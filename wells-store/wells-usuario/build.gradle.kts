@@ -1,4 +1,5 @@
 import org.springframework.boot.gradle.tasks.bundling.BootBuildImage
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     id("org.springframework.boot") version "3.2.3"
@@ -7,10 +8,7 @@ plugins {
 
 val springDocVersion = "2.3.0"
 val jwtAuth0Version = "4.4.0"
-
-springBoot {
-    mainClass.set("br.com.wells.app.WellsUsuarioAppApllication")
-}
+val mainClassWellsUsuario = "br.com.wells.app.WellsUsuarioAppApllication"
 
 dependencies {
     // Wells
@@ -29,7 +27,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
-
+    
 
     // Swagger
     implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springDocVersion")
@@ -47,15 +45,51 @@ dependencies {
     testImplementation("org.springframework.security:spring-security-test")
 }
 
-tasks.named("bootJar") {
-    enabled = true
-}
-//tasks {
-//    bootBuildImage {
-//        imageName = "${rootProject.name}/${project.name}"
+//tasks.named("bootJar") {
+//    enabled = true
 //
-//    }
 //}
+
+tasks.named<BootJar>("bootJar") {
+    enabled = true
+    archiveFileName.set("wells-usuario.jar")
+    layered {
+        enabled.set(true)
+        application {
+            intoLayer("spring-boot-loader") {
+                include("org/springframework/boot/loader/**")
+            }
+            intoLayer("application")
+        }
+        dependencies {
+            intoLayer("application") {
+                includeProjectDependencies()
+            }
+            intoLayer("snapshot-dependencies") {
+                include("*:*:*SNAPSHOT")
+            }
+            intoLayer("dependencies")
+        }
+        layerOrder.set(listOf("dependencies", "spring-boot-loader", "snapshot-dependencies", "application"))
+    }
+    mainClass.set(mainClassWellsUsuario)
+    manifest {
+        attributes("Start-Class" to mainClassWellsUsuario)
+    }
+}
+
+springBoot {
+    mainClass.set(mainClassWellsUsuario)
+
+    buildInfo {
+		properties {
+			artifact.set("wells-usuario")
+			version.set("1.0")
+			group.set("br.com.wells")
+			name.set("Modulo de Gerenciamento de usuario")
+		}
+	}
+}
 
 tasks.named<BootBuildImage>("bootBuildImage") {
     //builder.set("paketobuildpacks/builder-jammy-base:latest")

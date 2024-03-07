@@ -1,0 +1,52 @@
+# Stage 1: Build
+FROM maven:3-amazoncorretto-17 as builder
+
+WORKDIR /app
+
+# Copiar gralde
+COPY build.gradle.kts settings.gradle.kts .
+COPY gradle gradle
+COPY gradlew .
+RUN chmod +x gradlew # Dar permissões de execução ao arquivo gradlew
+
+# Copiar os projetos
+COPY wells-core wells-core
+COPY wells-usuario wells-usuario
+
+# Execute os comandos Gradle
+# RUN ./gradlew wells-core:clean wells-core:build -x test   && \
+#     ./gradlew wells-usuario:clean wells-usuario:build -x test --no-daemon && \
+#     cd wells-usuario/build/libs && \
+#     java -Djarmode=layertools -jar wells-usuario.jar extract
+
+RUN ./gradlew wells-usuario:clean wells-usuario:assemble -x test  --no-daemon 
+
+RUN mkdir /app/wells-usuario/build/extracted && \
+    java -Djarmode=layertools -jar /app/wells-usuario/build/libs/wells-usuario.jar extract --destination /app/wells-usuario/build/extracted
+
+RUN ls -la /app
+
+# RUN mkdir -p /app/wells-usuario/build/libs/dependency && \
+#     (cd /app/wells-usuario/build/libs/dependency; jar -xf /app/wells-usuario/build/libs/*.jar)
+
+
+
+# Stage 2: Runtime
+# FROM public.ecr.aws/amazoncorretto/amazoncorretto:17
+# RUN yum install -y shadow-utils
+
+# VOLUME /tmp
+
+# # Crie o grupo e o usuário sem depender da ferramenta "spring"
+# RUN groupadd --system --gid 3000 spring \
+#     && useradd --system --uid 1000 --shell /bin/false --gid spring spring
+
+# USER spring:spring
+
+# # ARG DEPENDENCY=/app/wells-usuario/build/libs/dependency
+# # COPY --from=build ${DEPENDENCY}/BOOT-INF/lib /app/lib
+# # COPY --from=build ${DEPENDENCY}/META-INF /app/META-INF
+# # COPY --from=build ${DEPENDENCY}/BOOT-INF/classes /app
+# COPY --from=builder /app/wells-usuario/build/libs/dependency/BOOT-INF/lib /app/lib
+# COPY --from=builder /app/wells-usuario/build/libs/dependency/META-INF /app/META-INF
+# COPY --from=builder /app/wells-usuario/build/libs/dependency/BOOT-INF/classes /app
