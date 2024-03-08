@@ -1,6 +1,6 @@
 springdoc:
   swagger-ui:
-    path: /docs-welld-usuario.html
+    path: /docs-wells-usuario.html
   api-docs:
-    path: /docs-welld-usuario
+    path: /docs-wells-usuario
   packages-to-scan: br.com.wells.app.presentation.rest
