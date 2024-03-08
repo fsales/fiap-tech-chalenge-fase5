@@ -57,11 +57,11 @@ docker_compose_up_wells_usuario: docker_build
 
 docker_compose_down_wells_usuario:
 	@echo "Running docker-compose down..."
-	docker-compose -f ../docker/docker-compose-wells-usuario.yaml down --remove-orphans
+	docker-compose -f ../docker/docker-compose-wells-usuario.yaml -p wells-usuario-api down --remove-orphans
 
 docker_compose_down_wells_usuario_remove_volumes:
 	@echo "Running docker-compose down with volumes..."
-	docker-compose -f ../docker/docker-compose-wells-usuario.yaml down --remove-orphans --volumes --rmi all
+	docker-compose -f ../docker/docker-compose-wells-usuario.yaml -p wells-usuario-api down --remove-orphans --volumes --rmi all
 
 # Meta para limpar artefatos de construção
 clean:
