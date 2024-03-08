@@ -1,0 +1,54 @@
+version: "3.8"
+
+services:
+  wells-usuario-app:
+    container_name: wells-usuario-app
+    image: wells-store/wells-usuario:latest
+    restart: always
+    ports:
+      - "8081:8081"
+    env_file:
+      - env/.env-wells-usuario
+    networks:
+      - wells-usuario-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 1024M
+        reservations:
+          cpus: '0.25'
+          memory: 64M
+    depends_on:
+      - wells-usuario-db
+
+  wells-usuario-db:
+    container_name: wells-usuario-postgres
+    image: postgres:latest
+    restart: always
+    user: postgres
+    env_file:
+      - env/.env-wells-usuario-db
+    volumes:
+      - postgres_data_usuario_db:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+    networks:
+      - wells-usuario-network
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 1024M
+        reservations:
+          cpus: '0.25'
+          memory: 64M
+networks:
+  wells-usuario-network:
+volumes:
+  postgres_data_usuario_db:

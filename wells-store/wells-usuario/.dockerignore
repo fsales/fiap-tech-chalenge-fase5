@@ -16,3 +16,8 @@ README.md
 
 # Outros
 .idea
+*.iml
+
+# Arquivos de configuração específicos do sistema
+.DS_Store
+Thumbs.db

@@ -26,7 +26,7 @@ public class SecurityConfigurations {
 
     private static final String[] DOCUMENTATION_OPENAPI = {
             "/docs/index.html",
-            "/docs-welld-usuario.html", "/docs-welld-usuario/**",
+            "/docs-wells-usuario.html", "/docs-wells-usuario/**",
             "/v3/api-docs/**",
             "/swagger-ui-custom.html", "/swagger-ui.html", "/swagger-ui/**",
             "/**.html", "/webjars/**", "/configuration/**", "/swagger-resources/**"
