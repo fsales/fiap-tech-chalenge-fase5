@@ -3,7 +3,7 @@
 # Arquivos e diretórios específicos
 .env
 #build.gradle.kts
-docker-compose.yaml
+../../docker/docker-compose.yaml
 README.md
 
 # Diretórios de compilação
