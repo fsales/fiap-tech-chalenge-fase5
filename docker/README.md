@@ -1,4 +1,10 @@
+<p align="center">
+ <img src="https://img.shields.io/static/v1?label=GitHub&message=@Wells-store&color=8257E5&labelColor=000000" alt="@wells-store" />
+ <img src="https://img.shields.io/static/v1?label=Tipo&message=Tech%20Chalenge&color=8257E5&labelColor=000000" alt="Tech Chalenge" />
+</p>
+
 [![logo docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white)](https://docker.com)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
 
 - [Docker](#docker)
   - [Docker Compose](#docker-compose)
@@ -70,7 +76,7 @@ Nesta seção, apresentamos os arquivos `docker-compose` de cada módulo do Well
 Para utilizar os arquivos `docker-compose`, é necessário realizar o build das imagens de cada módulo. Para tornar esse processo mais simples e automatizado, foi criado um arquivo `Makefile` para cada módulo.
 
 >Make e Makefile:
-Make é uma ferramenta de automação de compilação amplamente utilizada em sistemas Unix e Unix-like. Ela permite a definição de regras para compilar e construir programas, >>facilitando o processo de desenvolvimento de software. O Makefile é um arquivo de configuração que contém instruções para o Make sobre como compilar e construir o projeto. [^7]
+Make é uma ferramenta de automação de compilação amplamente utilizada em sistemas Unix e Unix-like. Ela permite a definição de regras para compilar e construir programas, facilitando o processo de desenvolvimento de software. O Makefile é um arquivo de configuração que contém instruções para o Make sobre como compilar e construir o projeto. [^7]
 
 Cada arquivo `docker-compose` pode conter configurações específicas para o módulo correspondente, como definições de rede, variáveis de ambiente e volumes montados. Certifique-se de revisar essas configurações antes de iniciar os serviços.
 
