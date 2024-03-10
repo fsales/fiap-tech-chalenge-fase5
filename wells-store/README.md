@@ -10,6 +10,7 @@
     - [Pré-requisitos](#pré-requisitos)
     - [Realizar do clone do projeto](#realizar-do-clone-do-projeto)
     - [GNU Make](#gnu-make)
+      - [Construção e Execução](#construção-e-execução)
     - [Banco de Dados](#banco-de-dados)
 
 # Projeto Wells
@@ -97,6 +98,8 @@ choco install make
 ```bash
 brew install make
 ```
+
+#### Construção e Execução
 
 Para facilitar o processo de compilação e execução do projeto, foram criados arquivos `Makefile` para cada módulo do projeto. Esses arquivos contêm regras para compilar e executar o projeto.
 
