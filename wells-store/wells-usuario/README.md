@@ -141,7 +141,7 @@ Pré-requisitos e [configurações do ambiente de desenvolvimento](../README.md#
 
 #### Banco de dados de desenvolvimento
 
-Para iniciar o banco de desenvolvimento, execute os passos descrito no arquivo [README.md](/wells-store/README.md#executar-docker-compose-do-banco-postgres-de-desenvolvimento-para-wells-usuario).
+Para iniciar o banco de desenvolvimento, execute os passos descrito no arquivo [Executar docker-compose do banco Postgres de desenvolvimento para wells-usuario](/wells-store/README.md#executar-docker-compose-do-banco-postgres-de-desenvolvimento-para-wells-usuario).
 
 ### Arquivos de Configuração
 
