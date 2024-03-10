@@ -63,6 +63,14 @@ docker_compose_down_wells_usuario_remove_volumes:
 	@echo "Running docker-compose down with volumes..."
 	docker-compose -f ../docker/docker-compose-wells-usuario.yaml -p wells-usuario-api down --remove-orphans --volumes --rmi all
 
+docker_compose_up_wells_usuario_postgres:
+	@echo "Running docker-compose up..."
+	docker-compose -f ../docker/docker-compose-postgres.yaml -p wells-usuario-db --env-file ../docker/env/.env-wells-usuario-db up -d --force-recreate  --remove-orphans
+
+docker_compose_down_wells_usuario_postgres:
+	@echo "Running docker-compose up..."
+	docker-compose -f ../docker/docker-compose-postgres.yaml -p wells-usuario-db --env-file ../docker/env/.env-wells-usuario-db down --remove-orphans
+
 # Meta para limpar artefatos de construção
 clean:
 	@echo "Cleaning up build artifacts..."

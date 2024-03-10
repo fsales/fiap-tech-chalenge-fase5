@@ -33,6 +33,8 @@
   - [Clean Architecture](#clean-architecture)
   - [Estrutura do Projeto](#estrutura-do-projeto)
     - [Ambiente de Desenvolvimento](#ambiente-de-desenvolvimento)
+      - [Configuração Comuns](#configuração-comuns)
+      - [Banco de dados de desenvolvimento](#banco-de-dados-de-desenvolvimento)
     - [Arquivos de Configuração](#arquivos-de-configuração)
       - [Configuração no Spring Boot \[^1\]](#configuração-no-spring-boot-1)
         - [1. Arquivo Principal (`application.properties` ou `application.yml`):](#1-arquivo-principal-applicationproperties-ou-applicationyml)
@@ -130,10 +132,16 @@ A estrutura do projeto foi organizada de acordo com a Clean Architecture. A estr
 
 Pré-requisitos e [configurações do ambiente de desenvolvimento](../README.md#configuração-do-ambiente-de-desenvolvimento).
 
+#### Configuração Comuns
+
 - [Pré-requisitos](../README.md#pré-requisitos)
 - [Realizar do clone do projeto](../README.md#realizar-do-clone-do-projeto)
 - [GNU Make](../README.md#gnu-make)
   - [Construção e Execução](../README.md#construção-e-execução)
+
+#### Banco de dados de desenvolvimento
+
+Para iniciar o banco de desenvolvimento, execute os passos descrito no arquivo [README.md](/wells-store/README.md#executar-docker-compose-do-banco-postgres-de-desenvolvimento-para-wells-usuario).
 
 ### Arquivos de Configuração
 
