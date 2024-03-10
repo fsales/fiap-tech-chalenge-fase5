@@ -2,7 +2,6 @@ package br.com.wells.app.infrastructure.spring.config.swagger;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
-import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityScheme;
@@ -22,7 +21,6 @@ public class SpringDocOpenApiConfig {
                                 .description("API para gestão usuários")
                                 .version("v1")
                                 .license(new License().name("MIT License"))
-                                .contact(new Contact().name("Fábio").email("fabio.oliveira.sales@gmail.com"))
                 );
     }
 
