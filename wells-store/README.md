@@ -8,6 +8,7 @@
   - [Estrutura do Projeto](#estrutura-do-projeto)
   - [Configuração do Ambiente de Desenvolvimento](#configuração-do-ambiente-de-desenvolvimento)
     - [Pré-requisitos](#pré-requisitos)
+    - [Realizar do clone do projeto](#realizar-do-clone-do-projeto)
     - [GNU Make](#gnu-make)
     - [Banco de Dados](#banco-de-dados)
 
@@ -19,8 +20,21 @@ O Projeto Wells é uma aplicação que utiliza a arquitetura Clean Architecture 
 
 ## Estrutura do Projeto
 
-- **wells-core:** Estrutura da camada de domínio, classes principais e princípios do Clean Architecture.
-- **wells-usuario:** Módulo de usuário com camadas de apresentação, infraestrutura e domínio.
+O projeto foi dividido em módulos para facilitar a manutenção e a escalabilidade. Cada módulo possui sua própria estrutura de diretórios e arquivos, incluindo um arquivo `Makefile` para automatizar a compilação e execução do projeto.
+
+A estrutura do projeto é a seguinte:
+
+```plaintext
+└───wells-store
+    │   
+    ├───wells-core
+    │   
+    └───wells-usuario
+```
+
+- **wells-store:** Projeto principal que contém os módulos do projeto.
+  - **wells-core:** Estrutura da camada de domínio, classes principais e princípios do Clean Architecture.
+  - **wells-usuario:** Módulo de usuário com camadas de apresentação, infraestrutura e domínio.
 
 ## Configuração do Ambiente de Desenvolvimento
 
@@ -30,6 +44,43 @@ O Projeto Wells é uma aplicação que utiliza a arquitetura Clean Architecture 
 - Maven
 - Gnu Make
 - Docker
+
+### Realizar do clone do projeto
+
+1. Abrir o terminal e navegar até o diretório onde o projeto será clonado.
+
+**Terminal:**
+
+- Git Bash
+- CMD
+- Bash
+- Outros
+
+Exemplo de como navegar até o diretório onde o projeto será clonado:
+
+```bash
+cd /c/projetos/
+```
+
+2. Clonar o repositório do projeto e exe.
+
+```bash
+git clone https://github.com/fsales/fiap-tech-chalenge-fase5.git fiap-tech-chalenge-fase5
+```
+
+3. Navegar até o diretório do projeto.
+
+```bash
+cd fiap-tech-chalenge-fase5/wells-store
+```
+
+4. Verificar se o diretório do projeto foi clonado corretamente.
+
+```bash
+ls
+```
+
+5.Executar os estágios do [Make](https://github.com/fsales/fiap-tech-chalenge-fase5/blob/feature/usuario/wells-store/README.md#gnu-make) ou faça importação na sua IDE de preferência.
 
 ### GNU Make
 
