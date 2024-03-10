@@ -32,9 +32,18 @@
   - [Descrição do Projeto](#descrição-do-projeto)
   - [Clean Architecture](#clean-architecture)
   - [Estrutura do Projeto](#estrutura-do-projeto)
-    - [Configuração do Ambiente de Desenvolvimento](#configuração-do-ambiente-de-desenvolvimento)
-    - [Construção e Execução](#construção-e-execução)
+    - [Ambiente de Desenvolvimento](#ambiente-de-desenvolvimento)
     - [Arquivos de Configuração](#arquivos-de-configuração)
+  - [Configuração no Spring Boot \[^1\]](#configuração-no-spring-boot-1)
+    - [1. Arquivo Principal (`application.properties` ou `application.yml`):](#1-arquivo-principal-applicationproperties-ou-applicationyml)
+    - [2. Perfis de Configuração:](#2-perfis-de-configuração)
+    - [3. Prioridade de Carregamento:](#3-prioridade-de-carregamento)
+    - [4. Variáveis de Ambiente e Linha de Comando:](#4-variáveis-de-ambiente-e-linha-de-comando)
+    - [5. Configuração Programática:](#5-configuração-programática)
+  - [Migração no Liquibase \[^2\]](#migração-no-liquibase-2)
+    - [Estrutura do Banco de Dados](#estrutura-do-banco-de-dados)
+  - [Arquivo `.env`](#arquivo-env)
+  - [Referência Bibliográfica](#referência-bibliográfica)
 
 # Módulo Wells Usuário
 
@@ -111,15 +120,83 @@ A estrutura do projeto foi organizada de acordo com a Clean Architecture. A estr
         └───resources
 ```
 
-### Configuração do Ambiente de Desenvolvimento
+### Ambiente de Desenvolvimento
 
-Pré-requisitos e configurações do ambiente de desenvolvimento.
+Pré-requisitos e [configurações do ambiente de desenvolvimento](../README.md#configuração-do-ambiente-de-desenvolvimento).
 
-### Construção e Execução
-
-Instruções para construir e executar o módulo.
+- [Pré-requisitos](../README.md#pré-requisitos)
+- [Realizar do clone do projeto](../README.md#realizar-do-clone-do-projeto)
+- [GNU Make](../README.md#gnu-make)
+  - [Construção e Execução](../README.md#construção-e-execução)
 
 ### Arquivos de Configuração
 
-Detalhes sobre os arquivos de configuração.
+## Configuração no Spring Boot [^1]
 
+### 1. Arquivo Principal (`application.properties` ou `application.yml`):
+
+- Este arquivo, localizado em `src/main/resources`, serve como o principal repositório de configurações globais.
+
+### 2. Perfis de Configuração:
+
+- Arquivos específicos para perfis, tais como `application-dev.properties` ou `application-prod.yml`, são destinados a configurações específicas de ambiente.
+
+### 3. Prioridade de Carregamento:
+
+- A ordem de prioridade segue este padrão:
+    1. Configurações específicas do perfil (por exemplo, `application-dev.properties`).
+    2. Configurações específicas do perfil no formato YAML (por exemplo, `application-dev.yml`).
+    3. Configurações no arquivo principal `application.properties`.
+    4. Configurações no arquivo principal `application.yml`.
+- Configurações de perfis e formato YAML têm precedência sobre configurações no formato de propriedades.
+
+### 4. Variáveis de Ambiente e Linha de Comando:
+
+- As configurações podem ser substituídas por variáveis de ambiente ou argumentos da linha de comando.
+
+### 5. Configuração Programática:
+
+- É possível realizar configurações programáticas usando classes Java específicas.
+
+---
+
+As configurações do módulo estão localizadas no diretório `src/main/resources`.
+
+Os arquivos de configuração do projeto incluem:
+
+- `application-dev.yml`: Configurações para o ambiente de desenvolvimento.
+- `application-prod.yml`: Configurações para o ambiente de produção.
+- `application.yml`: Configurações padrão.
+- `application-actuator.yml`: Configurações específicas do Actuator.
+- `application-springdoc.yml`: Configurações específicas do Springdoc.
+
+## Migração no Liquibase [^2]
+
+O termo "migration" no Liquibase refere-se a alterações planejadas no esquema de um banco de dados. Essas alterações são gerenciadas de forma controlada e versionada pela ferramenta [Liquibase](https://docs.liquibase.com/), permitindo uma abordagem organizada.
+
+Essas migrações são definidas em arquivos de changelog, encapsuladas em "changesets" e aplicadas de maneira sequencial e ordenada. Algumas características-chave incluem a DSL do Liquibase, permitindo descrições independentes do banco de dados, e suporte para rollback, multiambiente e integração com ferramentas de construção.
+
+### Estrutura do Banco de Dados
+
+As configurações do banco de dados estão armazenadas no diretório `src/main/resources/db/changelog/changes/postgres`.
+
+As definições de migração do banco de dados estão presentes nos seguintes arquivos:
+
+- `V0__CREATE_SCHEMA.sql`: Responsável pela criação do esquema do banco de dados.
+- `V1__CREATE_USUARIO.sql`: Efetua a criação da tabela `usuario`.
+- `V2__TRIGGER.sql`: Encarrega-se da criação do trigger para a tabela `usuario`.
+- `V3__DML.sql`: Realiza a inserção de dados na tabela `usuario`.
+
+## Arquivo `.env`
+
+O arquivo `.env` é utilizado para armazenar informações sensíveis, como chaves e senhas, separando esses dados do código-fonte. Isso facilita a configuração do software em diferentes ambientes, embora seja importante notar que o `.env` por si só não garante total segurança.
+
+No projeto Wells Usuário, o arquivo `.env` está localizado no diretório `wells-store/wells-usuario` e contém as variáveis de ambiente necessárias para a execução do módulo.
+
+O arquivo esta disponível no repositório do projeto através do link [`.env`](.env).
+
+## Referência Bibliográfica
+
+[^1]: [Documentação Oficial do Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/)
+
+[^2]: [Documentação do Liquibase](https://docs.liquibase.com/)
