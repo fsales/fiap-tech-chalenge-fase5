@@ -141,7 +141,7 @@ Pré-requisitos e [configurações do ambiente de desenvolvimento](../README.md#
 
 #### Banco de dados de desenvolvimento
 
-Para iniciar o banco de desenvolvimento, execute os passos descrito no arquivo [Executar docker-compose do banco Postgres de desenvolvimento para wells-usuario](/wells-store/README.md#executar-docker-compose-do-banco-postgres-de-desenvolvimento-para-wells-usuario).
+Para iniciar o banco de desenvolvimento, execute os passos descrito em [Executar docker-compose do banco Postgres de desenvolvimento para wells-usuario](/wells-store/README.md#executar-docker-compose-do-banco-postgres-de-desenvolvimento-para-wells-usuario).
 
 ### Arquivos de Configuração
 
@@ -211,33 +211,101 @@ O arquivo está disponível no repositório do projeto através do link [`.env`]
 
 ## Endpoints do Módulo Wells Usuário
 
-Nesta seção, apresentamos uma lista de endpoints disponíveis no módulo Wells Usuário, todos devidamente documentados no Swagger. Você pode acessar a documentação por meio do link [Swagger](http://localhost:8081/docs-wells-usuario.html).
+Nesta seção, apresentamos a lista de endpoints disponíveis no módulo Wells Usuário, todos devidamente documentados no Swagger. A documentação pode ser acessada por meio do link [Swagger](http://localhost:8081/docs-wells-usuario.html).
 
-Para realizar requisições HTTP, sugerimos a utilização do Swagger para uma exploração interativa ou do Postman, onde a coleção de requisições está disponível no diretório [`postman-collections`](postman-collections/).
+Para realizar requisições HTTP, sugerimos a utilização do Swagger para uma exploração interativa ou do Postman. A coleção de requisições está disponível no diretório [`postman-collections`](postman-collections/).
 
-A lista de endpoints disponíveis no módulo Wells Usuário inclui:
+Ao iniciar o módulo Wells Usuário, será realizado a migração do banco de dados e a inserção de dois usuários para testes.
+
+| Usuário               | Senha  | Perfil |
+|-----------------------|--------|--------|
+| admin@wellsstore.br   | 123456 | ADMIN  |
+| cliente@wellsstore.br | 123456 | CLIENTE|
+
+O Wells Usuário permite apenas a criação de usuários com perfil `CLIENTE` ou `ADMIN`.
+
+**Lista de endpoints disponíveis no módulo Wells Usuário:**
 
 ### Autenticação
 
 - `POST /api/v1/auth/login`: Endpoint da API Wells Usuário para autenticação de usuários.
+  
+1. `Endpoint`: /api/v1/auth/login
+2. `Método`: POST
+3. `Perfil de Acesso`: Não requer autenticação
+4. `Autenticação`: Não requer
+
+**Exemplo de requisição:**
+
+curl:
+
+```bash
+curl -X 'POST' \
+  'http://127.0.0.1:8081/api/v1/auth/login' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "username": "admin@wellsstore.br",
+  "senha": "123456"
+}'
+```
+
+```json
+{
+  "username": "admin@wellsstore.br",
+  "senha": "123456"
+}
+```
+
+Resposta:
+
+```json
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoLWFwaSIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzEwMTA4MDY0LCJzdWIiOiJhZG1pbkB3ZWxsc3N0b3JlLmJyIiwiZXhwIjoxNzEwMTA5ODY0fQ.0WAL-xvSWJ30ews5JSQXWAAO6Mxc5c_BWmUT6RhEIPk"
+}
+```
 
 ### Cadastrar Usuário
 
 - `POST /api/v1/usuarios`: Endpoint da API Wells Usuário para registro de novos usuários.
 
+1. `Endpoint`: /api/v1/usuarios
+2. `Método`: POST
+3. `Perfil de Acesso`: Não requer autenticação
+4. `Autenticação`: Não requer
+
+**Exemplo de requisição:**
+
+curl:
+
+```bash
+curl -X 'POST' \
+  'http://127.0.0.1:8081/api/v1/usuarios' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "username": "andre@wellsstore.br",
+  "senha": "123456",
+  "roles": "ADMIN, CLIENTE"
+}'
+```
+
 ### Alterar Senha do Usuário
 
 - `PATCH /api/v1/usuarios/{id}/senha`: Endpoint da API Wells Usuário para alteração da senha do usuário.
 
+**importante: O token gerado na autenticação deve ser enviado no header `Authorization` para realizar as requisições.**
 ### Listar Usuário
 
 - `GET /api/v1/usuarios`: Endpoint da API Wells Usuário para listar todos os usuários.
 
+**importante: O token gerado na autenticação deve ser enviado no header `Authorization` para realizar as requisições.**
 ### Listar Usuário por ID
 
 - `GET /api/v1/usuarios/{id}`: Endpoint da API Wells Usuário para listar um usuário específico por ID.
 
 
+**importante: O token gerado na autenticação deve ser enviado no header `Authorization` para realizar as requisições.**
 ## Referência Bibliográfica
 
 [^1]: [Documentação Oficial do Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/)

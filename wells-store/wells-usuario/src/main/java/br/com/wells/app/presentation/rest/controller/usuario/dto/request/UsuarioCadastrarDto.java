@@ -16,6 +16,8 @@ public record UsuarioCadastrarDto(
         @NotEmpty(groups = {CreateInfo.class})
         @Size(min = 6, max = 6, message = "A senha deve ter 6 caracteres", groups = {CreateInfo.class})
         String senha,
-        Set<String> roles
+        @NotEmpty(groups = {CreateInfo.class})
+        @Size(min = 1, message = "Deve ter pelo menos um papel", groups = {CreateInfo.class})
+        Set<@NotEmpty(groups = {CreateInfo.class})@Size(min = 1, message = "Cada papel deve ter pelo menos um caractere", groups = {CreateInfo.class}) String> roles
 ) implements UsuarioCadastrarDtoSwagger {
 }
