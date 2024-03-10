@@ -9,7 +9,6 @@
   - [Configuração do Ambiente de Desenvolvimento](#configuração-do-ambiente-de-desenvolvimento)
     - [Pré-requisitos](#pré-requisitos)
     - [GNU Make](#gnu-make)
-- [Passos para Executar a Partir do Módulo `wells-usuario`](#passos-para-executar-a-partir-do-módulo-wells-usuario)
     - [Banco de Dados](#banco-de-dados)
 
 # Projeto Wells
@@ -85,7 +84,7 @@ Para facilitar o processo de compilação e execução do projeto, foram criados
 
 - [Wells Usuário Makefile](make-wells-usuario.mk)
 
-# Passos para Executar a Partir do Módulo `wells-usuario`
+**Passos para Executar a Partir do módulo `wells-store`**
 
 1. **Construir o Projeto Java:**
    - Abra um terminal e navegue até o diretório `wells-usuario`.
@@ -130,8 +129,8 @@ Para facilitar o processo de compilação e execução do projeto, foram criados
     ```bash
     make -f make-wells-usuario.mk clean
     ```
-Estes comandos devem ser executados no diretório `wells-store`, onde o arquivo `make-wells-usuario.mk` está localizado e onde o projeto `wells-store` está armazenado. Certifique-se de ajustar o diretório conforme necessário antes de executar os comandos.
 
+Estes comandos devem ser executados no diretório `wells-store`, onde o arquivo `make-wells-usuario.mk` está localizado e onde o projeto `wells-store` está armazenado. Certifique-se de ajustar o diretório conforme necessário antes de executar os comandos.
 
 ### Banco de Dados
 
