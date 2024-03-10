@@ -135,21 +135,16 @@ docker-compose -f docker-compose-wells-usuario.yaml --env-file env/.env-wells-us
 
 ## Referência Bibliográfica
 
-- Docker
+  [^1]: [Documentação Oficial do Docker](https://docs.docker.com/)
 
-    [^1]: [Documentação Oficial do Docker](https://docs.docker.com/)
+  [^2]: [Tutorial do Docker no Docker Docs](https://docs.docker.com/get-started/)
 
-    [^2]: [Tutorial do Docker no Docker Docs](https://docs.docker.com/get-started/)
+  [^3]: [Docker no GitHub](https://github.com/docker)
 
-    [^3]: [Docker no GitHub](https://github.com/docker)
+  [^4]: [Documentação Oficial do Docker Compose](https://docs.docker.com/compose/)
 
-- Docker Compose
+  [^5]: [Tutorial do Docker Compose no Docker Docs](https://docs.docker.com/compose/gettingstarted/)
+
+  [^6]: [Docker Compose no GitHub](https://github.com/docker/compose)
   
-    [^4]: [Documentação Oficial do Docker Compose](https://docs.docker.com/compose/)
-
-    [^5]: [Tutorial do Docker Compose no Docker Docs](https://docs.docker.com/compose/gettingstarted/)
-
-    [^6]: [Docker Compose no GitHub](https://github.com/docker/compose)
-
-- Make
   [^7]: [Documentação Oficial do Make](https://www.gnu.org/software/make/manual/make.html)
