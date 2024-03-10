@@ -34,15 +34,21 @@
   - [Estrutura do Projeto](#estrutura-do-projeto)
     - [Ambiente de Desenvolvimento](#ambiente-de-desenvolvimento)
     - [Arquivos de Configuração](#arquivos-de-configuração)
-  - [Configuração no Spring Boot \[^1\]](#configuração-no-spring-boot-1)
-    - [1. Arquivo Principal (`application.properties` ou `application.yml`):](#1-arquivo-principal-applicationproperties-ou-applicationyml)
-    - [2. Perfis de Configuração:](#2-perfis-de-configuração)
-    - [3. Prioridade de Carregamento:](#3-prioridade-de-carregamento)
-    - [4. Variáveis de Ambiente e Linha de Comando:](#4-variáveis-de-ambiente-e-linha-de-comando)
-    - [5. Configuração Programática:](#5-configuração-programática)
-  - [Migração no Liquibase \[^2\]](#migração-no-liquibase-2)
-    - [Estrutura do Banco de Dados](#estrutura-do-banco-de-dados)
-  - [Arquivo `.env`](#arquivo-env)
+      - [Configuração no Spring Boot \[^1\]](#configuração-no-spring-boot-1)
+        - [1. Arquivo Principal (`application.properties` ou `application.yml`):](#1-arquivo-principal-applicationproperties-ou-applicationyml)
+        - [2. Perfis de Configuração:](#2-perfis-de-configuração)
+        - [3. Prioridade de Carregamento:](#3-prioridade-de-carregamento)
+        - [4. Variáveis de Ambiente e Linha de Comando:](#4-variáveis-de-ambiente-e-linha-de-comando)
+        - [5. Configuração Programática:](#5-configuração-programática)
+      - [Migração no Liquibase \[^2\]](#migração-no-liquibase-2)
+        - [Estrutura do Banco de Dados](#estrutura-do-banco-de-dados)
+      - [Arquivo `.env`](#arquivo-env)
+  - [Endpoints do Módulo Wells Usuário](#endpoints-do-módulo-wells-usuário)
+    - [Autenticação](#autenticação)
+    - [Cadastrar Usuário](#cadastrar-usuário)
+    - [Alterar Senha do Usuário](#alterar-senha-do-usuário)
+    - [Listar Usuário](#listar-usuário)
+    - [Listar Usuário por ID](#listar-usuário-por-id)
   - [Referência Bibliográfica](#referência-bibliográfica)
 
 # Módulo Wells Usuário
@@ -131,17 +137,17 @@ Pré-requisitos e [configurações do ambiente de desenvolvimento](../README.md#
 
 ### Arquivos de Configuração
 
-## Configuração no Spring Boot [^1]
+#### Configuração no Spring Boot [^1]
 
-### 1. Arquivo Principal (`application.properties` ou `application.yml`):
+##### 1. Arquivo Principal (`application.properties` ou `application.yml`):
 
 - Este arquivo, localizado em `src/main/resources`, serve como o principal repositório de configurações globais.
 
-### 2. Perfis de Configuração:
+##### 2. Perfis de Configuração:
 
 - Arquivos específicos para perfis, tais como `application-dev.properties` ou `application-prod.yml`, são destinados a configurações específicas de ambiente.
 
-### 3. Prioridade de Carregamento:
+##### 3. Prioridade de Carregamento:
 
 - A ordem de prioridade segue este padrão:
     1. Configurações específicas do perfil (por exemplo, `application-dev.properties`).
@@ -150,11 +156,11 @@ Pré-requisitos e [configurações do ambiente de desenvolvimento](../README.md#
     4. Configurações no arquivo principal `application.yml`.
 - Configurações de perfis e formato YAML têm precedência sobre configurações no formato de propriedades.
 
-### 4. Variáveis de Ambiente e Linha de Comando:
+##### 4. Variáveis de Ambiente e Linha de Comando:
 
 - As configurações podem ser substituídas por variáveis de ambiente ou argumentos da linha de comando.
 
-### 5. Configuração Programática:
+##### 5. Configuração Programática:
 
 - É possível realizar configurações programáticas usando classes Java específicas.
 
@@ -170,13 +176,13 @@ Os arquivos de configuração do projeto incluem:
 - `application-actuator.yml`: Configurações específicas do Actuator.
 - `application-springdoc.yml`: Configurações específicas do Springdoc.
 
-## Migração no Liquibase [^2]
+#### Migração no Liquibase [^2]
 
 O termo "migration" no Liquibase refere-se a alterações planejadas no esquema de um banco de dados. Essas alterações são gerenciadas de forma controlada e versionada pela ferramenta [Liquibase](https://docs.liquibase.com/), permitindo uma abordagem organizada.
 
 Essas migrações são definidas em arquivos de changelog, encapsuladas em "changesets" e aplicadas de maneira sequencial e ordenada. Algumas características-chave incluem a DSL do Liquibase, permitindo descrições independentes do banco de dados, e suporte para rollback, multiambiente e integração com ferramentas de construção.
 
-### Estrutura do Banco de Dados
+##### Estrutura do Banco de Dados
 
 As configurações do banco de dados estão armazenadas no diretório `src/main/resources/db/changelog/changes/postgres`.
 
@@ -187,13 +193,42 @@ As definições de migração do banco de dados estão presentes nos seguintes a
 - `V2__TRIGGER.sql`: Encarrega-se da criação do trigger para a tabela `usuario`.
 - `V3__DML.sql`: Realiza a inserção de dados na tabela `usuario`.
 
-## Arquivo `.env`
+#### Arquivo `.env`
 
 O arquivo `.env` é utilizado para armazenar informações sensíveis, como chaves e senhas, separando esses dados do código-fonte. Isso facilita a configuração do software em diferentes ambientes, embora seja importante notar que o `.env` por si só não garante total segurança.
 
 No projeto Wells Usuário, o arquivo `.env` está localizado no diretório `wells-store/wells-usuario` e contém as variáveis de ambiente necessárias para a execução do módulo.
 
-O arquivo esta disponível no repositório do projeto através do link [`.env`](.env).
+O arquivo está disponível no repositório do projeto através do link [`.env`](.env).
+
+## Endpoints do Módulo Wells Usuário
+
+Nesta seção, apresentamos uma lista de endpoints disponíveis no módulo Wells Usuário, todos devidamente documentados no Swagger. Você pode acessar a documentação por meio do link [Swagger](http://localhost:8081/docs-wells-usuario.html).
+
+Para realizar requisições HTTP, sugerimos a utilização do Swagger para uma exploração interativa ou do Postman, onde a coleção de requisições está disponível no diretório [`postman-collections`](postman-collections/).
+
+A lista de endpoints disponíveis no módulo Wells Usuário inclui:
+
+### Autenticação
+
+- `POST /api/v1/auth/login`: Endpoint da API Wells Usuário para autenticação de usuários.
+
+### Cadastrar Usuário
+
+- `POST /api/v1/usuarios`: Endpoint da API Wells Usuário para registro de novos usuários.
+
+### Alterar Senha do Usuário
+
+- `PATCH /api/v1/usuarios/{id}/senha`: Endpoint da API Wells Usuário para alteração da senha do usuário.
+
+### Listar Usuário
+
+- `GET /api/v1/usuarios`: Endpoint da API Wells Usuário para listar todos os usuários.
+
+### Listar Usuário por ID
+
+- `GET /api/v1/usuarios/{id}`: Endpoint da API Wells Usuário para listar um usuário específico por ID.
+
 
 ## Referência Bibliográfica
 

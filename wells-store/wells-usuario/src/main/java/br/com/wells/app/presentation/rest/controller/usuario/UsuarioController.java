@@ -65,7 +65,7 @@ public class UsuarioController implements UsuarioControllerSwagger {
     }
 
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/{id}/senha")
     @PreAuthorize("hasAnyRole('ADMIN', 'CLIENTE') AND (#id == authentication.principal.id)")
     @Override
     public ResponseEntity<Void> alterarSenha(
