@@ -233,7 +233,9 @@ O Wells Usuário permite apenas a criação de usuários com perfil `CLIENTE` ou
 1. `Endpoint`: /api/v1/auth/login
 2. `Método`: POST
 3. `Perfil de Acesso`: Não requer autenticação
-4. `Autenticação`: Não requer
+4. **Autenticação:**
+   - **Requer Token:** Não.
+   - **Restrição:** Acesso permitido somente para usuários cadastrados. Requer usuário e senha.
 
 **Exemplo de requisição:**
 
@@ -272,7 +274,9 @@ Resposta:
 1. `Endpoint`: /api/v1/usuarios
 2. `Método`: POST
 3. `Perfil de Acesso`: Não requer autenticação
-4. `Autenticação`: Não requer
+4. **Autenticação:**
+   - **Requer Token:** Não.
+   - **Restrição:** Acesso livre para qualquer usuário.
 
 **Exemplo de requisição:**
 
@@ -286,26 +290,205 @@ curl -X 'POST' \
   -d '{
   "username": "andre@wellsstore.br",
   "senha": "123456",
-  "roles": "ADMIN, CLIENTE"
+  "roles": [
+    "ADMIN",
+    "CLIENTE"
+  ]
 }'
+```
+
+```json
+{
+  "username": "andre@wellsstore.br",
+  "senha": "123456",
+  "roles": [
+    "ADMIN",
+    "CLIENTE"
+  ]
+}
+```
+
+Resposta:
+
+```json
+{
+  "id": 3,
+  "username": "andre@wellsstore.br",
+  "roles": [
+    "ADMIN",
+    "CLIENTE"
+  ],
+  "dataCriacao": "2024-03-10T20:28:09.461607"
+}
 ```
 
 ### Alterar Senha do Usuário
 
 - `PATCH /api/v1/usuarios/{id}/senha`: Endpoint da API Wells Usuário para alteração da senha do usuário.
+  
+1. `Endpoint`: PATCH /api/v1/usuarios/{id}/senha
+2. `Método`: PATCH
+3. `Perfil de Acesso`: ADMIN ou CLIENTE
+4. **Autenticação:**
+   - **Requer Token:** Sim
+   - **Restrição:** A alteração da senha é permitida apenas para o próprio usuário.
+
+
+**Exemplo de requisição:**
+
+curl:
+
+```bash
+curl -X 'PATCH' \
+  'http://127.0.0.1:8081/api/v1/usuarios/3/senha' \
+  -H 'accept: */*' \
+  -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoLWFwaSIsInJvbGUiOiJST0xFX0NMSUVOVEUiLCJpYXQiOjE3MTAxMTM4NjMsInN1YiI6ImFuZHJlQHdlbGxzc3RvcmUuYnIiLCJleHAiOjE3MTAxMTU2NjN9.jgmwldn-xv4LxxC2PiVdFPElsjo3_2MUb9ZBfnzyPws' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "senhaAtual": "123456",
+  "novaSenha": "789101112",
+  "confirmaSenha": "789101112"
+}'
+```
+
+```json
+{
+  "senhaAtual": "123456",
+  "novaSenha": "789101112",
+  "confirmaSenha": "789101112"
+}
+```
+
+Resposta:
+
+```json
+{
+}
+```
 
 **importante: O token gerado na autenticação deve ser enviado no header `Authorization` para realizar as requisições.**
+
 ### Listar Usuário
 
 - `GET /api/v1/usuarios`: Endpoint da API Wells Usuário para listar todos os usuários.
+
+1. `Endpoint`: GET /api/v1/usuarios
+2. `Método`: GET
+3. `Perfil de Acesso`: ADMIN
+4. **Autenticação:**
+   - **Requer Token:** Sim
+   - **Restrição:** A listagem de usuários é permitida apenas para usuários com perfil `ADMIN`
+
+**Exemplo de requisição:**
+
+curl:
+
+```bash
+curl -X 'GET' \
+  'http://127.0.0.1:8081/api/v1/usuarios?page=0&size=20' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoLWFwaSIsInJvbGUiOiJST0xFX0NMSUVOVEUiLCJpYXQiOjE3MTAxMTM4NjMsInN1YiI6ImFuZHJlQHdlbGxzc3RvcmUuYnIiLCJleHAiOjE3MTAxMTU2NjN9.jgmwldn-xv4LxxC2PiVdFPElsjo3_2MUb9ZBfnzyPws'
+```
+
+Resposta:
+
+```json
+{
+  "content": [
+    {
+      "id": 1,
+      "username": "cliente@wellsstore.br",
+      "roles": [
+        "CLIENTE"
+      ],
+      "dataCriacao": "2024-03-10T20:26:21.107512"
+    },
+    {
+      "id": 2,
+      "username": "admin@wellsstore.br",
+      "roles": [
+        "ADMIN"
+      ],
+      "dataCriacao": "2024-03-10T20:26:21.107512"
+    },
+    {
+      "id": 3,
+      "username": "andre@wellsstore.br",
+      "roles": [
+        "ADMIN",
+        "CLIENTE"
+      ],
+      "dataCriacao": "2024-03-10T20:28:09.461607"
+    }
+  ],
+  "pageable": {
+    "pageNumber": 0,
+    "pageSize": 20,
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "offset": 0,
+    "unpaged": false,
+    "paged": true
+  },
+  "last": true,
+  "totalPages": 1,
+  "totalElements": 3,
+  "size": 20,
+  "number": 0,
+  "sort": {
+    "empty": true,
+    "sorted": false,
+    "unsorted": true
+  },
+  "numberOfElements": 3,
+  "first": true,
+  "empty": false
+}
+```
+
 
 **importante: O token gerado na autenticação deve ser enviado no header `Authorization` para realizar as requisições.**
 ### Listar Usuário por ID
 
 - `GET /api/v1/usuarios/{id}`: Endpoint da API Wells Usuário para listar um usuário específico por ID.
 
+1. `Endpoint`: GET /api/v1/usuarios/{id}
+2. `Método`: GET
+3. `Perfil de Acesso`: `ADMIN` e `CLIENTE`
+4. **Autenticação:**
+   - **Requer Token:** Sim
+   - **Restrição:** A listagem de usuários é permitida para os usuários com perfil `ADMIN` e `CLIENTE`
+
+**Exemplo de requisição:**
+
+curl:
+
+```bash
+curl -X 'GET' \
+  'http://127.0.0.1:8081/api/v1/usuarios/3' \
+  -H 'accept: application/json' \
+  -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoLWFwaSIsInJvbGUiOiJST0xFX0NMSUVOVEUiLCJpYXQiOjE3MTAxMTM4NjMsInN1YiI6ImFuZHJlQHdlbGxzc3RvcmUuYnIiLCJleHAiOjE3MTAxMTU2NjN9.jgmwldn-xv4LxxC2PiVdFPElsjo3_2MUb9ZBfnzyPws'
+```
+
+Resposta:
+
+```json
+{
+  "id": 3,
+  "username": "andre@wellsstore.br",
+  "roles": [
+    "ADMIN",
+    "CLIENTE"
+  ],
+  "dataCriacao": "2024-03-10T20:28:09.461607"
+}
+```
 
 **importante: O token gerado na autenticação deve ser enviado no header `Authorization` para realizar as requisições.**
+
 ## Referência Bibliográfica
 
 [^1]: [Documentação Oficial do Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/)

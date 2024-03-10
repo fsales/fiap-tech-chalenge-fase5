@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"ana-clara@wellsstore.br\",\r\n    \"senha\": \"123456\",\r\n    \"roles\": [\"ADMIN\",\"CLIENTE\"]\r\n}",
+							"raw": "{\r\n  \"username\": \"andre@wellsstore.br\",\r\n  \"senha\": \"123456\",\r\n  \"roles\": [\r\n    \"ADMIN\",\r\n    \"CLIENTE\"\r\n  ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -45,7 +45,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoLWFwaSIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzA5Njg5OTg3LCJzdWIiOiJhZG1pbkB3ZWxsc3N0b3JlLmJyIiwiZXhwIjoxNzA5NjkxNzg3fQ.SB586tdvayj9MohYW128vophDCGlgDZLIsFCHs19AXk",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoLWFwaSIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzA5OTMwNjY5LCJzdWIiOiJhZG1pbkB3ZWxsc3N0b3JlLmJyIiwiZXhwIjoxNzA5OTMyNDY5fQ.-RgfkY-RNWoaFjAhmv-yTRS_p0I4EscRTfKnK9JI0wQ",
 									"type": "string"
 								}
 							]
@@ -74,7 +74,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoLWFwaSIsInJvbGUiOiJST0xFX0NMSUVOVEUiLCJpYXQiOjE3MDk2OTA0MDIsInN1YiI6ImFuYUB3ZWxsc3N0b3JlLmJyIiwiZXhwIjoxNzA5NjkyMjAyfQ.VzNhO0s623pOCYk2Bmqz6ZucxQETO0hrkqCPc0NrUqE",
+									"value": "    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoLWFwaSIsInJvbGUiOiJST0xFX0NMSUVOVEUiLCJpYXQiOjE3MDk5MzA2MDMsInN1YiI6ImNsaWVudGVAd2VsbHNzdG9yZS5iciIsImV4cCI6MTcwOTkzMjQwM30.vyUqcTzPowhOpA6ttGUO1IZZhlzxFmygH3EKziJZs2E\"\n",
 									"type": "string"
 								}
 							]
@@ -121,7 +121,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{url-usuarios}}/api/v1/usuarios/1",
+							"raw": "{{url-usuarios}}/api/v1/usuarios/3/senha",
 							"host": [
 								"{{url-usuarios}}"
 							],
@@ -129,7 +129,8 @@
 								"api",
 								"v1",
 								"usuarios",
-								"1"
+								"3",
+								"senha"
 							]
 						}
 					},
@@ -147,7 +148,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"username\": \"cliente@wellsstore.br\",\r\n  \"senha\": \"123456\"\r\n}",
+							"raw": "{\r\n  \"username\": \"admin@wellsstore.br\",\r\n  \"senha\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
