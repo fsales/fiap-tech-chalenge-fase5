@@ -185,4 +185,4 @@ Estes comandos devem ser executados no diretório `wells-store`, onde o arquivo 
 
 ### Banco de Dados
 
-Foi escolhido o banco de dados Postgres para armazenar os dados da aplicação. O banco de dados é executado em um contêiner Docker, que pode ser iniciado com o comando descrito em [Docker](../docker/README.md).
+Foi escolhido o banco de dados Postgres para armazenar os dados da aplicação. O banco de dados é executado em um contêiner Docker, que pode ser iniciado com o comando descrito em  [Docker - Postgres](../docker/README.md#docker-compose-do-postgres).

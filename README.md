@@ -8,6 +8,18 @@
  <img src="https://img.shields.io/static/v1?label=Tipo&message=Tech%20Chalenge&color=8257E5&labelColor=000000" alt="Tech Chalenge" />
 </p>
 
+- [:bookmark\_tabs: Tech Chalenge](#bookmark_tabs-tech-chalenge)
+  - [🛠️ Linguagem e ferramentas](#️-linguagem-e-ferramentas)
+  - [🏫 Dados Acadêmicos](#-dados-acadêmicos)
+    - [🏬 Instituição](#-instituição)
+    - [🧑🏻‍🎓Curso](#curso)
+    - [Aluno(s)](#alunos)
+  - [Pré-requisitos](#pré-requisitos)
+  - [Clean Architecture](#clean-architecture)
+    - [Princípios da Clean Architecture](#princípios-da-clean-architecture)
+    - [Estrutura do Projeto](#estrutura-do-projeto)
+  - [Módulos](#módulos)
+  - [Referência Bibliográfica](#referência-bibliográfica)
 
 # :bookmark_tabs: Tech Chalenge
 
@@ -55,21 +67,22 @@ Antes de começar, você precisará ter as seguintes ferramentas instaladas em s
 - Java 17
 - Git
 - Docker
+- GNU Make
 - IDE de desenvolvimento:
-    - Eclipse
-    - IntelliJ IDEA
-    - VSCode
-    - Outras
+  - Eclipse
+  - IntelliJ IDEA
+  - VSCode
+  - Outras
 - Navegador:
-    - Google Chrome
-    - Outro
+  - Google Chrome
+  - Outro
 - Postman, CURL ou utilize o Swagger
 
 ## Clean Architecture
 
 ### Princípios da Clean Architecture
 
-A Clean Architecture é baseada em alguns princípios fundamentais para garantir a separação de preocupações e a manutenibilidade do código. Os principais princípios incluem:
+A Clean Architecture[^1] é baseada em alguns princípios fundamentais para garantir a separação de preocupações e a manutenibilidade do código. Os principais princípios incluem:
 
 1. **Independência de Frameworks:** As camadas internas não devem depender de nenhum framework externo, permitindo a fácil substituição de tecnologias.
 
@@ -89,12 +102,12 @@ A implementação da Clean Architecture no Projeto Wells segue a seguinte estrut
 
 - **Frameworks e Drivers:** A camada mais externa contém os frameworks e drivers, interagindo diretamente com a infraestrutura.
 
-### Referências
-
-- [Uncle Bob - The Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
-
 ## Módulos
 
-- [wells-store](wells-store/README.md)
-    - [wells-core](wells-store/wells-core/README.md)
-    - [wells-usuario](wells-store/wells-usuario/README.md)
+- [wells-store](wells-store/README.md#descrição-do-projeto)
+  - [wells-core](wells-store/wells-core/README.md)
+  - [wells-usuario](wells-store/wells-usuario/README.md)
+
+## Referência Bibliográfica
+
+  [^1]:[Uncle Bob - The Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
