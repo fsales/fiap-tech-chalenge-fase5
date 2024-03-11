@@ -39,7 +39,7 @@
         <commons-validator.version>1.8.0</commons-validator.version>
         <assertj-core.version>3.25.3</assertj-core.version>
         <springdoc.version>2.3.0</springdoc.version>
-        <postgresql.version>42.2.14</postgresql.version>
+        <postgresql.version>42.3.9</postgresql.version>
     </properties>
 
     <modules>
