@@ -114,7 +114,7 @@ public class JWTTokenImpl implements JWTToken {
 		try {
 			String cleanedToken = refactorToken(token);
 
-			return JWT.require(algorithm).withIssuer("auth-api").build().verify(cleanedToken).getSubject();
+			return JWT.require(algorithm).withIssuer(this.wellsUsuarioAppProperties.getName()).build().verify(cleanedToken).getSubject();
 		}
 		catch (TokenExpiredException expiredException) {
 			throw new TokenValidationException("O token expirou", expiredException);
