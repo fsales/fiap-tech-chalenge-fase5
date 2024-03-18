@@ -40,6 +40,7 @@
         <assertj-core.version>3.25.3</assertj-core.version>
         <springdoc.version>2.3.0</springdoc.version>
         <postgresql.version>42.2.14</postgresql.version>
+        <jwks-rsa.version>0.22.1</jwks-rsa.version>
     </properties>
 
     <modules>
@@ -67,6 +68,11 @@
                 <groupId>com.auth0</groupId>
                 <artifactId>java-jwt</artifactId>
                 <version>${jwt.auth0.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.auth0</groupId>
+                <artifactId>jwks-rsa</artifactId>
+                <version>${jwks-rsa.version}</version>
             </dependency>
 
             <!-- security -->

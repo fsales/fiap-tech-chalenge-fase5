@@ -1,24 +1,27 @@
 package br.com.wells.app.infrastructure.config.spring.security.jwt.impl;
 
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.util.Collections;
+import java.util.Date;
+import java.util.UUID;
+
 import br.com.wells.app.infrastructure.config.spring.config.app.WellsUsuarioAppProperties;
 import br.com.wells.app.infrastructure.config.spring.security.jwt.JWTToken;
-import br.com.wells.app.infrastructure.config.spring.security.user.UsuarioCustomDetails;
 import br.com.wells.app.infrastructure.config.spring.security.jwt.exception.TokenGenerationException;
 import br.com.wells.app.infrastructure.config.spring.security.jwt.exception.TokenValidationException;
+import br.com.wells.app.infrastructure.config.spring.security.user.UsuarioCustomDetails;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
-
-import java.security.Key;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Base64;
-import java.util.Collections;
-import java.util.Date;
-import javax.crypto.spec.SecretKeySpec;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.interfaces.Claim;
+import com.auth0.jwt.interfaces.DecodedJWT;
 
 public class JWTTokenImpl implements JWTToken {
 
@@ -30,13 +33,26 @@ public class JWTTokenImpl implements JWTToken {
 
 	public static final long EXPIRE_MINUTES = 30;
 
+	private final Algorithm algorithm;
+
 	private final WellsUsuarioAppProperties wellsUsuarioAppProperties;
 
-	public JWTTokenImpl(WellsUsuarioAppProperties wellsUsuarioAppProperties) {
+	private final JWTVerifier verifier;
+
+	public JWTTokenImpl(RSAPublicKey publicKey, RSAPrivateKey privateKey,
+			WellsUsuarioAppProperties wellsUsuarioAppProperties) {
 		this.wellsUsuarioAppProperties = wellsUsuarioAppProperties;
+
+		this.algorithm = Algorithm.RSA256(publicKey, privateKey);
+		this.verifier = JWT.require(algorithm).withIssuer(wellsUsuarioAppProperties.getName()).build();
 	}
 
-	private static String refactorToken(String token) {
+	private static String getClaim(DecodedJWT decodedJWT, String claimName) {
+		Claim claim = decodedJWT.getClaim(claimName);
+		return claim != null ? claim.asString() : null;
+	}
+
+	private String refactorToken(String token) {
 		if (token.contains(JWT_BEARER)) {
 			return token.substring(JWT_BEARER.length());
 		}
@@ -44,19 +60,47 @@ public class JWTTokenImpl implements JWTToken {
 	}
 
 	@Override
+	public Boolean verifyJWT(String jwtToken) {
+		boolean tokenValido = true;
+		try {
+			verifier.verify(jwtToken);
+		}
+		catch (JWTVerificationException e) {
+			tokenValido = false;
+		}
+		return tokenValido;
+	}
+
+	@Override
+	public boolean isJWTExpired(String jwtToken) {
+		boolean tokenExpired = false;
+		try {
+			DecodedJWT decodedJWT = verifier.verify(jwtToken);
+			Date expiresAt = decodedJWT.getExpiresAt();
+
+			tokenExpired = expiresAt.getTime() < System.currentTimeMillis();
+		}
+		catch (JWTVerificationException e) {
+			tokenExpired = true;
+		}
+		return tokenExpired;
+	}
+
+	@Override
 	public String generateToken(final UsuarioCustomDetails usuario) {
 		Date issuedAt = Date.from(Instant.now());
 		Instant limit = genExpirationDate(issuedAt);
 		try {
-			Algorithm algorithm = Algorithm.HMAC256(getSignKey());
 
 			return JWT.create()
 				.withHeader(Collections.singletonMap("typ", "JWT"))
-				.withIssuer("auth-api")
+				.withIssuer(this.wellsUsuarioAppProperties.getName())
 				.withClaim(usuario.getRolesMapKey(), usuario.getRolesMap().get(usuario.getRolesMapKey()))
 				.withIssuedAt(issuedAt)
 				.withSubject(usuario.getUsername())
 				.withExpiresAt(limit)
+				.withJWTId(UUID.randomUUID().toString())
+				.withNotBefore(new Date(System.currentTimeMillis() + 1000L))
 				.sign(algorithm);
 
 		}
@@ -70,7 +114,6 @@ public class JWTTokenImpl implements JWTToken {
 		try {
 			String cleanedToken = refactorToken(token);
 
-			Algorithm algorithm = Algorithm.HMAC256(getSignKey());
 			return JWT.require(algorithm).withIssuer("auth-api").build().verify(cleanedToken).getSubject();
 		}
 		catch (TokenExpiredException expiredException) {
@@ -86,15 +129,6 @@ public class JWTTokenImpl implements JWTToken {
 		LocalDateTime end = dateTime.plusDays(EXPIRE_DAYS).plusHours(EXPIRE_HOURS).plusMinutes(EXPIRE_MINUTES);
 
 		return end.atZone(ZoneId.systemDefault()).toInstant();
-	}
-
-	private String getSignKey() {
-		String chave = wellsUsuarioAppProperties.getApi().security().getToken().secret();
-		Key key = new SecretKeySpec(chave.getBytes(), "HmacSHA256");
-
-		byte[] keyBytes = key.getEncoded();
-
-		return Base64.getEncoder().encodeToString(keyBytes);
 	}
 
 }
