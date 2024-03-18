@@ -1,4 +1,4 @@
 package br.com.wells.app.presentation.rest.controller.auth.dto.response;
 
-public record LoginResponseDTO(String token) {
+public record LoginResponseDTO(String token) implements LoginResponseDTOSwagger {
 }

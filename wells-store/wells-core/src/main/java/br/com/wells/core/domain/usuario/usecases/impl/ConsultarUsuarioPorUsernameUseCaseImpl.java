@@ -7,24 +7,18 @@ import br.com.wells.core.domain.usuario.usecases.ConsultarUsuarioPorUsernameUseC
 
 public final class ConsultarUsuarioPorUsernameUseCaseImpl implements ConsultarUsuarioPorUsernameUseCase {
 
-    private final ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsernameGateway;
+	private final ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsernameGateway;
 
-    public ConsultarUsuarioPorUsernameUseCaseImpl(
-            ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsernameGateway
-    ) {
-        this.consultarUsuarioPorUsernameGateway = consultarUsuarioPorUsernameGateway;
-    }
+	public ConsultarUsuarioPorUsernameUseCaseImpl(
+			ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsernameGateway) {
+		this.consultarUsuarioPorUsernameGateway = consultarUsuarioPorUsernameGateway;
+	}
 
-    @Override
-    public Usuario find(
-            final String username
-    ) {
+	@Override
+	public Usuario find(final String username) {
 
-        return consultarUsuarioPorUsernameGateway
-                .find(
-                        username
-                ).orElseThrow(
-                        () -> new EntityNotFoundException(String.format("Usuario com '%s' não encontrado", username))
-                );
-    }
+		return consultarUsuarioPorUsernameGateway.find(username)
+			.orElseThrow(() -> new EntityNotFoundException(String.format("Usuario com '%s' não encontrado", username)));
+	}
+
 }

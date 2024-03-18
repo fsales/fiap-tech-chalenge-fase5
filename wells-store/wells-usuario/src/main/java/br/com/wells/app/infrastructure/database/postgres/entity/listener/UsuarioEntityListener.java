@@ -7,18 +7,20 @@ import jakarta.persistence.PreUpdate;
 import java.util.Locale;
 
 public final class UsuarioEntityListener {
-    @PrePersist
-    public void beforePersist(UsuarioEntity usuario) {
-        transformarString(usuario);
-    }
 
-    @PreUpdate
-    public void beforeUpdate(UsuarioEntity usuario) {
-        transformarString(usuario);
-    }
+	@PrePersist
+	public void beforePersist(UsuarioEntity usuario) {
+		transformarString(usuario);
+	}
 
-    private void transformarString(UsuarioEntity usuario) {
-        // Converte as strings para maiúsculas e remove espaços em branco
-        usuario.setUsername(usuario.getUsername().toLowerCase(Locale.ROOT).trim());
-    }
+	@PreUpdate
+	public void beforeUpdate(UsuarioEntity usuario) {
+		transformarString(usuario);
+	}
+
+	private void transformarString(UsuarioEntity usuario) {
+		// Converte as strings para maiúsculas e remove espaços em branco
+		usuario.setUsername(usuario.getUsername().toLowerCase(Locale.ROOT).trim());
+	}
+
 }

@@ -9,20 +9,16 @@ import java.util.Optional;
 
 public class ConsutlarUsuarioPorIdGatewayImpl implements ConsutlarUsuarioPorIdGateway {
 
-    private final UsuarioEntityRepository usuarioEntityRepository;
+	private final UsuarioEntityRepository usuarioEntityRepository;
 
-    public ConsutlarUsuarioPorIdGatewayImpl(UsuarioEntityRepository usuarioEntityRepository) {
-        this.usuarioEntityRepository = usuarioEntityRepository;
-    }
+	public ConsutlarUsuarioPorIdGatewayImpl(UsuarioEntityRepository usuarioEntityRepository) {
+		this.usuarioEntityRepository = usuarioEntityRepository;
+	}
 
-    @Override
-    public Optional<Usuario> find(Long id) {
+	@Override
+	public Optional<Usuario> find(Long id) {
 
-        return usuarioEntityRepository
-                .findById(
-                        id
-                ).map(
-                        UsuarioEntityMapper::convertToUsuario
-                );
-    }
+		return usuarioEntityRepository.findById(id).map(UsuarioEntityMapper::convertToUsuario);
+	}
+
 }

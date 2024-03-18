@@ -154,18 +154,18 @@
                 </configuration>
             </plugin>
             <!-- Plugin para formatação de código usando o estilo do Spring -->
-<!--            <plugin>-->
-<!--                <groupId>io.spring.javaformat</groupId>-->
-<!--                <artifactId>spring-javaformat-maven-plugin</artifactId>-->
-<!--                <version>0.0.41</version> &lt;!&ndash; Atualize para a versão mais recente disponível &ndash;&gt;-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>apply</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>io.spring.javaformat</groupId>
+                <artifactId>spring-javaformat-maven-plugin</artifactId>
+                <version>0.0.41</version> <!-- Atualize para a versão mais recente disponível -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>apply</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 </project>

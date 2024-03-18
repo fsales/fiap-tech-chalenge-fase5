@@ -12,31 +12,29 @@ import java.util.stream.Collectors;
 
 public class CadastrarUsuarioGatewayImpl implements CadastrarUsuarioGateway {
 
-    private final UsuarioEntityRepository usuarioEntityRepository;
+	private final UsuarioEntityRepository usuarioEntityRepository;
 
-    private final RoleEntityRepository roleEntityRepository;
+	private final RoleEntityRepository roleEntityRepository;
 
-    public CadastrarUsuarioGatewayImpl(
-            UsuarioEntityRepository usuarioEntityRepository,
-            RoleEntityRepository roleEntityRepository
-    ) {
-        this.usuarioEntityRepository = usuarioEntityRepository;
-        this.roleEntityRepository = roleEntityRepository;
-    }
+	public CadastrarUsuarioGatewayImpl(UsuarioEntityRepository usuarioEntityRepository,
+			RoleEntityRepository roleEntityRepository) {
+		this.usuarioEntityRepository = usuarioEntityRepository;
+		this.roleEntityRepository = roleEntityRepository;
+	}
 
-    @Override
-    public Usuario execute(Usuario usuario) {
+	@Override
+	public Usuario execute(Usuario usuario) {
 
-        var usuarioSalvar = UsuarioEntityMapper.convertToUsuarioEntity(usuario);
+		var usuarioSalvar = UsuarioEntityMapper.convertToUsuarioEntity(usuario);
 
-        var rolesEntities = new HashSet<>(roleEntityRepository.findAllById(
-                usuarioSalvar.getRoles().stream().map(RoleEntity::getId
-                ).collect(Collectors.toSet())));
+		var rolesEntities = new HashSet<>(roleEntityRepository
+			.findAllById(usuarioSalvar.getRoles().stream().map(RoleEntity::getId).collect(Collectors.toSet())));
 
-        usuarioSalvar.setRoles(rolesEntities);
+		usuarioSalvar.setRoles(rolesEntities);
 
-        var usuarioEntity = usuarioEntityRepository.save(usuarioSalvar);
+		var usuarioEntity = usuarioEntityRepository.save(usuarioSalvar);
 
-        return UsuarioEntityMapper.convertToUsuario(usuarioEntity);
-    }
+		return UsuarioEntityMapper.convertToUsuario(usuarioEntity);
+	}
+
 }

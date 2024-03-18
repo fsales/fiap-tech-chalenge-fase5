@@ -14,53 +14,46 @@ import br.com.wells.core.domain.usuario.usecases.CadastrarUsuarioUseCase;
 
 public final class CadastrarUsuarioUseCaseImpl implements CadastrarUsuarioUseCase {
 
-    private final CadastrarUsuarioGateway cadastrarUsuarioGateway;
-    private final ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsername;
+	private final CadastrarUsuarioGateway cadastrarUsuarioGateway;
 
-    private final ConsultarRolePorNomeGateway consultarRolePorNomeGateway;
+	private final ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsername;
 
-    public CadastrarUsuarioUseCaseImpl(
-            CadastrarUsuarioGateway cadastrarUsuarioGateway,
-            ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsername,
-            ConsultarRolePorNomeGateway consultarRolePorNomeGateway
-    ) {
-        this.cadastrarUsuarioGateway = cadastrarUsuarioGateway;
-        this.consultarUsuarioPorUsername = consultarUsuarioPorUsername;
-        this.consultarRolePorNomeGateway = consultarRolePorNomeGateway;
-    }
+	private final ConsultarRolePorNomeGateway consultarRolePorNomeGateway;
 
-    @Override
-    public Usuario execute(final Usuario usuario) {
-        validarUserName(usuario);
+	public CadastrarUsuarioUseCaseImpl(CadastrarUsuarioGateway cadastrarUsuarioGateway,
+			ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsername,
+			ConsultarRolePorNomeGateway consultarRolePorNomeGateway) {
+		this.cadastrarUsuarioGateway = cadastrarUsuarioGateway;
+		this.consultarUsuarioPorUsername = consultarUsuarioPorUsername;
+		this.consultarRolePorNomeGateway = consultarRolePorNomeGateway;
+	}
 
-        Set<String> nomesRoles = usuario.roles().stream().map(Role::nome).collect(Collectors.toSet());
+	@Override
+	public Usuario execute(final Usuario usuario) {
+		validarUserName(usuario);
 
-        Set<Role> rolesEncontradas = consultarRolePorNomeGateway.find(
-                nomesRoles
-        )
-        .filter(lista -> !lista.isEmpty())
-        .orElseThrow(
-                () -> criarExcecaoRolesNaoEncontradas(nomesRoles)
-        );
+		Set<String> nomesRoles = usuario.roles().stream().map(Role::nome).collect(Collectors.toSet());
 
-        return cadastrarUsuarioGateway.execute(usuario.alterar(rolesEncontradas));
-    }
+		Set<Role> rolesEncontradas = consultarRolePorNomeGateway.find(nomesRoles)
+			.filter(lista -> !lista.isEmpty())
+			.orElseThrow(() -> criarExcecaoRolesNaoEncontradas(nomesRoles));
 
-    private UsuarioInvalidoException criarExcecaoRolesNaoEncontradas(Set<String> nomesRolesNaoEncontradas) {
-        String mensagem = "Roles não encontrada(s): " +
-                          String.join(", ", nomesRolesNaoEncontradas);
-        return new UsuarioInvalidoException(mensagem);
-    }
+		return cadastrarUsuarioGateway.execute(usuario.alterar(rolesEncontradas));
+	}
 
-    private void validarUserName(
-            final Usuario usuario
-    ) {
-        var username = usuario.username();
-        if (username.trim().isEmpty())
-            return;
+	private UsuarioInvalidoException criarExcecaoRolesNaoEncontradas(Set<String> nomesRolesNaoEncontradas) {
+		String mensagem = "Roles não encontrada(s): " + String.join(", ", nomesRolesNaoEncontradas);
+		return new UsuarioInvalidoException(mensagem);
+	}
 
-        if (consultarUsuarioPorUsername.existsByUsername(username)) {
-            throw new UsernameUniqueViolationException("Usuário já cadastrado");
-        }
-    }
+	private void validarUserName(final Usuario usuario) {
+		var username = usuario.username();
+		if (username.trim().isEmpty())
+			return;
+
+		if (consultarUsuarioPorUsername.existsByUsername(username)) {
+			throw new UsernameUniqueViolationException("Usuário já cadastrado");
+		}
+	}
+
 }

@@ -21,78 +21,63 @@ import static org.mockito.Mockito.when;
 @DisplayName("Testes para ConsutlarUsuarioPorIdUseCaseIT")
 class ConsutlarUsuarioPorIdUseCaseIT {
 
-    public static final String CLIENTE = "CLIENTE";
+	public static final String CLIENTE = "CLIENTE";
 
-    private AutoCloseable openMocks;
+	private AutoCloseable openMocks;
 
-    @Mock
-    private ConsutlarUsuarioPorIdGateway consutlarUsuarioPorIdGateway;
+	@Mock
+	private ConsutlarUsuarioPorIdGateway consutlarUsuarioPorIdGateway;
 
-    private ConsutlarUsuarioPorIdUseCase consutlarUsuarioPorIdUseCase;
+	private ConsutlarUsuarioPorIdUseCase consutlarUsuarioPorIdUseCase;
 
-    @BeforeEach
-    void setUp() {
-        openMocks = MockitoAnnotations.openMocks(this);
+	@BeforeEach
+	void setUp() {
+		openMocks = MockitoAnnotations.openMocks(this);
 
-        consutlarUsuarioPorIdUseCase = new ConsutlarUsuarioPorIdUseCaseImpl(
-                consutlarUsuarioPorIdGateway
-        );
-    }
+		consutlarUsuarioPorIdUseCase = new ConsutlarUsuarioPorIdUseCaseImpl(consutlarUsuarioPorIdGateway);
+	}
 
-    @AfterEach
-    void tearDown() throws Exception {
-        openMocks.close();
-    }
+	@AfterEach
+	void tearDown() throws Exception {
+		openMocks.close();
+	}
 
-    @Nested
-    @DisplayName("ConsultarUsuario")
-    class ConsultarUsuario {
+	@Nested
+	@DisplayName("ConsultarUsuario")
+	class ConsultarUsuario {
 
-        @Test
-        @DisplayName("Deve permitir consultar o usuário pelo ID")
-        void devePermitir_ConsultarUsuarioPorId() {
-            // Arrange
-            var idUsuario = 1L;
-            Usuario usuarioMock = new Usuario(
-                    idUsuario,
-                    "cliente@wells.com",
-                    "123456",
-                    Set.of(Role.criar(CLIENTE)),
-                    LocalDateTime.now(),
-                    LocalDateTime.now()
-            );
+		@Test
+		@DisplayName("Deve permitir consultar o usuário pelo ID")
+		void devePermitir_ConsultarUsuarioPorId() {
+			// Arrange
+			var idUsuario = 1L;
+			Usuario usuarioMock = new Usuario(idUsuario, "cliente@wells.com", "123456", Set.of(Role.criar(CLIENTE)),
+					LocalDateTime.now(), LocalDateTime.now());
 
-            when(consutlarUsuarioPorIdGateway.find(idUsuario)).thenReturn(Optional.of(usuarioMock));
+			when(consutlarUsuarioPorIdGateway.find(idUsuario)).thenReturn(Optional.of(usuarioMock));
 
-            // act
-            var resultado = consutlarUsuarioPorIdUseCase.find(idUsuario);
+			// act
+			var resultado = consutlarUsuarioPorIdUseCase.find(idUsuario);
 
-            // assert
-            assertThat(resultado)
-                    .isNotNull()
-                    .isEqualTo(usuarioMock)
-                    .extracting(Usuario::id)
-                    .isEqualTo(idUsuario);
-        }
+			// assert
+			assertThat(resultado).isNotNull().isEqualTo(usuarioMock).extracting(Usuario::id).isEqualTo(idUsuario);
+		}
 
-        @Test
-        @DisplayName("Deve lançar exceção ao consultar um username que não existe")
-        void deveLancarExcecao_QuandoIdNaoEncontrado() {
-            // Arrange
-            var idUsuario = 1L;
-            when(consutlarUsuarioPorIdGateway.find(idUsuario)).thenReturn(Optional.empty());
+		@Test
+		@DisplayName("Deve lançar exceção ao consultar um username que não existe")
+		void deveLancarExcecao_QuandoIdNaoEncontrado() {
+			// Arrange
+			var idUsuario = 1L;
+			when(consutlarUsuarioPorIdGateway.find(idUsuario)).thenReturn(Optional.empty());
 
-            // Act & Assert
-            assertThrows(
-                    EntityNotFoundException.class,
-                    () -> consutlarUsuarioPorIdUseCase.find(idUsuario)
-            );
+			// Act & Assert
+			assertThrows(EntityNotFoundException.class, () -> consutlarUsuarioPorIdUseCase.find(idUsuario));
 
-            assertThatThrownBy(
-                    () -> consutlarUsuarioPorIdUseCase.find(idUsuario))
-                    .isInstanceOf(EntityNotFoundException.class)
-                    .hasMessageContaining(String.format("Usuário id=%s não encontrado", idUsuario));
-        }
-    }
+			assertThatThrownBy(() -> consutlarUsuarioPorIdUseCase.find(idUsuario))
+				.isInstanceOf(EntityNotFoundException.class)
+				.hasMessageContaining(String.format("Usuário id=%s não encontrado", idUsuario));
+		}
+
+	}
 
 }

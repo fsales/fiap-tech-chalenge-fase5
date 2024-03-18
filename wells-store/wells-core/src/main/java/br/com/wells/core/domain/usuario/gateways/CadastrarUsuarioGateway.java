@@ -4,6 +4,6 @@ import br.com.wells.core.domain.usuario.model.Usuario;
 
 public interface CadastrarUsuarioGateway {
 
-    Usuario execute(Usuario usuario);
+	Usuario execute(Usuario usuario);
 
 }

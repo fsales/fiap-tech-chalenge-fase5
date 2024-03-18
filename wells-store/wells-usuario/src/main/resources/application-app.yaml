@@ -1,0 +1,15 @@
+spring:
+  config:
+    activate:
+      on-profile: app
+app:
+  api:
+    security:
+      token:
+        secret: ${WELLS_USUARIO_JWT_SECRET:413F4428472B4B6250655368566D5970337336763979244226452948404D6351}
+
+  swagger:
+    application:
+      title: ${spring.application.name}
+      description: ${spring.application.description}
+      version: ${spring.application.version}
