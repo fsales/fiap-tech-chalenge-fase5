@@ -5,6 +5,9 @@ spring:
       on-profile: actuator
 
 management:
+  info:
+    env:
+      enabled: true
   endpoints:
     web:
       exposure:
@@ -12,3 +15,9 @@ management:
   endpoint:
     health:
       show-details: always
+
+info:
+  app:
+    name: ${spring.application.name}
+    description: ${spring.application.description}
+    version: ${spring.application.version}

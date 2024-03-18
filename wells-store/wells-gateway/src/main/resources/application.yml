@@ -4,10 +4,31 @@ spring:
     description: @project.description@
     version: @project.version@
 
+  cloud:
+
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+
+        - id: usuario-service
+          uri: lb://wells-usuario
+          predicates:
+            - Path=/api/v1/usuarios/**, /api/v1/auth/**
+
+        # redireciona para o actuator do wells-usuario: http://localhost:8125/usuarios/actuator/health
+        - id: usuario-service-actuator
+          uri: lb://wells-usuario
+          predicates:
+            - Path=/usuarios/actuator/**
+          filters:
+            - StripPrefix=1
+
   profiles:
     active: ${PROFILE_ENVIRONMENT:default}
     include: actuator, app, service-registry
-
 
 logging:
   pattern:

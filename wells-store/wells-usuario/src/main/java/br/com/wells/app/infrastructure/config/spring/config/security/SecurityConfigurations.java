@@ -37,6 +37,8 @@ public class SecurityConfigurations {
 			"/docs-wells-usuario/**", "/v3/api-docs/**", "/swagger-ui-custom.html", "/swagger-ui.html",
 			"/swagger-ui/**", "/**.html", "/webjars/**", "/configuration/**", "/swagger-resources/**" };
 
+	private static final String[] ACTUATOR = { "/actuator/**"};
+
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, SecurityFilter securityFilter)
 			throws Exception {
@@ -53,6 +55,8 @@ public class SecurityConfigurations {
 				.requestMatchers(HttpMethod.GET, "/api/v1/auth/validate")
 				.permitAll()
 				.requestMatchers(DOCUMENTATION_OPENAPI)
+				.permitAll()
+				.requestMatchers(ACTUATOR)
 				.permitAll()
 				.anyRequest()
 				.authenticated())
