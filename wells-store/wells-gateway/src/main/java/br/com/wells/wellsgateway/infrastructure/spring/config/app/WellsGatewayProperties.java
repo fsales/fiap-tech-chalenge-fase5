@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 @ConfigurationProperties(prefix = "app")
 @Data
-public class AppConfig {
+public class WellsGatewayProperties {
 
 	@NestedConfigurationProperty
 	private Endpoint endpoint;

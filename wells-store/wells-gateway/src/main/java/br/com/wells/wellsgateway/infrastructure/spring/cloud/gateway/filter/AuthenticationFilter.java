@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
 	private static final String BEARER = "Bearer ";
+
 	private final RouteValidator validator;
 
 	public AuthenticationFilter(RouteValidator validator) {
@@ -35,7 +36,6 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 				if (authHeader != null && authHeader.startsWith(BEARER)) {
 					authHeader = authHeader.substring(BEARER.length());
 				}
-
 
 			}
 

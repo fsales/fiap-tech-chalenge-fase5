@@ -6,8 +6,6 @@ app:
   name: ${spring.application.name}
   api:
     security:
-      token:
-        secret: ${WELLS_USUARIO_JWT_SECRET:413F4428472B4B6250655368566D5970337336763979244226452948404D6351}
       jwt:
         public-key: classpath:app-public.pem
         private-key: classpath:app-private.pem
