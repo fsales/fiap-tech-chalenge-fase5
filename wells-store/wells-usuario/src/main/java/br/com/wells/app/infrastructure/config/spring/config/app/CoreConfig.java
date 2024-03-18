@@ -1,5 +1,8 @@
 package br.com.wells.app.infrastructure.config.spring.config.app;
 
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+
 import br.com.wells.app.infrastructure.database.postgres.repository.RoleEntityRepository;
 import br.com.wells.app.infrastructure.database.postgres.repository.UsuarioEntityRepository;
 import br.com.wells.app.infrastructure.gateways.usuario.*;
@@ -10,6 +13,7 @@ import br.com.wells.app.infrastructure.config.spring.security.user.impl.UsuarioC
 import br.com.wells.core.domain.usuario.gateways.*;
 import br.com.wells.core.domain.usuario.usecases.*;
 import br.com.wells.core.domain.usuario.usecases.impl.*;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -134,12 +138,15 @@ public class CoreConfig {
 	}
 
 	/**
-	 * @param wellsUsuarioAppProperties
+	 * @param publicKey
+	 * @param privateKey
 	 * @return
 	 */
 	@Bean
-	JWTToken jwtToken(WellsUsuarioAppProperties wellsUsuarioAppProperties) {
-		return new JWTTokenImpl(wellsUsuarioAppProperties);
+	JWTToken jwtToken(@Value("${app.api.security.jwt.public-key}") RSAPublicKey publicKey,
+			@Value("${app.api.security.jwt.private-key}") RSAPrivateKey privateKey,
+			WellsUsuarioAppProperties wellsUsuarioAppProperties) {
+		return new JWTTokenImpl(publicKey, privateKey, wellsUsuarioAppProperties);
 	}
 
 }

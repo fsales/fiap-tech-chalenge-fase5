@@ -1,11 +1,15 @@
 package br.com.wells.app.infrastructure.config.spring.config.security;
 
+import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPublicKey;
+
 import br.com.wells.app.infrastructure.config.spring.security.SecurityFilter;
 import br.com.wells.app.infrastructure.config.spring.security.jwt.JWTToken;
 import br.com.wells.app.infrastructure.config.spring.security.jwt.JwtAuthenticationEntryPoint;
 import br.com.wells.app.infrastructure.config.spring.security.user.UsuarioCustomDetailsService;
 import br.com.wells.app.infrastructure.config.spring.security.user.impl.UsuarioCustomDetailsServiceImpl;
 import br.com.wells.core.domain.usuario.usecases.ConsultarUsuarioPorUsernameUseCase;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
