@@ -1,8 +1,8 @@
 spring:
   application:
     name: @project.name@
-    description: @project.version@
-    version: @project.description@
+    description: @project.description@
+    version: @project.version@
 
   datasource:
     url: ${WELLS_USUARIO_SPRING_DATASOURCE_URL:}
