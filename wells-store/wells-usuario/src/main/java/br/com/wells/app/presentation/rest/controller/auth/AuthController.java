@@ -35,6 +35,8 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class AuthController implements AutenticacaoControllerSwagger {
 
+	public static final String FALHA_NA_AUTENTICACAO = "Falha na autenticação";
+
 	private final AuthenticationManager authenticationManager;
 
 	private final JWTToken jwtToken;
@@ -51,14 +53,17 @@ public class AuthController implements AutenticacaoControllerSwagger {
 
 			var auth = authenticationManager.authenticate(usernamePassword);
 
+			if (!auth.isAuthenticated()) {
+				throw new WellsAuthenticationException(FALHA_NA_AUTENTICACAO);
+			}
+
 			var usuarioCustomDetails = (UsuarioCustomDetails) auth.getPrincipal();
 
 			var token = jwtToken.generateToken(usuarioCustomDetails);
-			LoginResponseDTO loginResponse = new LoginResponseDTO(token);
 
-			return ResponseEntity.ok(GenericResponse.success(HttpStatus.OK, loginResponse));
+			return ResponseEntity.ok(GenericResponse.success(HttpStatus.OK, new LoginResponseDTO(token)));
 		}
-		catch (AuthenticationException ex) {
+		catch (AuthenticationException | WellsAuthenticationException ex) {
 
 			log.warn("Bad Credentials from username '{}'", usuarioLoginDto.username());
 			ErrorMessage errorMessage = new ErrorMessage(request, HttpStatus.BAD_REQUEST, "Credenciais Inválidas");
@@ -75,7 +80,7 @@ public class AuthController implements AutenticacaoControllerSwagger {
 			Authentication authenticate = authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(usuarioLoginDto.username(), usuarioLoginDto.senha()));
 			if (!authenticate.isAuthenticated()) {
-				throw new WellsAuthenticationException("Falha na autenticação");
+				throw new WellsAuthenticationException(FALHA_NA_AUTENTICACAO);
 			}
 
 			var token = jwtToken.generateToken((UsuarioCustomDetails) authenticate.getPrincipal());
@@ -84,7 +89,7 @@ public class AuthController implements AutenticacaoControllerSwagger {
 		catch (AuthenticationException | WellsAuthenticationException e) {
 			return ResponseEntity.badRequest()
 				.body(GenericResponse.error(HttpStatus.UNAUTHORIZED,
-						new ErrorMessage(request, HttpStatus.UNAUTHORIZED, "Falha na autenticação")));
+						new ErrorMessage(request, HttpStatus.UNAUTHORIZED, FALHA_NA_AUTENTICACAO)));
 		}
 	}
 

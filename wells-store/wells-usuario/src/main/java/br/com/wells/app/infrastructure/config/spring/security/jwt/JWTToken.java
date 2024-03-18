@@ -4,6 +4,10 @@ import br.com.wells.app.infrastructure.config.spring.security.user.UsuarioCustom
 
 public interface JWTToken {
 
+	Boolean verifyJWT(String jwtToken);
+
+	boolean isJWTExpired(String jwtToken);
+
 	/**
 	 * @param usuario
 	 * @return

@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "app")
 public class WellsUsuarioAppProperties {
 
+	private String name;
+
 	private Api api;
 
 	public record Api(Security security) {
