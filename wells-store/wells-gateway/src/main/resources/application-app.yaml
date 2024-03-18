@@ -1,0 +1,14 @@
+spring:
+  config:
+    activate:
+      on-profile: app
+app:
+  name: ${spring.application.name}
+  description: ${spring.application.description}
+  version: ${spring.application.version}
+
+  swagger:
+    application:
+      title: ${spring.application.name}
+      description: ${spring.application.description}
+      version: ${spring.application.version}

@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: @project.name@
+    description: @project.description@
+    version: @project.version@
+
+  profiles:
+    active: ${PROFILE_ENVIRONMENT:default}
+    include: actuator, app, service-registry
+
+
+logging:
+  pattern:
+    console: "%d{ABSOLUTE_MICROS} [%-5level] [%t] %c{1} - %msg%n"
+  level:
+    root: DEBUG
+    org.springframework.cloud.consul.discovery.web: DEBUG
+    org.springframework.cloud.gateway : trace
+
+server:
+  port: ${PORT:8125}

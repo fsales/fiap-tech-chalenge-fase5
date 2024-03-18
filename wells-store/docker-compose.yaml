@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+
+  # Servico de Usuário
+  wells-usuario-db:
+    container_name: wells-usuario-db
+    image: postgres:latest
+    env_file:
+      - ../docker/env/.env-wells-usuario-db
+    ports:
+        - "5432:5432"
+    networks:
+      - wells-usuario-db-net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 64M
+
+  # Consul
+  consul-wells-store:
+    image: consul:1.15.4
+    container_name: consul-wells-store
+    ports:
+      - "8500:8500"
+      - "8600:8600/udp"
+    environment:
+      - CONSUL_BIND_INTERFACE=eth0
+    networks:
+      - consul-wells-store-net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 64M
+
+networks:
+  consul-wells-store-net:
+  wells-usuario-db-net:

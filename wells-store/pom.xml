@@ -27,6 +27,9 @@
         <maven.compile.source>17</maven.compile.source>
         <maven.compile.target>17</maven.compile.target>
 
+        <!-- version spring cloud -->
+        <spring-cloud.version>2023.0.0</spring-cloud.version>
+
         <!-- version libs module -->
         <wells-core.version>1.0-SNAPSHOT</wells-core.version>
 
@@ -46,6 +49,8 @@
     <modules>
         <module>wells-core</module>
         <module>wells-usuario</module>
+
+        <module>wells-gateway</module>
     </modules>
     <dependencyManagement>
         <dependencies>
@@ -55,6 +60,16 @@
                 <artifactId>wells-core</artifactId>
                 <version>${wells-core.version}</version>
             </dependency>
+
+            <!-- spring coud -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
 
             <!-- springdoc -->
             <dependency>
