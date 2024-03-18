@@ -5,28 +5,25 @@ import br.com.wells.core.domain.usuario.model.Role;
 
 public final class RolerEntityMapper {
 
-    private RolerEntityMapper() {
-    }
+	private RolerEntityMapper() {
+	}
 
-    /**
-     * @param roleEntity
-     * @return
-     */
-    public static Role convertToRole(RoleEntity roleEntity) {
-        var role = Role.criar(roleEntity.getNome());
-        role.id(roleEntity.getId());
-        return role;
-    }
+	/**
+	 * @param roleEntity
+	 * @return
+	 */
+	public static Role convertToRole(RoleEntity roleEntity) {
+		var role = Role.criar(roleEntity.getNome());
+		role.id(roleEntity.getId());
+		return role;
+	}
 
-    /**
-     * @param role
-     * @return
-     */
-    public static RoleEntity convertToRoleEntity(Role role) {
-        return RoleEntity
-                .builder()
-                .nome(role.nome())
-                .id(role.id())
-                .build();
-    }
+	/**
+	 * @param role
+	 * @return
+	 */
+	public static RoleEntity convertToRoleEntity(Role role) {
+		return RoleEntity.builder().nome(role.nome()).id(role.id()).build();
+	}
+
 }

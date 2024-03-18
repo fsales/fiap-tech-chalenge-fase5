@@ -7,5 +7,6 @@ import java.util.Set;
 
 public interface ConsultarRolePorNomeGateway {
 
-    Optional<Set<Role>> find(Set<String> nomes);
+	Optional<Set<Role>> find(Set<String> nomes);
+
 }

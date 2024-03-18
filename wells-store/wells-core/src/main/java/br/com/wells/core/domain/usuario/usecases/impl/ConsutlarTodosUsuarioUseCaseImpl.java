@@ -7,19 +7,15 @@ import br.com.wells.core.domain.usuario.usecases.ConsutlarTodosUsuarioUseCase;
 
 public class ConsutlarTodosUsuarioUseCaseImpl implements ConsutlarTodosUsuarioUseCase {
 
-    private final ConsutlarTodosUsuarioGateway consutlarTodosUsuarioGateway;
+	private final ConsutlarTodosUsuarioGateway consutlarTodosUsuarioGateway;
 
-    public ConsutlarTodosUsuarioUseCaseImpl(
-            ConsutlarTodosUsuarioGateway consutlarTodosUsuarioGateway
-    ) {
-        this.consutlarTodosUsuarioGateway = consutlarTodosUsuarioGateway;
-    }
+	public ConsutlarTodosUsuarioUseCaseImpl(ConsutlarTodosUsuarioGateway consutlarTodosUsuarioGateway) {
+		this.consutlarTodosUsuarioGateway = consutlarTodosUsuarioGateway;
+	}
 
-    @Override
-    public Pagina<Usuario> find(int pageNumber, int pageSize) {
-        return consutlarTodosUsuarioGateway.find(
-                pageNumber,
-                pageSize
-        );
-    }
+	@Override
+	public Pagina<Usuario> find(int pageNumber, int pageSize) {
+		return consutlarTodosUsuarioGateway.find(pageNumber, pageSize);
+	}
+
 }

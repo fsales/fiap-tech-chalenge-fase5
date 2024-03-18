@@ -19,73 +19,62 @@ import static org.mockito.Mockito.when;
 @DisplayName("Testes para ConsultarUsuarioPorUsernameUseCase")
 class ConsultarUsuarioPorUsernameUseCaseIT {
 
-    public static final String CLIENTE = "CLIENTE";
+	public static final String CLIENTE = "CLIENTE";
 
-    private AutoCloseable openMocks;
+	private AutoCloseable openMocks;
 
-    @Mock
-    private ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsernameGateway;
+	@Mock
+	private ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsernameGateway;
 
-    private ConsultarUsuarioPorUsernameUseCase consultarUsuarioPorUsernameUseCase;
+	private ConsultarUsuarioPorUsernameUseCase consultarUsuarioPorUsernameUseCase;
 
-    @BeforeEach
-    void setUp() {
-        openMocks = MockitoAnnotations.openMocks(this);
+	@BeforeEach
+	void setUp() {
+		openMocks = MockitoAnnotations.openMocks(this);
 
-        consultarUsuarioPorUsernameUseCase = new ConsultarUsuarioPorUsernameUseCaseImpl(
-                consultarUsuarioPorUsernameGateway
-        );
-    }
+		consultarUsuarioPorUsernameUseCase = new ConsultarUsuarioPorUsernameUseCaseImpl(
+				consultarUsuarioPorUsernameGateway);
+	}
 
-    @AfterEach
-    void tearDown() throws Exception {
-        openMocks.close();
-    }
+	@AfterEach
+	void tearDown() throws Exception {
+		openMocks.close();
+	}
 
-    @Nested
-    @DisplayName("ConsultarUsuario")
-    class ConsultarUsuario {
+	@Nested
+	@DisplayName("ConsultarUsuario")
+	class ConsultarUsuario {
 
-        @Test
-        @DisplayName("Deve permitir consultar usuário pelo username")
-        void devePermitir_ConsultarUsuarioPorUsername() {
-            // Arrange
-            var username = "cliente@wells.com";
-            Usuario usuarioMock = Usuario.criar(
-                    "cliente@wells.com",
-                    "123456",
-                    Set.of(CLIENTE)
-            );
-            when(consultarUsuarioPorUsernameGateway.find(username)).thenReturn(Optional.of(usuarioMock));
+		@Test
+		@DisplayName("Deve permitir consultar usuário pelo username")
+		void devePermitir_ConsultarUsuarioPorUsername() {
+			// Arrange
+			var username = "cliente@wells.com";
+			Usuario usuarioMock = Usuario.criar("cliente@wells.com", "123456", Set.of(CLIENTE));
+			when(consultarUsuarioPorUsernameGateway.find(username)).thenReturn(Optional.of(usuarioMock));
 
-            // Act
-            Usuario resultado = consultarUsuarioPorUsernameUseCase.find(username);
+			// Act
+			Usuario resultado = consultarUsuarioPorUsernameUseCase.find(username);
 
-            // Assert
-            assertThat(resultado)
-                    .isNotNull()
-                    .extracting(Usuario::username)
-                    .isEqualTo(usuarioMock.username());
-        }
+			// Assert
+			assertThat(resultado).isNotNull().extracting(Usuario::username).isEqualTo(usuarioMock.username());
+		}
 
-        @Test
-        @DisplayName("Deve lançar exceção ao consultar um username que não existe")
-        void deveLancarExcecao_QuandoUsuarioNaoEncontrado() {
-            // Arrange
-            var username = "cliente@wells.com";
-            when(consultarUsuarioPorUsernameGateway.find(username)).thenReturn(Optional.empty());
+		@Test
+		@DisplayName("Deve lançar exceção ao consultar um username que não existe")
+		void deveLancarExcecao_QuandoUsuarioNaoEncontrado() {
+			// Arrange
+			var username = "cliente@wells.com";
+			when(consultarUsuarioPorUsernameGateway.find(username)).thenReturn(Optional.empty());
 
-            // Act & Assert
-            assertThrows(
-                    EntityNotFoundException.class,
-                    () -> consultarUsuarioPorUsernameUseCase.find(username)
-            );
+			// Act & Assert
+			assertThrows(EntityNotFoundException.class, () -> consultarUsuarioPorUsernameUseCase.find(username));
 
-            assertThatThrownBy(
-                    () -> consultarUsuarioPorUsernameUseCase.find(username))
-                    .isInstanceOf(EntityNotFoundException.class)
-                    .hasMessageContaining(String.format("Usuario com '%s' não encontrado", username));
-        }
-    }
+			assertThatThrownBy(() -> consultarUsuarioPorUsernameUseCase.find(username))
+				.isInstanceOf(EntityNotFoundException.class)
+				.hasMessageContaining(String.format("Usuario com '%s' não encontrado", username));
+		}
+
+	}
 
 }

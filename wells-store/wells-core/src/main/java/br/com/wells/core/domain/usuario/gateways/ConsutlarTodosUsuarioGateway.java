@@ -5,5 +5,6 @@ import br.com.wells.core.domain.usuario.model.Usuario;
 
 public interface ConsutlarTodosUsuarioGateway {
 
-    Pagina<Usuario> find(int pageNumber, int pageSize);
+	Pagina<Usuario> find(int pageNumber, int pageSize);
+
 }

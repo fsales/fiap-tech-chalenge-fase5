@@ -6,5 +6,6 @@ import java.util.Optional;
 
 public interface ConsutlarUsuarioPorIdGateway {
 
-    Optional<Usuario> find(Long id);
+	Optional<Usuario> find(Long id);
+
 }

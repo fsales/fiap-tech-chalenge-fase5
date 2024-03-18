@@ -1,6 +1,13 @@
+spring:
+  config:
+    activate:
+      on-profile: springdoc
+
 springdoc:
+  show-actuator: true
   swagger-ui:
-    path: /docs-wells-usuario.html
+    path: /docs-${spring.application.name}.html
   api-docs:
-    path: /docs-wells-usuario
-  packages-to-scan: br.com.wells.app.presentation.rest
+    groups:
+      enabled: true
+    path: /docs-${spring.application.name}

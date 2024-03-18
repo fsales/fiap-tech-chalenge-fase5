@@ -12,11 +12,12 @@ import java.util.Optional;
 @Repository
 public interface UsuarioEntityRepository extends JpaRepository<UsuarioEntity, Long> {
 
-    // Usando LEFT JOIN FETCH para incluir o relacionamento roles
-    @EntityGraph(attributePaths = "roles", type = EntityGraph.EntityGraphType.LOAD)
-    Optional<UsuarioEntity> findByUsername(String username);
+	// Usando LEFT JOIN FETCH para incluir o relacionamento roles
+	@EntityGraph(attributePaths = "roles", type = EntityGraph.EntityGraphType.LOAD)
+	Optional<UsuarioEntity> findByUsername(String username);
 
-    boolean existsByUsernameIgnoreCase(String username);
+	boolean existsByUsernameIgnoreCase(String username);
 
-    Page<UsuarioEntity> findAll(Pageable pageable);
+	Page<UsuarioEntity> findAll(Pageable pageable);
+
 }
