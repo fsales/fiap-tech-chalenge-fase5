@@ -22,43 +22,44 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@EqualsAndHashCode(of = {"id"})
+@EqualsAndHashCode(of = { "id" })
 @ToString
-@EntityListeners({AuditingEntityListener.class, UsuarioEntityListener.class})
+@EntityListeners({ AuditingEntityListener.class, UsuarioEntityListener.class })
 public class UsuarioEntity implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @Column(name = "USERNAME", nullable = true, length = 100)
-    @NotEmpty
-    private String username;
+	@Column(name = "USERNAME", nullable = true, length = 100)
+	@NotEmpty
+	private String username;
 
-    @Column(name = "SENHA", nullable = true, length = 200)
-    @NotEmpty
-    private String senha;
+	@Column(name = "SENHA", nullable = true, length = 200)
+	@NotEmpty
+	private String senha;
 
+	@Builder.Default
+	@ManyToMany
+	@JoinTable(schema = "wells", name = "USUARIO_ROLE",
+			joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
+	private Set<RoleEntity> roles = new HashSet<>();
 
-    @Builder.Default
-    @ManyToMany
-    @JoinTable(
-            schema = "wells",
-            name = "USUARIO_ROLE",
-            joinColumns = @JoinColumn(name = "usuario_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
-    private Set<RoleEntity> roles = new HashSet<>();
+	@CreatedDate
+	@Column(name = "DATA_CRIACAO")
+	private LocalDateTime dataCriacao;
 
-    @CreatedDate
-    @Column(name = "DATA_CRIACAO")
-    private LocalDateTime dataCriacao;
-    @LastModifiedDate
-    @Column(name = "DATA_MODIFICACAO")
-    private LocalDateTime dataModificacao;
-    @CreatedBy
-    @Column(name = "CRIADO_POR")
-    private String criadoPor;
-    @LastModifiedBy
-    @Column(name = "MODIFICADO_POR")
-    private String modificadoPor;
+	@LastModifiedDate
+	@Column(name = "DATA_MODIFICACAO")
+	private LocalDateTime dataModificacao;
+
+	@CreatedBy
+	@Column(name = "CRIADO_POR")
+	private String criadoPor;
+
+	@LastModifiedBy
+	@Column(name = "MODIFICADO_POR")
+	private String modificadoPor;
+
 }

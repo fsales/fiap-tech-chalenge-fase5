@@ -25,163 +25,124 @@ import static org.mockito.Mockito.*;
 @DisplayName("Testes para CadastrarUsuarioUseCase")
 class CadastrarUsuarioUseCaseIT {
 
-    public static final String CLIENTE = "CLIENTE";
-    public static final String ADMIN = "ADMIN";
+	public static final String CLIENTE = "CLIENTE";
 
-    private AutoCloseable openMocks;
-    @Mock
-    private CadastrarUsuarioGateway cadastrarUsuarioGateway;
+	public static final String ADMIN = "ADMIN";
 
-    @Mock
-    private ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsernameGateway;
+	private AutoCloseable openMocks;
 
-    @Mock
-    ConsultarRolePorNomeGateway consultarRolePorNomeGateway;
+	@Mock
+	private CadastrarUsuarioGateway cadastrarUsuarioGateway;
 
-    private CadastrarUsuarioUseCase cadastrarUsuarioUseCase;
+	@Mock
+	private ConsultarUsuarioPorUsernameGateway consultarUsuarioPorUsernameGateway;
 
-    @BeforeEach
-    void setup() {
-        openMocks = MockitoAnnotations.openMocks(this);
+	@Mock
+	ConsultarRolePorNomeGateway consultarRolePorNomeGateway;
 
-        /** Instanciação manual dos mocks **/
-        // Configuração dos mocks no serviço
-        cadastrarUsuarioUseCase = new CadastrarUsuarioUseCaseImpl(
-                cadastrarUsuarioGateway,
-                consultarUsuarioPorUsernameGateway,
-                consultarRolePorNomeGateway
-        );
-    }
+	private CadastrarUsuarioUseCase cadastrarUsuarioUseCase;
 
+	@BeforeEach
+	void setup() {
+		openMocks = MockitoAnnotations.openMocks(this);
 
-    @AfterEach
-    void tearDown() throws Exception {
-        openMocks.close();
-    }
+		/** Instanciação manual dos mocks **/
+		// Configuração dos mocks no serviço
+		cadastrarUsuarioUseCase = new CadastrarUsuarioUseCaseImpl(cadastrarUsuarioGateway,
+				consultarUsuarioPorUsernameGateway, consultarRolePorNomeGateway);
+	}
 
-    @Nested
-    @DisplayName("RegistrarUsuario")
-    class RegistrarUsuario {
-        @Test
-        @DisplayName("Deve permitir registrar usuário com role Cliente")
-        void devePermitir_RegistrarUsuario_RoleCliente() {
-            // Arrange
-            var roles = Set.of(CLIENTE);
-            var rolesObj = Set.of(Role.criar(CLIENTE));
-            var usuario = Usuario.criar(
-                    "cliente@wells.com",
-                    "123456",
-                    roles
-            );
+	@AfterEach
+	void tearDown() throws Exception {
+		openMocks.close();
+	}
 
-            when(
-                    consultarUsuarioPorUsernameGateway.existsByUsername(anyString())
-            ).thenReturn(false);
+	@Nested
+	@DisplayName("RegistrarUsuario")
+	class RegistrarUsuario {
 
-            when(
-                    consultarRolePorNomeGateway
-                            .find(
-                                    roles
-                            )
-            ).thenReturn(Optional.of(rolesObj));
+		@Test
+		@DisplayName("Deve permitir registrar usuário com role Cliente")
+		void devePermitir_RegistrarUsuario_RoleCliente() {
+			// Arrange
+			var roles = Set.of(CLIENTE);
+			var rolesObj = Set.of(Role.criar(CLIENTE));
+			var usuario = Usuario.criar("cliente@wells.com", "123456", roles);
 
-            when(
-                    cadastrarUsuarioGateway.execute(any(Usuario.class))
-            ).thenReturn(usuario);
+			when(consultarUsuarioPorUsernameGateway.existsByUsername(anyString())).thenReturn(false);
 
-            // Act
-            var resultado = cadastrarUsuarioUseCase.execute(usuario);
+			when(consultarRolePorNomeGateway.find(roles)).thenReturn(Optional.of(rolesObj));
 
-            // Assert
-            assertThat(resultado).isEqualTo(usuario);
-            assertThat(resultado.username()).isEqualTo(usuario.username());
-            assertThat(resultado.senha()).isEqualTo(usuario.senha());
-            assertThat(resultado.roles()
-                    .stream()
-                    .map(Role::nome)
-                    .collect(Collectors.toSet()))
-                    .isEqualTo(roles);
+			when(cadastrarUsuarioGateway.execute(any(Usuario.class))).thenReturn(usuario);
 
-            verify(consultarUsuarioPorUsernameGateway, times(1)).existsByUsername(anyString());
-            verify(cadastrarUsuarioGateway, times(1)).execute(any(Usuario.class));
-        }
+			// Act
+			var resultado = cadastrarUsuarioUseCase.execute(usuario);
 
+			// Assert
+			assertThat(resultado).isEqualTo(usuario);
+			assertThat(resultado.username()).isEqualTo(usuario.username());
+			assertThat(resultado.senha()).isEqualTo(usuario.senha());
+			assertThat(resultado.roles().stream().map(Role::nome).collect(Collectors.toSet())).isEqualTo(roles);
 
-        @Test
-        @DisplayName("Deve permitir registrar usuário com role Admin")
-        void devePermitir_RegistrarUsuario_RoleAdmin() {
-            // Arrange
-            var roles = Set.of(ADMIN);
-            var rolesObj = Set.of(Role.criar(ADMIN));
-            var username = Usuario.criar(
-                    "admin@wells.com",
-                    "123456",
-                    roles
-            );
-            when(
-                    consultarUsuarioPorUsernameGateway.existsByUsername(anyString())
-            ).thenReturn(false);
+			verify(consultarUsuarioPorUsernameGateway, times(1)).existsByUsername(anyString());
+			verify(cadastrarUsuarioGateway, times(1)).execute(any(Usuario.class));
+		}
 
-            when(
-                    consultarRolePorNomeGateway
-                            .find(
-                                    roles
-                            )
-            ).thenReturn(Optional.of(rolesObj));
+		@Test
+		@DisplayName("Deve permitir registrar usuário com role Admin")
+		void devePermitir_RegistrarUsuario_RoleAdmin() {
+			// Arrange
+			var roles = Set.of(ADMIN);
+			var rolesObj = Set.of(Role.criar(ADMIN));
+			var username = Usuario.criar("admin@wells.com", "123456", roles);
+			when(consultarUsuarioPorUsernameGateway.existsByUsername(anyString())).thenReturn(false);
 
-            when(
-                    cadastrarUsuarioGateway.execute(any(Usuario.class))
-            ).thenReturn(username);
+			when(consultarRolePorNomeGateway.find(roles)).thenReturn(Optional.of(rolesObj));
 
-            // Act
-            var resultado = cadastrarUsuarioUseCase.execute(username);
+			when(cadastrarUsuarioGateway.execute(any(Usuario.class))).thenReturn(username);
 
-            // Assert
-            assertThat(resultado).isEqualTo(username);
-            assertThat(resultado.username()).isEqualTo(username.username());
-            assertThat(resultado.senha()).isEqualTo(username.senha());
+			// Act
+			var resultado = cadastrarUsuarioUseCase.execute(username);
 
-            // Desembrulhe o Optional e compare os conjuntos diretamente
-            assertThat(resultado.roles()
-                    .stream()
-                    .map(Role::nome)
-                    .collect(Collectors.toSet()))
-                    .isEqualTo(roles);
+			// Assert
+			assertThat(resultado).isEqualTo(username);
+			assertThat(resultado.username()).isEqualTo(username.username());
+			assertThat(resultado.senha()).isEqualTo(username.senha());
 
-            verify(consultarUsuarioPorUsernameGateway, times(1)).existsByUsername(anyString());
-            verify(cadastrarUsuarioGateway, times(1)).execute(any(Usuario.class));
-        }
-    }
+			// Desembrulhe o Optional e compare os conjuntos diretamente
+			assertThat(resultado.roles().stream().map(Role::nome).collect(Collectors.toSet())).isEqualTo(roles);
 
-        @Nested
-    @DisplayName("Método Validar")
-    class Validar {
+			verify(consultarUsuarioPorUsernameGateway, times(1)).existsByUsername(anyString());
+			verify(cadastrarUsuarioGateway, times(1)).execute(any(Usuario.class));
+		}
 
-        @Test
-        @DisplayName("Deve lançar exceção ao cadastrar usuário com username existente")
-        void deveLancarExcecao_CadastrarUsuario_ComUsernameExistente() {
-            // Arrange
-            var usuario = Usuario.criar(
-                    "cliente@wells.com",
-                    "123456",
-                    Set.of(CLIENTE)
-            );
-            // metoodo retona verdadeiro se existir usuario com o mesmo nome cadastrado
-            when(consultarUsuarioPorUsernameGateway.existsByUsername(anyString())).thenReturn(true);
+	}
 
-            // Act & Assert
-            assertThrows(UsernameUniqueViolationException.class, () -> cadastrarUsuarioUseCase.execute(usuario));
+	@Nested
+	@DisplayName("Método Validar")
+	class Validar {
 
-            // Verify
-            verify(consultarUsuarioPorUsernameGateway).existsByUsername("cliente@wells.com");
-            verify(cadastrarUsuarioGateway, never()).execute(any(Usuario.class));
+		@Test
+		@DisplayName("Deve lançar exceção ao cadastrar usuário com username existente")
+		void deveLancarExcecao_CadastrarUsuario_ComUsernameExistente() {
+			// Arrange
+			var usuario = Usuario.criar("cliente@wells.com", "123456", Set.of(CLIENTE));
+			// metoodo retona verdadeiro se existir usuario com o mesmo nome cadastrado
+			when(consultarUsuarioPorUsernameGateway.existsByUsername(anyString())).thenReturn(true);
 
-            // AssertJ verification
-            assertThatThrownBy(
-                    () -> cadastrarUsuarioUseCase.execute(usuario)
-            )
-                    .isInstanceOf(UsernameUniqueViolationException.class)
-                    .hasMessageContaining("Usuário já cadastrado");
-        }
-    }
+			// Act & Assert
+			assertThrows(UsernameUniqueViolationException.class, () -> cadastrarUsuarioUseCase.execute(usuario));
+
+			// Verify
+			verify(consultarUsuarioPorUsernameGateway).existsByUsername("cliente@wells.com");
+			verify(cadastrarUsuarioGateway, never()).execute(any(Usuario.class));
+
+			// AssertJ verification
+			assertThatThrownBy(() -> cadastrarUsuarioUseCase.execute(usuario))
+				.isInstanceOf(UsernameUniqueViolationException.class)
+				.hasMessageContaining("Usuário já cadastrado");
+		}
+
+	}
+
 }

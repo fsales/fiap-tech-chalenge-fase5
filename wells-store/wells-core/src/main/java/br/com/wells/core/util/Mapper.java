@@ -9,6 +9,6 @@ package br.com.wells.core.util;
 @FunctionalInterface
 public interface Mapper<T, R> {
 
-    R apply(T t);
+	R apply(T t);
 
 }

@@ -12,16 +12,13 @@ spring:
 
 logging:
   level:
-    br:
-      com:
-        wells: debug
-    org:
-      hibernate:
-        type: TRACE
-        SQL: DEBUG
-      springframework:
-        security: DEBUG
+    br.com.wells: debug
+    org.hibernate.type: TRACE
+    org.hibernate.SQL: DEBUG
+    org.springframework: info
+    org.springframework.security: DEBUG
+    org.springframework.data: DEBUG
 
 server:
   error:
-    include-stacktrace: on_param
+    include-stacktrace: always

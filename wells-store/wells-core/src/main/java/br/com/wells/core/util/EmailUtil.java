@@ -5,16 +5,16 @@ import org.apache.commons.validator.routines.EmailValidator;
 
 public final class EmailUtil {
 
-    private EmailUtil() {
-    }
+	private EmailUtil() {
+	}
 
-    /**
-     * @param email
-     * @return
-     */
-    public static boolean isValidEmail(@NonNull String email) {
+	/**
+	 * @param email
+	 * @return
+	 */
+	public static boolean isValidEmail(@NonNull String email) {
 
-        return EmailValidator.getInstance()
-                .isValid(email);
-    }
+		return EmailValidator.getInstance().isValid(email);
+	}
+
 }

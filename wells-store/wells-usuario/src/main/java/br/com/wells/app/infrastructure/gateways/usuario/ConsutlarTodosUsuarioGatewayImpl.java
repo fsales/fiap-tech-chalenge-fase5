@@ -10,33 +10,20 @@ import org.springframework.data.domain.Pageable;
 
 public class ConsutlarTodosUsuarioGatewayImpl implements ConsutlarTodosUsuarioGateway {
 
-    private final UsuarioEntityRepository usuarioEntityRepository;
+	private final UsuarioEntityRepository usuarioEntityRepository;
 
-    public ConsutlarTodosUsuarioGatewayImpl(
-            UsuarioEntityRepository usuarioEntityRepository
-    ) {
-        this.usuarioEntityRepository = usuarioEntityRepository;
-    }
+	public ConsutlarTodosUsuarioGatewayImpl(UsuarioEntityRepository usuarioEntityRepository) {
+		this.usuarioEntityRepository = usuarioEntityRepository;
+	}
 
-    @Override
-    public Pagina<Usuario> find(
-            int pageNumber,
-            int pageSize
-    ) {
-        Pageable pageable = PageRequest.of(
-                pageNumber,
-                pageSize
-        );
+	@Override
+	public Pagina<Usuario> find(int pageNumber, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 
-        var usuarioPage = usuarioEntityRepository.findAll(
-                pageable
-        );
+		var usuarioPage = usuarioEntityRepository.findAll(pageable);
 
-        return new Pagina<>(
-                usuarioPage.getContent(),
-                usuarioPage.getTotalElements()
-        ).map(
-                UsuarioEntityMapper::convertToUsuario
-        );
-    }
+		return new Pagina<>(usuarioPage.getContent(), usuarioPage.getTotalElements())
+			.map(UsuarioEntityMapper::convertToUsuario);
+	}
+
 }

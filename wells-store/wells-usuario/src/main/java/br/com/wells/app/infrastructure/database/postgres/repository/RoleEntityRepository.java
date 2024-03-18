@@ -11,12 +11,11 @@ import java.util.Set;
 @Repository
 public interface RoleEntityRepository extends JpaRepository<RoleEntity, Long> {
 
-    @Query("SELECT r FROM RoleEntity r WHERE UPPER(r.nome) IN :nomes")
-    Optional<Set<RoleEntity>> findByNomesIgnoreCase(Set<String> nomes);
+	@Query("SELECT r FROM RoleEntity r WHERE UPPER(r.nome) IN :nomes")
+	Optional<Set<RoleEntity>> findByNomesIgnoreCase(Set<String> nomes);
 
-    default Optional<Set<RoleEntity>> findByNomesIgnoreCaseSafe(Set<String> nomes) {
-        return Optional.ofNullable(nomes)
-                .filter(set -> !set.isEmpty())
-                .flatMap(this::findByNomesIgnoreCase);
-    }
+	default Optional<Set<RoleEntity>> findByNomesIgnoreCaseSafe(Set<String> nomes) {
+		return Optional.ofNullable(nomes).filter(set -> !set.isEmpty()).flatMap(this::findByNomesIgnoreCase);
+	}
+
 }

@@ -11,20 +11,20 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class ConsultarRolePorNomeGatewayImpl implements ConsultarRolePorNomeGateway {
-    private final RoleEntityRepository roleEntityRepository;
 
-    public ConsultarRolePorNomeGatewayImpl(RoleEntityRepository roleEntityRepository) {
-        this.roleEntityRepository = roleEntityRepository;
-    }
+	private final RoleEntityRepository roleEntityRepository;
 
-    @Override
-    public Optional<Set<Role>> find(Set<String> nomes) {
-        return roleEntityRepository.findByNomesIgnoreCaseSafe(nomes)
-                .map(entities -> entities.stream()
-                        .map(RolerEntityMapper::convertToRole)
-                        .collect(Collectors.toSet()))
-                .or(() -> {
-                    throw new UsuarioInvalidoException("Role não existe.");
-                });
-    }
+	public ConsultarRolePorNomeGatewayImpl(RoleEntityRepository roleEntityRepository) {
+		this.roleEntityRepository = roleEntityRepository;
+	}
+
+	@Override
+	public Optional<Set<Role>> find(Set<String> nomes) {
+		return roleEntityRepository.findByNomesIgnoreCaseSafe(nomes)
+			.map(entities -> entities.stream().map(RolerEntityMapper::convertToRole).collect(Collectors.toSet()))
+			.or(() -> {
+				throw new UsuarioInvalidoException("Role não existe.");
+			});
+	}
+
 }
