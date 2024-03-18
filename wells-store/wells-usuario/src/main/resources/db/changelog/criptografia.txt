@@ -1,0 +1,6 @@
+a. utilizar o site	https://cryptotools.net/rsagen
+	b. gerar a chave privada
+		openssl genrsa > app-private.pem
+
+	c. gerar chave publica
+		openssl rsa -in app-private.pem -pubout -out app-public.pem
