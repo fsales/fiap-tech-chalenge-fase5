@@ -16,12 +16,25 @@ public class ApiExceptionHandler {
 
 	private static final String MSG_ERROR = "[Error ] - ";
 
-	@ExceptionHandler({ MissingAuthorizationHeaderException.class, TokenValidationException.class })
-	public ResponseEntity<ErrorMessage> erroBadRequest(RuntimeException ex, ServerHttpRequest request) {
+	@ExceptionHandler({ MissingAuthorizationHeaderException.class })
+	public ResponseEntity<ErrorMessage> errorUnathorized(RuntimeException ex, ServerHttpRequest request) {
 		log.error(MSG_ERROR, ex);
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
 			.contentType(MediaType.APPLICATION_JSON)
 			.body(new ErrorMessage(request, HttpStatus.UNAUTHORIZED, ex.getMessage()));
 	}
+
+	@ExceptionHandler({ TokenValidationException.class })
+	public ResponseEntity<ErrorMessage> erroForbidden(RuntimeException ex, ServerHttpRequest request) {
+		log.error(MSG_ERROR, ex);
+		return ResponseEntity.status(HttpStatus.FORBIDDEN)
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(new ErrorMessage(request, HttpStatus.FORBIDDEN, ex.getMessage()));
+	}
+
+
+
+
+
 
 }
