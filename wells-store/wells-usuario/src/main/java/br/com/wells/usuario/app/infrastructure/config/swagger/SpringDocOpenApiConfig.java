@@ -1,5 +1,6 @@
 package br.com.wells.usuario.app.infrastructure.config.swagger;
 
+import br.com.wells.usuario.app.infrastructure.config.swagger.properties.SwaggerConfigProperties;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -12,11 +13,13 @@ import org.springframework.context.annotation.Configuration;
 public class SpringDocOpenApiConfig {
 
 	@Bean
-	public OpenAPI openAPI() {
+	public OpenAPI openAPI(SwaggerConfigProperties swaggerConfigProperties) {
+		var application = swaggerConfigProperties.getApplication();
+
 		return new OpenAPI().components(new Components().addSecuritySchemes("security", securityScheme()))
-			.info(new Info().title("REST API - Wells Store")
-				.description("API para gestão usuários")
-				.version("v1")
+			.info(new Info().title(application.title())
+				.description(application.description())
+				.version(application.version())
 				.license(new License().name("MIT License")));
 	}
 
