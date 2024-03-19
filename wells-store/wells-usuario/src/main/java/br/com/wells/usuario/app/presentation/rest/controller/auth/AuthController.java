@@ -6,6 +6,7 @@ import br.com.wells.usuario.app.infrastructure.config.spring.security.user.Usuar
 import br.com.wells.usuario.app.presentation.exception.ErrorMessage;
 import br.com.wells.usuario.app.presentation.rest.controller.auth.dto.request.UsuarioLoginDto;
 import br.com.wells.usuario.app.presentation.rest.controller.auth.dto.response.LoginResponseDTO;
+import br.com.wells.usuario.app.presentation.rest.controller.auth.dto.response.TokenResponseDTO;
 import br.com.wells.usuario.app.presentation.rest.controller.auth.swagger.AutenticacaoControllerSwagger;
 import br.com.wells.usuario.app.presentation.rest.controller.exception.WellsAuthenticationException;
 import br.com.wells.usuario.app.presentation.rest.controller.response.generic.GenericResponse;
@@ -95,15 +96,21 @@ public class AuthController implements AutenticacaoControllerSwagger {
 
 	@GetMapping("/validate")
 	@Override
-	public ResponseEntity<GenericResponse<String>> validateToken(@RequestParam("token") String token) {
+	public ResponseEntity<GenericResponse<TokenResponseDTO>> validateToken(@RequestParam("token") String token,
+			HttpServletRequest request) {
 		try {
 			jwtToken.validateToken(token);
+
+			var tokenResponseDTO = new TokenResponseDTO(token, jwtToken.verifyJWT(token), jwtToken.isJWTExpired(token));
+
+			return ResponseEntity.ok(GenericResponse.success(HttpStatus.OK, tokenResponseDTO));
 		}
 		catch (JWTVerificationException e) {
-			throw new WellsAuthenticationException("Token inválido");
+			return ResponseEntity.badRequest()
+				.body(GenericResponse.error(HttpStatus.UNAUTHORIZED,
+						new ErrorMessage(request, HttpStatus.UNAUTHORIZED, "Token inválido")));
 		}
 
-		return ResponseEntity.ok(GenericResponse.success(HttpStatus.OK, "Token é válido."));
 	}
 
 }

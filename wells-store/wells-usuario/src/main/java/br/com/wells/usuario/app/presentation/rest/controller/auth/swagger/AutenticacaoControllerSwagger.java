@@ -3,6 +3,7 @@ package br.com.wells.usuario.app.presentation.rest.controller.auth.swagger;
 import br.com.wells.usuario.app.presentation.exception.ErrorMessage;
 import br.com.wells.usuario.app.presentation.rest.controller.auth.dto.request.UsuarioLoginDto;
 import br.com.wells.usuario.app.presentation.rest.controller.auth.dto.response.LoginResponseDTO;
+import br.com.wells.usuario.app.presentation.rest.controller.auth.dto.response.TokenResponseDTO;
 import br.com.wells.usuario.app.presentation.rest.controller.response.generic.GenericResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -55,6 +56,6 @@ public interface AutenticacaoControllerSwagger {
 					@ApiResponse(responseCode = "422", description = "Campo(s) Inválido(s)",
 							content = @Content(mediaType = "application/json",
 									schema = @Schema(implementation = ErrorMessage.class))) })
-	ResponseEntity<GenericResponse<String>> validateToken(String token);
+	ResponseEntity<GenericResponse<TokenResponseDTO>> validateToken(String token, HttpServletRequest request);
 
 }
