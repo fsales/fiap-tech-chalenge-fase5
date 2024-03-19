@@ -10,16 +10,14 @@ import org.springframework.stereotype.Component;
 @Component
 public class RouteValidator {
 
-	public final WellsGatewayProperties wellsGatewayProperties;
-
-	private List<String> openApiEndpoints;
+	private List<WellsGatewayProperties.Endpoint> openApiEndpoints;
 
 	public Predicate<ServerHttpRequest> isSecured = request -> openApiEndpoints.stream()
-		.noneMatch(uri -> request.getURI().getPath().contains(uri));
+		.noneMatch(endpoint -> request.getURI().getPath().contains(endpoint.path()) && (endpoint.methods() == null
+				|| endpoint.methods().isEmpty() || endpoint.methods().contains(request.getMethod().toString())));
 
 	public RouteValidator(WellsGatewayProperties wellsGatewayProperties) {
-		this.wellsGatewayProperties = wellsGatewayProperties;
-		this.openApiEndpoints = wellsGatewayProperties.getEndpoint().openApiEndpoints();
+		this.openApiEndpoints = wellsGatewayProperties.getOpenApiEndpoints();
 	}
 
 }

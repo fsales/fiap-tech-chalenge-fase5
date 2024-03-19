@@ -27,14 +27,14 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 
 	private final WebClient.Builder webClientBuilder;
 
-    private final String validationUrl;
+	private final String validationUrl;
 
 	public AuthenticationFilter(RouteValidator validator, WebClient.Builder webClientBuilder,
 			@Value("${app.authentication.validation-url}") String validationUrl) {
 		super(Config.class);
 		this.validator = validator;
 		this.webClientBuilder = webClientBuilder;
-        this.validationUrl = validationUrl;
+		this.validationUrl = validationUrl;
 	}
 
 	@Override
@@ -69,18 +69,18 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 		return authHeader;
 	}
 
-private boolean checkValidResponse(String response) {
-  try {
-    ObjectMapper mapper = new ObjectMapper();
-    JsonNode rootNode = mapper.readTree(response);
-    JsonNode dataNode = rootNode.path("data");
-    JsonNode validNode = dataNode.path("valid");
-    return validNode.isBoolean() && validNode.asBoolean();
-  }
-  catch (Exception e) {
-    return false;
-  }
-}
+	private boolean checkValidResponse(String response) {
+		try {
+			ObjectMapper mapper = new ObjectMapper();
+			JsonNode rootNode = mapper.readTree(response);
+			JsonNode dataNode = rootNode.path("data");
+			JsonNode validNode = dataNode.path("valid");
+			return validNode.isBoolean() && validNode.asBoolean();
+		}
+		catch (Exception e) {
+			return false;
+		}
+	}
 
 	@Setter
 	@Getter

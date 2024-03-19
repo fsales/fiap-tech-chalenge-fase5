@@ -13,9 +13,9 @@ import java.util.List;
 public class WellsGatewayProperties {
 
 	@NestedConfigurationProperty
-	private Endpoint endpoint;
+	private List<Endpoint> openApiEndpoints;
 
-	public record Endpoint(List<String> openApiEndpoints) {
+	public record Endpoint(String path, List<String> methods) {
 
 	}
 
