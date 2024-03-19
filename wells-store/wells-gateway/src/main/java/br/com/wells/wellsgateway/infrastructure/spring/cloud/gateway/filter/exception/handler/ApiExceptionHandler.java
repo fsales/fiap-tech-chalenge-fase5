@@ -28,13 +28,8 @@ public class ApiExceptionHandler {
 	public ResponseEntity<ErrorMessage> erroForbidden(RuntimeException ex, ServerHttpRequest request) {
 		log.error(MSG_ERROR, ex);
 		return ResponseEntity.status(HttpStatus.FORBIDDEN)
-				.contentType(MediaType.APPLICATION_JSON)
-				.body(new ErrorMessage(request, HttpStatus.FORBIDDEN, ex.getMessage()));
+			.contentType(MediaType.APPLICATION_JSON)
+			.body(new ErrorMessage(request, HttpStatus.FORBIDDEN, ex.getMessage()));
 	}
-
-
-
-
-
 
 }
