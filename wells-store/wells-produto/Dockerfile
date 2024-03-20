@@ -5,7 +5,7 @@ FROM public.ecr.aws/amazoncorretto/amazoncorretto:17
 ARG USER_UID="1000" \
 ARG USER_GID="1000"
 ARG USER_NAME="wells.usuario"
-ARG JAR_FILE=/target/wells-usuario.jar
+ARG JAR_FILE=/target/wells-PRODUTO.jar
 ARG VERSION="1.0"
 
 # Variáveis de ambiente
@@ -13,9 +13,9 @@ ENV PORT=8080 \
     DEPENDENCY=/app
 
 # Metadados da imagem
-LABEL maintainer="Well Store - Usuario" \
+LABEL maintainer="Well Store - PRODUTO" \
       version=${VERSION} \
-      description="Sistema de geranciamento de  usuarios."
+      description="Sistema de geranciamento de produto."
 
 # Instalação de pacotes necessários
 RUN yum install -y shadow-utils
