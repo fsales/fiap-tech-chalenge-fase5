@@ -11,6 +11,7 @@ app:
         private-key: classpath:app-private.pem
 
   swagger:
+    url: http://localhost:8125 # url do gateway
     application:
       title: ${spring.application.name}
       description: ${spring.application.description}

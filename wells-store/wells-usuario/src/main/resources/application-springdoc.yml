@@ -4,10 +4,8 @@ spring:
       on-profile: springdoc
 
 springdoc:
-  #show-actuator: true
-  swagger-ui:
-    path: /swagger-ui.html
   api-docs:
-#    groups:
-#      enabled: true
-    path: /v3/api-docs
+    path: /wells-usuario/v3/api-docs
+  swagger-ui:
+    path: /wells-usuario/swagger-ui.html
+

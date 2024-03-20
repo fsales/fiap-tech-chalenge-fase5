@@ -29,9 +29,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 public class SecurityConfigurations {
 
-	private static final String[] DOCUMENTATION_OPENAPI = { "/docs/index.html", "/docs-wells-usuario.html",
-			"/docs-wells-usuario/**", "/v3/api-docs/**", "/swagger-ui-custom.html", "/swagger-ui.html",
-			"/swagger-ui/**", "/**.html", "/webjars/**", "/configuration/**", "/swagger-resources/**" };
+	private static final String[] DOCUMENTATION_OPENAPI = { "/docs/index.html", "/wells-usuario.html",
+			"/wells-usuario/**", "/v3/api-docs/**", "/swagger-ui-custom.html", "/swagger-ui.html", "/swagger-ui/**",
+			"/**.html", "/webjars/**", "/configuration/**", "/swagger-resources/**" };
 
 	private static final String[] ACTUATOR = { "/actuator/**" };
 

@@ -1,4 +1,4 @@
-package br.com.wells.wellsgateway.infrastructure.spring.cloud.gateway.filter;
+package br.com.wells.wellsgateway.infrastructure.spring.cloud.gateway.router;
 
 import java.util.List;
 import java.util.function.Predicate;

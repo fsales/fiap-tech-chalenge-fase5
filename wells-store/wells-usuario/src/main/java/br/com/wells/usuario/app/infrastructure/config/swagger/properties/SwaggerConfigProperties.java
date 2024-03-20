@@ -13,6 +13,8 @@ public class SwaggerConfigProperties {
 	@NestedConfigurationProperty
 	private Application application;
 
+	private String url;
+
 	public record Application(String title,
 
 			String description,

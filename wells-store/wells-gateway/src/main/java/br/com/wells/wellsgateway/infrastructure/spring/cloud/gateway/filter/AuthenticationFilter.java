@@ -2,6 +2,7 @@ package br.com.wells.wellsgateway.infrastructure.spring.cloud.gateway.filter;
 
 import br.com.wells.wellsgateway.infrastructure.spring.cloud.gateway.filter.exception.MissingAuthorizationHeaderException;
 import br.com.wells.wellsgateway.infrastructure.spring.cloud.gateway.filter.exception.TokenValidationException;
+import br.com.wells.wellsgateway.infrastructure.spring.cloud.gateway.router.RouteValidator;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Getter;
