@@ -4,12 +4,16 @@ import br.com.wells.core.domain.usuario.exception.EntityNotFoundException;
 import br.com.wells.core.domain.usuario.exception.SenhaInvalidaException;
 import br.com.wells.core.domain.usuario.exception.UsernameUniqueViolationException;
 import br.com.wells.core.domain.usuario.exception.UsuarioInvalidoException;
+import br.com.wells.usuario.app.infrastructure.config.spring.security.jwt.exception.TokenValidationException;
+import com.auth0.jwt.exceptions.IncorrectClaimException;
+import com.auth0.jwt.exceptions.InvalidClaimException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -62,6 +66,14 @@ public class ApiExceptionHandler {
 			.contentType(MediaType.APPLICATION_JSON)
 			.body(new ErrorMessage(request, HttpStatus.BAD_REQUEST,
 					"Erro de leitura JSON: " + ex.getMostSpecificCause().getMessage()));
+	}
+
+	@ExceptionHandler({ TokenValidationException.class, IncorrectClaimException.class, InvalidClaimException.class })
+	public ResponseEntity<ErrorMessage> errorUnathorized(RuntimeException ex, HttpServletRequest request) {
+		log.error(MSG_ERROR, ex);
+		return ResponseEntity.status(HttpStatus.FORBIDDEN)
+			.contentType(MediaType.APPLICATION_JSON)
+			.body(new ErrorMessage(request, HttpStatus.FORBIDDEN, ex.getMessage()));
 	}
 
 }

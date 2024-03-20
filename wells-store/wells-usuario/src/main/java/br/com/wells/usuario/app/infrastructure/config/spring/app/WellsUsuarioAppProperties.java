@@ -12,6 +12,7 @@ public class WellsUsuarioAppProperties {
 
 	private String name;
 
+	@NestedConfigurationProperty
 	private Api api;
 
 	public record Api(Security security) {
@@ -22,9 +23,9 @@ public class WellsUsuarioAppProperties {
 	public static class Security {
 
 		@NestedConfigurationProperty
-		private Token token;
+		private Jwt jwt;
 
-		public record Token(String secret) {
+		public record Jwt(String withIssuer) {
 
 		}
 

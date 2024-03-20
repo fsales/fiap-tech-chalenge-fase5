@@ -1,6 +1,6 @@
 spring:
   application:
-    name: @project.name@
+    name: @project.name@-service
     description: @project.description@
     version: @project.version@
 
@@ -19,14 +19,12 @@ spring:
           filters:
             - RewritePath=/wells-usuario/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
 
-
         - id: api-v1-auth
           uri: lb://wells-usuario-service
           predicates:
             - Path=/api/v1/auth/**
           filters:
             - AuthenticationFilter
-            - RewritePath=/api/v1/auth/(?<path>.*), /$\{path}/api/v1/auth
 
         - id: api-v1-usuarios
           uri: lb://wells-usuario-service
@@ -34,6 +32,20 @@ spring:
             - Path=/api/v1/usuarios/**
           filters:
             - AuthenticationFilter
+
+        # redireciona para o actuator do wells-usuario: http://localhost:8125/usuarios/actuator/health
+        - id: usuario-service-actuator
+          uri: lb://wells-usuario-service
+          predicates:
+            - Path=/usuarios/actuator/**
+          filters:
+            - StripPrefix=1
+#        - id: usuario-service-actuator
+#          uri: lb://wells-usuario
+#          predicates:
+#            - Path=/usuarios/actuator/**
+#          filters:
+#            - StripPrefix=1
 
   profiles:
     active: ${PROFILE_ENVIRONMENT:default}

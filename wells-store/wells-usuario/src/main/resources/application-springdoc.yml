@@ -4,9 +4,13 @@ spring:
       on-profile: springdoc
 
 springdoc:
+  show-actuator: true
   api-docs:
+    enabled: true
+    groups:
+      enabled: true
     path: /wells-usuario/v3/api-docs
   swagger-ui:
+    enabled: true
     path: /wells-usuario/swagger-ui.html
-  packages-to-scan: br.com.wells.usuario.app.presentation
 

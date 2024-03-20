@@ -7,6 +7,7 @@ app:
   api:
     security:
       jwt:
+        withIssuer: wells-usuario
         public-key: classpath:app-public.pem
         private-key: classpath:app-private.pem
 
