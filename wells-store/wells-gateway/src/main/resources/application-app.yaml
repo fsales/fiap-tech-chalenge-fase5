@@ -8,7 +8,7 @@ app:
   version: ${spring.application.version}
 
   authentication:
-    validation-url: http://wells-usuario/api/v1/auth/validate?token=
+    validation-url: http://wells-usuario-service/api/v1/auth/validate?token=
 
   open-api-endpoints:
     - path: /api/v1/usuarios

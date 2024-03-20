@@ -1,6 +1,6 @@
 spring:
   application:
-    name: @project.name@
+    name: @project.name@-service
     description: @project.description@
     version: @project.version@
 
