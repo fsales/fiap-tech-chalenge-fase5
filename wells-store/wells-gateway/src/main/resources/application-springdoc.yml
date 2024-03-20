@@ -4,8 +4,11 @@ spring:
       on-profile: springdoc
 
 springdoc:
-  enable-native-support: true
   show-actuator: true
+  api-docs:
+    enabled: true
+    groups:
+      enabled: true
   swagger-ui:
     enabled: true
     path: /swagger-ui.html
@@ -13,25 +16,7 @@ springdoc:
     urls:
       - url: /v3/api-docs
         name: API Gateway Service
-        primaryName: API Gateway Service
       - url: /wells-usuario/v3/api-docs
-        name: wells-usuario
-        primaryName: API Usuarios Service
-
-#    enabled: true
-#  show-actuator: true
-#  api-docs:
-#    enabled: true
-#    groups:
-#      enabled: true
-#  swagger-ui:
-#    enabled: true
-#    path: /swagger-ui.html
-#    config-url: /v3/api-docs/swagger-config
-#    urls:
-#      - url: /v3/api-docs
-#        name: API Gateway Service
-#      - url: /wells-usuario/v3/api-docs
-#        display-name: API Usuarios Service
-#        name: API Usuarios Service
-#    urls-primary-name: API Gateway Service
+        name: API Wells Usuário
+    urls-primary-name: API Gateway Service
+  packages-to-scan: br.com.wells.wellsgateway

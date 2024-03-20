@@ -8,4 +8,5 @@ springdoc:
     path: /wells-usuario/v3/api-docs
   swagger-ui:
     path: /wells-usuario/swagger-ui.html
+  packages-to-scan: br.com.wells.usuario.app.presentation
 
