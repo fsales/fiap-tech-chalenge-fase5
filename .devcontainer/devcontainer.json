@@ -1,15 +1,11 @@
 {
     "name": "Java Project",
     "image": "mcr.microsoft.com/vscode/devcontainers/java:0-11",
-    "customizations": {
-        "vscode": {
-            "settings": {
-                "java.jdt.ls.java.home": "/root/.sdkman/candidates/java/current"
-            },
-            "extensions": [
-                "vscjava.vscode-java-pack"
-            ]
-        }
+    "settings": {
+        "java.home": "/root/.sdkman/candidates/java/current"
     },
-    "postCreateCommand": "/bin/bash /workspace/.devcontainer/postCreate.sh"
+    "postCreateCommand": "/bin/bash /workspace/.devcontainer/postCreate.sh",
+    "extensions": [
+        "vscjava.vscode-java-pack"
+    ]
 }
