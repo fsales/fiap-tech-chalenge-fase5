@@ -6,6 +6,38 @@
 	],
 	"settings": {
 		"java.compile.nullAnalysis.mode": "automatic",
-		"boot-java.change-detection.on": true
+		"boot-java.change-detection.on": true,
+		"editor.formatOnSave": true,
+		"editor.formatOnSaveMode": "modifications",
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": "explicit"
+		}
+	},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			{
+				"name": "wells-usuario",
+				"type": "java",
+				"request": "launch",
+				"mainClass": "br.com.wells.usuario.app.WellsUsuarioAppApllication",
+				"cwd": "${workspaceFolder}/wells-store/wells-usuario",
+				"envFile": "${workspaceFolder}/wells-store/wells-usuario/.env"
+			},
+			{
+				"name": "wells-gateway",
+				"type": "java",
+				"request": "launch",
+				"mainClass": "br.com.wells.wellsgateway.WellsGatewayApplication",
+				"cwd": "${workspaceFolder}/wells-store/wells-gateway"
+			}
+		],
+		"compounds": []
+	},
+	"extensions": {
+		"recommendations": [
+			"vmware.vscode-boot-dev-pack",
+			"vscjava.vscode-java-pack"
+		]
 	}
 }
