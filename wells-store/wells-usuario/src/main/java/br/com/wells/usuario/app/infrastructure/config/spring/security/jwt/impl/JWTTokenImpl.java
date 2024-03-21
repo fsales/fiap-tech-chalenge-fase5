@@ -39,12 +39,16 @@ public class JWTTokenImpl implements JWTToken {
 
 	private final JWTVerifier verifier;
 
+	private final String withIssuer;
+
 	public JWTTokenImpl(RSAPublicKey publicKey, RSAPrivateKey privateKey,
 			WellsUsuarioAppProperties wellsUsuarioAppProperties) {
 		this.wellsUsuarioAppProperties = wellsUsuarioAppProperties;
+		this.withIssuer = wellsUsuarioAppProperties.getApi().security().getJwt().withIssuer();
 
 		this.algorithm = Algorithm.RSA256(publicKey, privateKey);
-		this.verifier = JWT.require(algorithm).withIssuer(wellsUsuarioAppProperties.getName()).build();
+		this.verifier = JWT.require(algorithm).withIssuer(withIssuer).build();
+
 	}
 
 	private static String getClaim(DecodedJWT decodedJWT, String claimName) {
@@ -94,7 +98,7 @@ public class JWTTokenImpl implements JWTToken {
 
 			return JWT.create()
 				.withHeader(Collections.singletonMap("typ", "JWT"))
-				.withIssuer(this.wellsUsuarioAppProperties.getName())
+				.withIssuer(withIssuer)
 				.withClaim(usuario.getRolesMapKey(), usuario.getRolesMap().get(usuario.getRolesMapKey()))
 				.withIssuedAt(issuedAt)
 				.withSubject(usuario.getUsername())
@@ -115,7 +119,7 @@ public class JWTTokenImpl implements JWTToken {
 			String cleanedToken = refactorToken(token);
 
 			return JWT.require(algorithm)
-				.withIssuer(wellsUsuarioAppProperties.getApi().security().getJwt().withIssuer())
+				.withIssuer(withIssuer)
 				.build()
 				.verify(cleanedToken)
 				.getSubject();

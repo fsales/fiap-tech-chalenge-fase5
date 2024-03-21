@@ -7,170 +7,584 @@
 	},
 	"item": [
 		{
-			"name": "API de cadastro de usuário",
+			"name": "Wells Gateway",
 			"item": [
 				{
-					"name": "Cadastrar",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"username\": \"andre@wellsstore.br\",\r\n  \"senha\": \"123456\",\r\n  \"roles\": [\r\n    \"ADMIN\",\r\n    \"CLIENTE\"\r\n  ]\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Actuator",
+					"item": [
+						{
+							"name": "Info",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url-gateway}}/actuator/info",
+									"host": [
+										"{{url-gateway}}"
+									],
+									"path": [
+										"actuator",
+										"info"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{url-usuarios}}/api/v1/usuarios",
-							"host": [
-								"{{url-usuarios}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"usuarios"
-							]
+						{
+							"name": "Health",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url-gateway}}/actuator/health",
+									"host": [
+										"{{url-gateway}}"
+									],
+									"path": [
+										"actuator",
+										"health"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Actuator",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url-gateway}}/actuator",
+									"host": [
+										"{{url-gateway}}"
+									],
+									"path": [
+										"actuator"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					],
+					"description": "Actuator do Gateway"
 				},
 				{
-					"name": "Listar",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
+					"name": "Wells Usuário",
+					"item": [
+						{
+							"name": "API de cadastro de usuário",
+							"item": [
 								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoLWFwaSIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNzA5OTMwNjY5LCJzdWIiOiJhZG1pbkB3ZWxsc3N0b3JlLmJyIiwiZXhwIjoxNzA5OTMyNDY5fQ.-RgfkY-RNWoaFjAhmv-yTRS_p0I4EscRTfKnK9JI0wQ",
-									"type": "string"
+									"name": "Detalhar",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ3ZWxscy11c3VhcmlvIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTA4MDY5NzQsInN1YiI6ImFkbWluQHdlbGxzc3RvcmUuYnIiLCJleHAiOjE3MTA4MDg3NzQsImp0aSI6Ijc4NTM5MjlmLWE3ODItNDM1ZC1iYTg1LWEzOTZmYWY0OTZlYyIsIm5iZiI6MTcxMDgwNjk3NX0.lnQRor2bhkHQ0NFEGlDj283LMrr7hNp9x-26cn0IB_D0K5aJ3OsKL_4NqNSq6OXMDtmKZJwchi35qybcLCsgrMBr8HZ_iHsQJBZLAddUsA6qWEfOA-DoYNEr2XtpKWCgJmkCEiS3EzpDfsCMzUkaP9qgEu-R7B4_3OZqRxL2gzXVIgKvFypgPggs69GP-kTlLP889hPaIO-8YleFfy4kNNItc0SV0ptcqO7kngSgHixs6BuHevo4DraaGwucZxLPz9igoeAUadskmaegDLKd7z4YIcpkfA3SHQy2N2E7yNigKkrGiiKuEpswcKcAs_iXhJfc8YdHVhgCcq6SHVXcUA",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url-gateway}}/api/v1/usuarios/1",
+											"host": [
+												"{{url-gateway}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"usuarios",
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Cadastrar",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"username\": \"anddrea@wellsstore.br\",\r\n  \"senha\": \"123456\",\r\n  \"roles\": [\r\n    \"ADMIN\",\r\n    \"CLIENTE\"\r\n  ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url-gateway}}/api/v1/usuarios",
+											"host": [
+												"{{url-gateway}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"usuarios"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Listar",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ3ZWxscy11c3VhcmlvIiwicm9sZSI6IlJPTEVfQURNSU4iLCJpYXQiOjE3MTA5ODkwMjMsInN1YiI6ImFkbWluQHdlbGxzc3RvcmUuYnIiLCJleHAiOjE3MTA5OTA4MjMsImp0aSI6ImNmZjBkYjRhLTg2OWEtNGM2Zi1iNTFkLTZjM2ZlM2Q2MzA3MSIsIm5iZiI6MTcxMDk4OTAyNH0.pfmVH1Wb64qHrNQoVFREta66XejEztCxzF5VDbhkqx5UAYoND5_UATexwGz4C02_B1_BqbNu8RY1UHv30p4mn2Mn0DLZ39wkXXP4zWwRwNo0TADhFI7rgZw-sjIrPndVKnemzNsr7rrvrbZkoxZ_uzMbeV1qeIpmAA_HftYKW3rkwhihZs6q_ouFrYmWLXFFn4X1w5snxfpmmXF9nXcRrtptlXbEncqYrffohnZHcXw0JkMoXBFNgc0JDbA0i6jtOaPuPPw025GBWkBeHdxK5aoc8WFSMOKCHTSB4lxJED6UMuLCCRAues0Hpi3RUtJHtc8eWto0LpEqxW3YDzN08w",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url-gateway}}/api/v1/usuarios",
+											"host": [
+												"{{url-gateway}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"usuarios"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Alterar senha",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ3ZWxscy11c3VhcmlvIiwicm9sZSI6IlJPTEVfQ0xJRU5URSIsImlhdCI6MTcxMDk4OTQxMCwic3ViIjoiY2xpZW50ZUB3ZWxsc3N0b3JlLmJyIiwiZXhwIjoxNzEwOTkxMjEwLCJqdGkiOiJkZGM5MDk5Mi04YTBjLTQ5ZmMtYmY4MC0wMTdlZGZhNzc0M2YiLCJuYmYiOjE3MTA5ODk0MTF9.lJFKU2ucUdIgfJ7uUg2dioPopvmpdzBCDGxJGNmePWlaes1rud94tU6Sp5zKTzuk5a2D9PQOPuEuq_Kx0K3PZhfixnKB6UrtcnB30wQVeABQL4oQ6fjU3kSSP1HsF6tokGNRfx6YX4O1iHxxxDU0tJIB9h66eiMAXejhtex1CB9CCcEFzKoVq1vUvx-5ZFHPwlk3aifG-inRkhJ6Eg9BMbzKyEtGQgyk834GAt6qFDrKQkLXcQx3nKNEsCHBnup-gIbh3V80cjo8HxKOskAdc34BrDvFl6DZ5QMiDBeKv5G3bRkW09bLIDzD3zOFK4IzXqy7Nj-SRABRMLXputKW5Q",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"senhaAtual\": \"1234567\",\r\n    \"novaSenha\": \"123456\",\r\n    \"confirmaSenha\": \"123456\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url-gateway}}/api/v1/usuarios/1/senha",
+											"host": [
+												"{{url-gateway}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"usuarios",
+												"1",
+												"senha"
+											]
+										}
+									},
+									"response": []
 								}
 							]
 						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url-usuarios}}/api/v1/usuarios",
-							"host": [
-								"{{url-usuarios}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"usuarios"
+						{
+							"name": "Actuator Usuario",
+							"item": [
+								{
+									"name": "Info",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url-gateway}}/usuarios/actuator/info",
+											"host": [
+												"{{url-gateway}}"
+											],
+											"path": [
+												"usuarios",
+												"actuator",
+												"info"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Health",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url-gateway}}/usuarios/actuator/health",
+											"host": [
+												"{{url-gateway}}"
+											],
+											"path": [
+												"usuarios",
+												"actuator",
+												"health"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Actuator",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url-gateway}}/usuarios/actuator",
+											"host": [
+												"{{url-gateway}}"
+											],
+											"path": [
+												"usuarios",
+												"actuator"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "API de autenticaçao",
+							"item": [
+								{
+									"name": "Login",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"username\": \"cliente@wellsstore.br\",\r\n  \"senha\": \"123456\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url-gateway}}/api/v1/auth/login",
+											"host": [
+												"{{url-gateway}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"login"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Gerar Token",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n  \"username\": \"admin@wellsstore.br\",\r\n  \"senha\": \"123456\"\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{url-gateway}}/api/v1/auth/token",
+											"host": [
+												"{{url-gateway}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"token"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "valida token",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{url-gateway}}/api/v1/auth/validate?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ3ZWxscy11c3VhcmlvLXNlcnZpY2UiLCJyb2xlIjoiUk9MRV9BRE1JTiIsImlhdCI6MTcxMDk1NDY0MSwic3ViIjoiYWRtaW5Ad2VsbHNzdG9yZS5iciIsImV4cCI6MTcxMDk1NjQ0MSwianRpIjoiNmJjODY5OGYtOWQ4ZC00MzQxLTliZTUtODJiNDViOGY2ZTY1IiwibmJmIjoxNzEwOTU0NjQyfQ.UhNEeS_brwoRCeoKUjCoNxt99owcUZmqjo88Nm7s0namDo_nebxgmJ40Kxg1XCBdUy2qOzf0tfpfK_JNjnQqhDrT0-i0AHRKKdgmYY1c6GOFotziuNPZOztRwiDo-781fLKu3eJCAQgnm1vqXCqG_zKVv8bQuCGrNgZC72RqpZuMg2nu-SIYsvZuTfqb-vkcupl_HfJ9wgn4MZ6hGxQD5OvTBf9vXn8eFfw3BpesxsNLmbz-J84a7kuxzlXrye9Ix8gYONX_jQPmBXsZ0NiHV2KOpCL5Xg294XdhiZNzkVdynBp2C-Awq9-ODrEL-Q6a_BpJHBAt_kjVQDYXvys2Hw",
+											"host": [
+												"{{url-gateway}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"auth",
+												"validate"
+											],
+											"query": [
+												{
+													"key": "token",
+													"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ3ZWxscy11c3VhcmlvLXNlcnZpY2UiLCJyb2xlIjoiUk9MRV9BRE1JTiIsImlhdCI6MTcxMDk1NDY0MSwic3ViIjoiYWRtaW5Ad2VsbHNzdG9yZS5iciIsImV4cCI6MTcxMDk1NjQ0MSwianRpIjoiNmJjODY5OGYtOWQ4ZC00MzQxLTliZTUtODJiNDViOGY2ZTY1IiwibmJmIjoxNzEwOTU0NjQyfQ.UhNEeS_brwoRCeoKUjCoNxt99owcUZmqjo88Nm7s0namDo_nebxgmJ40Kxg1XCBdUy2qOzf0tfpfK_JNjnQqhDrT0-i0AHRKKdgmYY1c6GOFotziuNPZOztRwiDo-781fLKu3eJCAQgnm1vqXCqG_zKVv8bQuCGrNgZC72RqpZuMg2nu-SIYsvZuTfqb-vkcupl_HfJ9wgn4MZ6hGxQD5OvTBf9vXn8eFfw3BpesxsNLmbz-J84a7kuxzlXrye9Ix8gYONX_jQPmBXsZ0NiHV2KOpCL5Xg294XdhiZNzkVdynBp2C-Awq9-ODrEL-Q6a_BpJHBAt_kjVQDYXvys2Hw"
+												}
+											]
+										}
+									},
+									"response": []
+								}
 							]
 						}
-					},
-					"response": []
-				},
-				{
-					"name": "Detalhar",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoLWFwaSIsInJvbGUiOiJST0xFX0NMSUVOVEUiLCJpYXQiOjE3MDk5MzA2MDMsInN1YiI6ImNsaWVudGVAd2VsbHNzdG9yZS5iciIsImV4cCI6MTcwOTkzMjQwM30.vyUqcTzPowhOpA6ttGUO1IZZhlzxFmygH3EKziJZs2E\"\n",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url-usuarios}}/api/v1/usuarios/1",
-							"host": [
-								"{{url-usuarios}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"usuarios",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Alterar senha",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoLWFwaSIsInJvbGUiOiJST0xFX0NMSUVOVEUiLCJpYXQiOjE3MDk2OTI0MzAsInN1YiI6ImNsaWVudGVAd2VsbHNzdG9yZS5iciIsImV4cCI6MTcwOTY5NDIzMH0.I3QrWKCAW3To0Uf8U3Vk8g9ez9aNbdgua3V9VbN501E",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"senhaAtual\": \"1234567\",\r\n    \"novaSenha\": \"123456\",\r\n    \"confirmaSenha\": \"123456\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url-usuarios}}/api/v1/usuarios/3/senha",
-							"host": [
-								"{{url-usuarios}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"usuarios",
-								"3",
-								"senha"
-							]
-						}
-					},
-					"response": []
+					],
+					"description": "Realizando a chamada ao serviço de usuário pelo Gateway"
 				}
-			]
+			],
+			"description": "Api Gateway"
 		},
 		{
-			"name": "API de autenticação",
+			"name": "Wells Usuário",
 			"item": [
 				{
-					"name": "Login",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"username\": \"admin@wellsstore.br\",\r\n  \"senha\": \"123456\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "API de cadastro de usuário",
+					"item": [
+						{
+							"name": "Cadastrar",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"andre@wellsstore.br\",\r\n  \"senha\": \"123456\",\r\n  \"roles\": [\r\n    \"ADMIN\",\r\n    \"CLIENTE\"\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url-usuarios}}/api/v1/usuarios",
+									"host": [
+										"{{url-usuarios}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"usuarios"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{url-usuarios}}/api/v1/auth/login",
-							"host": [
-								"{{url-usuarios}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"auth",
-								"login"
-							]
+						{
+							"name": "Listar",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ3ZWxscy11c3VhcmlvIiwicm9sZSI6IlJPTEVfQ0xJRU5URSIsImlhdCI6MTcxMDk4OTUxOCwic3ViIjoiYW5kcmUyQHdlbGxzc3RvcmUuYnIiLCJleHAiOjE3MTA5OTEzMTgsImp0aSI6ImE0YTgyMWZlLWMzYTUtNDhiZS1hYjZlLTIxNWRiNDVkNGM0MiIsIm5iZiI6MTcxMDk4OTUxOX0.UMj0ExP2erlcwcCVHXTrv6NJChqBHrpavusn2lG8FcoNUiDKdJLaWP-Me2i2grVDlBTOe6EHbz5kp7RlwFTHd0QZpbYxEUvcOdSERRyDefsspRD-_9u9IVN9d0HlIhSPS2GpJskvvY0FNdiyUsIZ8lQvHLsHNR-_R6Z5sKKrQNB5qrzfAIK0iyjtwsClykoH-12A8YMFbqjZVcf7l89npPAlpjEIhB_yb_Gmy4SVvWlu-36ZvBiHfzBZHrGsgPPdabnbfcqKzX6wnHusaYo333nJHopcyQJpNkHTK3wjjVapUZEU8UL9TRDdNi0y-6rezEypbd_1IJQBAtu9uc-sXA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url-usuarios}}/api/v1/usuarios",
+									"host": [
+										"{{url-usuarios}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Detalhar",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ3ZWxscy11c3VhcmlvIiwicm9sZSI6IlJPTEVfQ0xJRU5URSIsImlhdCI6MTcxMDk4OTUxOCwic3ViIjoiYW5kcmUyQHdlbGxzc3RvcmUuYnIiLCJleHAiOjE3MTA5OTEzMTgsImp0aSI6ImE0YTgyMWZlLWMzYTUtNDhiZS1hYjZlLTIxNWRiNDVkNGM0MiIsIm5iZiI6MTcxMDk4OTUxOX0.UMj0ExP2erlcwcCVHXTrv6NJChqBHrpavusn2lG8FcoNUiDKdJLaWP-Me2i2grVDlBTOe6EHbz5kp7RlwFTHd0QZpbYxEUvcOdSERRyDefsspRD-_9u9IVN9d0HlIhSPS2GpJskvvY0FNdiyUsIZ8lQvHLsHNR-_R6Z5sKKrQNB5qrzfAIK0iyjtwsClykoH-12A8YMFbqjZVcf7l89npPAlpjEIhB_yb_Gmy4SVvWlu-36ZvBiHfzBZHrGsgPPdabnbfcqKzX6wnHusaYo333nJHopcyQJpNkHTK3wjjVapUZEU8UL9TRDdNi0y-6rezEypbd_1IJQBAtu9uc-sXA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url-usuarios}}/api/v1/usuarios/1",
+									"host": [
+										"{{url-usuarios}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"usuarios",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alterar senha",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ3ZWxscy11c3VhcmlvIiwicm9sZSI6IlJPTEVfQ0xJRU5URSIsImlhdCI6MTcxMDk4OTUxOCwic3ViIjoiYW5kcmUyQHdlbGxzc3RvcmUuYnIiLCJleHAiOjE3MTA5OTEzMTgsImp0aSI6ImE0YTgyMWZlLWMzYTUtNDhiZS1hYjZlLTIxNWRiNDVkNGM0MiIsIm5iZiI6MTcxMDk4OTUxOX0.UMj0ExP2erlcwcCVHXTrv6NJChqBHrpavusn2lG8FcoNUiDKdJLaWP-Me2i2grVDlBTOe6EHbz5kp7RlwFTHd0QZpbYxEUvcOdSERRyDefsspRD-_9u9IVN9d0HlIhSPS2GpJskvvY0FNdiyUsIZ8lQvHLsHNR-_R6Z5sKKrQNB5qrzfAIK0iyjtwsClykoH-12A8YMFbqjZVcf7l89npPAlpjEIhB_yb_Gmy4SVvWlu-36ZvBiHfzBZHrGsgPPdabnbfcqKzX6wnHusaYo333nJHopcyQJpNkHTK3wjjVapUZEU8UL9TRDdNi0y-6rezEypbd_1IJQBAtu9uc-sXA",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"senhaAtual\": \"123456\",\r\n    \"novaSenha\": \"1234567\",\r\n    \"confirmaSenha\": \"1234567\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url-usuarios}}/api/v1/usuarios/1/senha",
+									"host": [
+										"{{url-usuarios}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"usuarios",
+										"1",
+										"senha"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				},
+				{
+					"name": "API de autenticação",
+					"item": [
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"cliente@wellsstore.br\",\r\n  \"senha\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url-usuarios}}/api/v1/auth/login",
+									"host": [
+										"{{url-usuarios}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Gerar Token",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"username\": \"admin@wellsstore.br\",\r\n  \"senha\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url-usuarios}}/api/v1/auth/token",
+									"host": [
+										"{{url-usuarios}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"token"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "valida token",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url-usuarios}}/api/v1/auth/validate?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ3ZWxscy11c3VhcmlvIiwicm9sZSI6IlJPTEVfQ0xJRU5URSIsImlhdCI6MTcxMDk4OTUxOCwic3ViIjoiYW5kcmUyQHdlbGxzc3RvcmUuYnIiLCJleHAiOjE3MTA5OTEzMTgsImp0aSI6ImE0YTgyMWZlLWMzYTUtNDhiZS1hYjZlLTIxNWRiNDVkNGM0MiIsIm5iZiI6MTcxMDk4OTUxOX0.UMj0ExP2erlcwcCVHXTrv6NJChqBHrpavusn2lG8FcoNUiDKdJLaWP-Me2i2grVDlBTOe6EHbz5kp7RlwFTHd0QZpbYxEUvcOdSERRyDefsspRD-_9u9IVN9d0HlIhSPS2GpJskvvY0FNdiyUsIZ8lQvHLsHNR-_R6Z5sKKrQNB5qrzfAIK0iyjtwsClykoH-12A8YMFbqjZVcf7l89npPAlpjEIhB_yb_Gmy4SVvWlu-36ZvBiHfzBZHrGsgPPdabnbfcqKzX6wnHusaYo333nJHopcyQJpNkHTK3wjjVapUZEU8UL9TRDdNi0y-6rezEypbd_1IJQBAtu9uc-sXA",
+									"host": [
+										"{{url-usuarios}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"auth",
+										"validate"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ3ZWxscy11c3VhcmlvIiwicm9sZSI6IlJPTEVfQ0xJRU5URSIsImlhdCI6MTcxMDk4OTUxOCwic3ViIjoiYW5kcmUyQHdlbGxzc3RvcmUuYnIiLCJleHAiOjE3MTA5OTEzMTgsImp0aSI6ImE0YTgyMWZlLWMzYTUtNDhiZS1hYjZlLTIxNWRiNDVkNGM0MiIsIm5iZiI6MTcxMDk4OTUxOX0.UMj0ExP2erlcwcCVHXTrv6NJChqBHrpavusn2lG8FcoNUiDKdJLaWP-Me2i2grVDlBTOe6EHbz5kp7RlwFTHd0QZpbYxEUvcOdSERRyDefsspRD-_9u9IVN9d0HlIhSPS2GpJskvvY0FNdiyUsIZ8lQvHLsHNR-_R6Z5sKKrQNB5qrzfAIK0iyjtwsClykoH-12A8YMFbqjZVcf7l89npPAlpjEIhB_yb_Gmy4SVvWlu-36ZvBiHfzBZHrGsgPPdabnbfcqKzX6wnHusaYo333nJHopcyQJpNkHTK3wjjVapUZEU8UL9TRDdNi0y-6rezEypbd_1IJQBAtu9uc-sXA"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
-			]
+			],
+			"description": "Api de Gerenciamento de usuário"
 		}
 	],
 	"variable": [
