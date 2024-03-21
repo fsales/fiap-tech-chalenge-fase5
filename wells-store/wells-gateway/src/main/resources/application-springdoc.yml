@@ -19,4 +19,4 @@ springdoc:
       - url: /wells-usuario/v3/api-docs
         name: API Wells Usuário
     urls-primary-name: API Gateway Service
-  packages-to-scan: br.com.wells.wellsgateway
+

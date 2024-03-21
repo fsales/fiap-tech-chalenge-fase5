@@ -7,7 +7,7 @@ import java.util.Set;
 
 public interface UsuarioCadastrarDtoSwagger {
 
-	@Schema(description = "username", example = "teste@wellsstore.br")
+	@Schema(description = "username", example = "admin@wellsstore.br")
 	String username();
 
 	@Schema(description = "senha", example = "123456", minLength = 6, maxLength = 6)

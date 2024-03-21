@@ -42,7 +42,7 @@ public interface UsuarioControllerSwagger {
 					@ApiResponse(responseCode = "404", description = "Recurso não encontrado",
 							content = @Content(mediaType = "application/json",
 									schema = @Schema(implementation = ErrorMessage.class))) })
-	ResponseEntity<GenericResponse<UsuarioResponseDto>> consultarUsarioPorId(Long id);
+	ResponseEntity<GenericResponse<UsuarioResponseDto>> consultarUsarioPorId(@Parameter(description = "ID do usuário a ser consultado", required = true) Long id);
 
 	@Operation(summary = "Atualizar a senha",
 			description = "Requisição exige um Bearer Token. Acesso restrito a ADMIN|CLIENTE",
@@ -57,7 +57,7 @@ public interface UsuarioControllerSwagger {
 					@ApiResponse(responseCode = "422", description = "Campos invalidos ou mal formatados",
 							content = @Content(mediaType = "application/json",
 									schema = @Schema(implementation = ErrorMessage.class))) })
-	ResponseEntity<GenericResponse<Void>> alterarSenha(Long id, UsuarioAtualizarSenhaDto atualizarSenhaDto);
+	ResponseEntity<GenericResponse<Void>> alterarSenha(@Parameter(description = "ID do usuário a ser atualizadao", required = true) Long id, UsuarioAtualizarSenhaDto atualizarSenhaDto);
 
 	@Operation(summary = "Listar todos os usuários cadastrados",
 			description = "Requisição exige um Bearer Token. Acesso restrito a ADMIN",

@@ -42,19 +42,19 @@ public class SpringDocOpenApiConfig {
 			.name("security");
 	}
 
-	@Bean
-	public CorsFilter corsFilter() {
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowCredentials(true);
-		config.setAllowedOrigins(config.getAllowedOrigins());
-		config.addAllowedOrigin("*");
-		config.addAllowedHeader("*");
-		config.addAllowedMethod("*");
-
-		source.registerCorsConfiguration("/wells-usuario/v3/api-docs", config);
-		return new CorsFilter(source);
-	}
+//	@Bean
+//	public CorsFilter corsFilter() {
+//		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//
+//		CorsConfiguration config = new CorsConfiguration();
+//		config.setAllowCredentials(true);
+//		config.setAllowedOrigins(config.getAllowedOrigins());
+//		config.addAllowedOrigin("*");
+//		config.addAllowedHeader("*");
+//		config.addAllowedMethod("*");
+//
+//		source.registerCorsConfiguration("/wells-usuario/v3/api-docs", config);
+//		return new CorsFilter(source);
+//	}
 
 }

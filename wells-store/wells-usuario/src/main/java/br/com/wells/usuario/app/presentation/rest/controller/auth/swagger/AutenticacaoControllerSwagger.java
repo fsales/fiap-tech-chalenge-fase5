@@ -6,6 +6,7 @@ import br.com.wells.usuario.app.presentation.rest.controller.auth.dto.response.L
 import br.com.wells.usuario.app.presentation.rest.controller.auth.dto.response.TokenResponseDTO;
 import br.com.wells.usuario.app.presentation.rest.controller.response.generic.GenericResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -56,6 +57,6 @@ public interface AutenticacaoControllerSwagger {
 					@ApiResponse(responseCode = "422", description = "Campo(s) Inválido(s)",
 							content = @Content(mediaType = "application/json",
 									schema = @Schema(implementation = ErrorMessage.class))) })
-	ResponseEntity<GenericResponse<TokenResponseDTO>> validateToken(String token, HttpServletRequest request);
+	ResponseEntity<GenericResponse<TokenResponseDTO>> validateToken(@Parameter(description = "Token gerado no login", required = true) String token, HttpServletRequest request);
 
 }
