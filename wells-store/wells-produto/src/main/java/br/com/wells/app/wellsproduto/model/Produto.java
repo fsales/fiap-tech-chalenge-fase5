@@ -13,7 +13,7 @@ import lombok.Setter;
 @Table(name = "PRODUTO")
 @Entity
 @Setter
-public class Product {
+public class Produto {
 
     private static final long serialVersionUID = -3766858690685689916L;
 
@@ -39,4 +39,11 @@ public class Product {
     @Column(name = "FOTO", length = 2000)
     private String foto;
 
+    public Produto(String nome, int qtdEstoque, double valorVenda, String descricao, String foto) {
+        this.nome = nome;
+        this.qtdEstoque = qtdEstoque;
+        this.valorVenda = valorVenda;
+        this.descricao = descricao;
+        this.foto = foto;
+    }
 }
