@@ -16,7 +16,13 @@ public final class ApiRoutes {
 
 	public static final String ACTUATOR = "/actuator";
 
+	public static final String PAGAMENTO_URI = API + VERSAO + "/pagamentos";
+
 	private ApiRoutes() {
+	}
+
+	public static URI construirUriPagamentoPorId(Long id) {
+		return construirUriPorId(PAGAMENTO_URI, id);
 	}
 
 	private static URI construirUriPorId(String recurso, Long id) {
