@@ -1,6 +1,26 @@
 version: '3.8'
 
 services:
+  # Servico de Pagamento
+  wells-pagamento-db:
+    container_name: wells-pagamento-db
+    image: postgres:latest
+    env_file:
+      - ../docker/env/.env-wells-pagamento-db
+    ports:
+      - "5433:5432"
+    networks:
+      - wells-pagamento-db-net
+    volumes:
+      - wells-pagamento-db-data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 64M
 
   # Servico de Usuário
   wells-usuario-db:
@@ -12,6 +32,8 @@ services:
         - "5432:5432"
     networks:
       - wells-usuario-db-net
+    volumes:
+      - wells-usuario-db-data:/var/lib/postgresql/data
     deploy:
       resources:
         limits:
@@ -32,6 +54,8 @@ services:
       - CONSUL_BIND_INTERFACE=eth0
     networks:
       - consul-wells-store-net
+    volumes:
+      - consul-wells-store-data:/consul/data
     deploy:
       resources:
         limits:
@@ -44,3 +68,9 @@ services:
 networks:
   consul-wells-store-net:
   wells-usuario-db-net:
+  wells-pagamento-db-net:
+
+volumes:
+    wells-pagamento-db-data:
+    wells-usuario-db-data:
+    consul-wells-store-data:
