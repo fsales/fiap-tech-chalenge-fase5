@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: @project.name@-service
+    description: @project.description@
+    version: @project.version@
+  profiles:
+    active: ${PROFILE_ENVIRONMENT:prod}
+    include: actuator, springdoc, app, service-registry
+
+logging:
+  pattern:
+    console: "%d{ABSOLUTE_MICROS} [%-5level] [%t] %c{1} - %msg%n"
+  level:
+    br.com.wells: info
+
+server:
+  error:
+    include-stacktrace: never # desabilitar stacktrace no json que e retornado em caso de erro
+  port: ${PORT:8082}
