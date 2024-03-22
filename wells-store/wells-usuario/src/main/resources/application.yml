@@ -1,6 +1,6 @@
 spring:
   application:
-    name: @project.name@
+    name: @project.name@-service
     description: @project.description@
     version: @project.version@
 
@@ -23,7 +23,7 @@ spring:
 
   profiles:
     active: ${PROFILE_ENVIRONMENT:prod}
-    include: actuator, springdoc, app
+    include: actuator, springdoc, app, service-registry
 
 logging:
   pattern:

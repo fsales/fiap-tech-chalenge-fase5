@@ -1,0 +1,65 @@
+spring:
+  application:
+    name: @project.name@-service
+    description: @project.description@
+    version: @project.version@
+
+  cloud:
+
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: wells-usuario-v3-api-docs
+          uri: lb://wells-usuario-service
+          predicates:
+            - Path=/wells-usuario/v3/api-docs/**
+          filters:
+            - RewritePath=/wells-usuario/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+
+        - id: api-v1-auth
+          uri: lb://wells-usuario-service
+          predicates:
+            - Path=/api/v1/auth/**
+          filters:
+            - AuthenticationFilter
+
+        - id: api-v1-usuarios
+          uri: lb://wells-usuario-service
+          predicates:
+            - Path=/api/v1/usuarios/**
+          filters:
+            - AuthenticationFilter
+
+        # redireciona para o actuator do wells-usuario: http://localhost:8125/usuarios/actuator/health
+        - id: usuario-service-actuator
+          uri: lb://wells-usuario-service
+          predicates:
+            - Path=/usuarios/actuator/**
+          filters:
+            - StripPrefix=1
+#        - id: usuario-service-actuator
+#          uri: lb://wells-usuario
+#          predicates:
+#            - Path=/usuarios/actuator/**
+#          filters:
+#            - StripPrefix=1
+
+  profiles:
+    active: ${PROFILE_ENVIRONMENT:default}
+    include: actuator, springdoc, app, service-registry
+
+logging:
+  pattern:
+    console: "%d{ABSOLUTE_MICROS} [%-5level] [%t] %c{1} - %msg%n"
+  level:
+    root: INFO
+    org.springframework.cloud.consul.discovery.web: INFO
+    org.springframework.cloud.gateway : trace
+
+server:
+  port: ${PORT:8125}
+
+

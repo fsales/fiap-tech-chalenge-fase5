@@ -1,0 +1,27 @@
+spring:
+  config:
+    activate:
+      on-profile: app
+app:
+  name: ${spring.application.name}
+  description: ${spring.application.description}
+  version: ${spring.application.version}
+
+  authentication:
+    validation-url: http://wells-usuario-service/api/v1/auth/validate?token=
+
+  open-api-endpoints:
+    - path: /api/v1/usuarios
+      methods: [ POST ]
+    - path: /api/v1/auth/login
+      methods: [ POST ]
+    - path: /api/v1/auth/token
+      methods: [ POST ]
+    - path: /api/v1/auth/validate
+      methods: [ GET ]
+
+  swagger:
+    application:
+      title: ${spring.application.name}
+      description: ${spring.application.description}
+      version: ${spring.application.version}
