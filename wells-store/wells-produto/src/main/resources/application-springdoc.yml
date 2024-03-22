@@ -1,0 +1,13 @@
+spring:
+  config:
+    activate:
+      on-profile: springdoc
+
+springdoc:
+  show-actuator: true
+  swagger-ui:
+    path: /docs-${spring.application.name}.html
+  api-docs:
+    groups:
+      enabled: true
+    path: /docs-${spring.application.name}
