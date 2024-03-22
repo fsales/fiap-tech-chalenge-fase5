@@ -49,6 +49,7 @@
     <modules>
         <module>wells-core</module>
         <module>wells-usuario</module>
+        <module>wells-produto</module>
 
         <module>wells-gateway</module>
     </modules>
