@@ -1,5 +1,5 @@
 -- Adicionar entre 15 e 25 registros à tabela wells.pagamento
-INSERT INTO wells.pagamento (valor, nome, numero, expiracao, codigo, status, tipo_cartao, carrinho_id, data_criacao, criado_por)
+INSERT INTO wells.pagamento (valor, nome, numero, expiracao, codigo, status, tipo_cartao, pedido_id, data_criacao, criado_por)
 VALUES
     (100.00, 'João Silva', '1234567890123456', '2024-04-30', '123', 'CRIADO', 'VISA_CREDITO', 1, CURRENT_TIMESTAMP, 'Admin'),
     (150.00, 'Maria Souza', '9876543210987654', '2024-05-31', '456', 'CONFIRMADO', 'MASTERCARD_CREDITO', 2, CURRENT_TIMESTAMP, 'Admin'),
