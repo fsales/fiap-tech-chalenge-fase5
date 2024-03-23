@@ -15,7 +15,6 @@ import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.dto.ma
 import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.dto.request.PagamentoRequest;
 import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.dto.response.PagamentoResponse;
 import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.swagger.PagamentoControllerSwagger;
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -72,8 +71,9 @@ public class PagamentoController implements PagamentoControllerSwagger {
 	}
 
 	@PatchMapping("/{id}")
+
 	@Override
-	public ResponseEntity<GenericResponse<PagamentoResponse>> atualizar(@PathVariable @NotNull Long id,
+	public ResponseEntity<GenericResponse<PagamentoResponse>> atualizar(@PathVariable Long id,
 			@RequestBody @Validated(UpdateInfo.class) PagamentoRequest pagamentoRequest) {
 
 		log.info("Atualizando pagamento: {}", pagamentoRequest);
@@ -86,14 +86,14 @@ public class PagamentoController implements PagamentoControllerSwagger {
 
 	@PatchMapping("/{id}/confirmar")
 	@Override
-	public void confirmarPagamento(@PathVariable @NotNull Long id) {
+	public void confirmarPagamento(@PathVariable Long id) {
 		log.info("Confirmando pagamento: {}", id);
 
 	}
 
 	@DeleteMapping("/{id}")
 	@Override
-	public ResponseEntity<Void> remover(@PathVariable @NotNull Long id) {
+	public ResponseEntity<Void> remover(@PathVariable Long id) {
 		log.info("Removendo pagamento: {}", id);
 
 		excluirPagamentoUseCase.execute(id);
@@ -102,7 +102,7 @@ public class PagamentoController implements PagamentoControllerSwagger {
 
 	@GetMapping("/{id}")
 	@Override
-	public ResponseEntity<GenericResponse<PagamentoResponse>> consultarPagamentoPorId(@PathVariable @NotNull Long id) {
+	public ResponseEntity<GenericResponse<PagamentoResponse>> consultarPagamentoPorId(@PathVariable  Long id) {
 		log.info("Consultando pagamento por id: {}", id);
 
 		var pagamento = consultarPagamentoPorIdUseCase.execute(id);

@@ -10,7 +10,6 @@
 
     <groupId>br.com.wells.app</groupId>
     <artifactId>wells-produto</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>wells-produto</name>
     <description>wells-produto</description>
 

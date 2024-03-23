@@ -3,6 +3,7 @@ package br.com.wells.wellspagamento.presentation.rest.controller.pagamento.swagg
 import br.com.wells.wellspagamento.presentation.rest.controller.generic.dto.response.GenericResponse;
 import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.dto.request.PagamentoRequest;
 import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.dto.response.PagamentoResponse;
+import org.springdoc.core.converters.models.PageableAsQueryParam;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
@@ -70,6 +71,7 @@ public interface PagamentoControllerSwagger {
 					@ApiResponse(responseCode = "200", description = "Lista de pagamentos",
 							content = @Content(schema = @Schema(implementation = PagamentoResponse.class))),
 					@ApiResponse(responseCode = "500", description = "Erro interno do servidor") })
-	ResponseEntity<GenericResponse<Page<PagamentoResponse>>> listarTodos(Pageable pageable);
+	@PageableAsQueryParam
+	ResponseEntity<GenericResponse<Page<PagamentoResponse>>> listarTodos(@Parameter(hidden = true)Pageable pageable);
 
 }

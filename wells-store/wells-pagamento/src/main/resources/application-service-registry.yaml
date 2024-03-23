@@ -11,7 +11,7 @@ spring:
         #register-health-check: false
         health-check-path: /actuator/health
         prefer-ip-address: true
-        instance-id: ${spring.application.name}-${server.port}-${random.int[1,99]}
+        instance-id: ${spring.application.name}-${spring.cloud.client.ip-address}-${random.int[1,99]}
         register: true
         enabled: true
         service-name: ${spring.application.name}
