@@ -1,6 +1,6 @@
 package br.com.wells.usuario.app.presentation.exception;
 
-import br.com.wells.core.domain.usuario.exception.EntityNotFoundException;
+import br.com.wells.core.domain.exception.WellsStoreEntityNotFoundException;
 import br.com.wells.core.domain.usuario.exception.SenhaInvalidaException;
 import br.com.wells.core.domain.usuario.exception.UsernameUniqueViolationException;
 import br.com.wells.core.domain.usuario.exception.UsuarioInvalidoException;
@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,7 +32,7 @@ public class ApiExceptionHandler {
 			.body(new ErrorMessage(request, HttpStatus.BAD_REQUEST, ex.getMessage()));
 	}
 
-	@ExceptionHandler(EntityNotFoundException.class)
+	@ExceptionHandler(WellsStoreEntityNotFoundException.class)
 	public ResponseEntity<ErrorMessage> entityNotFoundException(RuntimeException ex, HttpServletRequest request) {
 		log.error(MSG_ERROR, ex);
 		return ResponseEntity.status(HttpStatus.NOT_FOUND)

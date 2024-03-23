@@ -36,28 +36,31 @@ import org.springframework.context.annotation.Configuration;
 public class CoreConfig {
 
 	@Bean
-	AlteraStatusPagamentoUseCase alteraStatusPagamentoUseCase() {
-		return new AlteraStatusPagamentoUseCaseImpl();
+	AlteraStatusPagamentoUseCase alteraStatusPagamentoUseCase(
+			AlteraStatusPagamentoGateway alteraStatusPagamentoGateway) {
+		return new AlteraStatusPagamentoUseCaseImpl(alteraStatusPagamentoGateway);
 	}
 
 	@Bean
-	AtualizarPagamentoUseCase atualizarPagamentoUseCase() {
-		return new AtualizarPagamentoUseCaseImpl();
+	AtualizarPagamentoUseCase atualizarPagamentoUseCase(AtualizarPagamentoGateway atualizarPagamentoGateway) {
+		return new AtualizarPagamentoUseCaseImpl(atualizarPagamentoGateway);
 	}
 
 	@Bean
-	ConfirmarPagamentoUseCase confirmarPagamentoUseCase() {
-		return new ConfirmarPagamentoUseCaseImpl();
+	ConfirmarPagamentoUseCase confirmarPagamentoUseCase(ConfirmarPagamentoGateway confirmarPagamentoGateway) {
+		return new ConfirmarPagamentoUseCaseImpl(confirmarPagamentoGateway);
 	}
 
 	@Bean
-	ConsultarPagamentoPorIdUseCase consultarPagamentoPorIdUseCase() {
-		return new ConsultarPagamentoPorIdUseCaseImpl();
+	ConsultarPagamentoPorIdUseCase consultarPagamentoPorIdUseCase(
+			ConsultarPagamentoPorIdGateway consultarPagamentoPorIdGateway) {
+		return new ConsultarPagamentoPorIdUseCaseImpl(consultarPagamentoPorIdGateway);
 	}
 
 	@Bean
-	ConsultarTodosPagamentoUseCase consultarTodosPagamentoUseCase() {
-		return new ConsultarTodosPagamentoUseCaseImpl();
+	ConsultarTodosPagamentoUseCase consultarTodosPagamentoUseCase(
+			ConsultarTodosPagamentoGateway consultarTodosPagamentoGateway) {
+		return new ConsultarTodosPagamentoUseCaseImpl(consultarTodosPagamentoGateway);
 	}
 
 	@Bean
@@ -66,8 +69,8 @@ public class CoreConfig {
 	}
 
 	@Bean
-	ExcluirPagamentoUseCase excluirPagamentoUseCase() {
-		return new ExcluirPagamentoUseCaseImpl();
+	ExcluirPagamentoUseCase excluirPagamentoUseCase(ExcluirPagamentoGateway excluirPagamentoGateway) {
+		return new ExcluirPagamentoUseCaseImpl(excluirPagamentoGateway);
 	}
 
 	/** gateway */

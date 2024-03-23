@@ -6,6 +6,6 @@ import br.com.wells.core.domain.pagamento.model.Pagamento;
 
 public interface ConsultarPagamentoPorIdGateway {
 
-	Optional<Pagamento> execute(Long id);
+	Optional<Pagamento> execute(final Long id);
 
 }

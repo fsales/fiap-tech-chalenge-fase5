@@ -19,6 +19,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -74,8 +75,12 @@ public class PagamentoController implements PagamentoControllerSwagger {
 	@Override
 	public ResponseEntity<GenericResponse<PagamentoResponse>> atualizar(@PathVariable @NotNull Long id,
 			@RequestBody @Validated(UpdateInfo.class) PagamentoRequest pagamentoRequest) {
+
 		log.info("Atualizando pagamento: {}", pagamentoRequest);
-		return ResponseEntity.ok(GenericResponse.success(HttpStatus.OK, null));
+
+		var pagamento = atualizarPagamentoUseCase.execute(id, PagamentoDtoMapper.toPagamento(pagamentoRequest));
+
+		return ResponseEntity.ok(GenericResponse.success(HttpStatus.OK, PagamentoDtoMapper.toPagamentoResponse(pagamento)));
 	}
 
 	@PatchMapping("/{id}/confirmar")
@@ -89,6 +94,8 @@ public class PagamentoController implements PagamentoControllerSwagger {
 	@Override
 	public ResponseEntity<Void> remover(@PathVariable @NotNull Long id) {
 		log.info("Removendo pagamento: {}", id);
+
+		excluirPagamentoUseCase.execute(id);
 		return ResponseEntity.noContent().build();
 	}
 
@@ -107,8 +114,12 @@ public class PagamentoController implements PagamentoControllerSwagger {
 	public ResponseEntity<GenericResponse<Page<PagamentoResponse>>> listarTodos(
 			@PageableDefault(page = 0, size = 10) Pageable pageable) {
 		log.info("Listando todos os pagamentos");
+		var pagamentoPagina = consultarTodosPagamentoUseCase.execute(pageable.getPageNumber(), pageable.getPageSize());
 
-		return ResponseEntity.ok(GenericResponse.success(HttpStatus.OK, null));
+		var pagamentoPageResponses = new PageImpl<>(pagamentoPagina.list(), pageable, pagamentoPagina.totalElements())
+			.map(PagamentoDtoMapper::toPagamentoResponse);
+
+		return ResponseEntity.ok(GenericResponse.success(HttpStatus.OK, pagamentoPageResponses));
 	}
 
 }

@@ -1,9 +1,8 @@
 package br.com.wells.wellspagamento.presentation.exception;
 
-import br.com.wells.core.domain.usuario.exception.EntityNotFoundException;
-import br.com.wells.core.domain.usuario.exception.SenhaInvalidaException;
-import br.com.wells.core.domain.usuario.exception.UsernameUniqueViolationException;
-import br.com.wells.core.domain.usuario.exception.UsuarioInvalidoException;
+import br.com.wells.core.domain.exception.WellsStoreEntityNotFoundException;
+import br.com.wells.core.domain.exception.WellsStoreDataIntegrityViolationException;
+import br.com.wells.core.domain.exception.WellsStoreUniqueViolationException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +21,7 @@ public class ApiExceptionHandler {
 
 	private static final String MSG_ERROR = "[Error ] - ";
 
-	@ExceptionHandler({ SenhaInvalidaException.class, UsuarioInvalidoException.class, IllegalArgumentException.class })
+	@ExceptionHandler({ IllegalArgumentException.class })
 	public ResponseEntity<ErrorMessage> erroBadRequest(RuntimeException ex, HttpServletRequest request) {
 		log.error(MSG_ERROR, ex);
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -30,7 +29,7 @@ public class ApiExceptionHandler {
 			.body(new ErrorMessage(request, HttpStatus.BAD_REQUEST, ex.getMessage()));
 	}
 
-	@ExceptionHandler(EntityNotFoundException.class)
+	@ExceptionHandler(WellsStoreEntityNotFoundException.class)
 	public ResponseEntity<ErrorMessage> entityNotFoundException(RuntimeException ex, HttpServletRequest request) {
 		log.error(MSG_ERROR, ex);
 		return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -38,9 +37,9 @@ public class ApiExceptionHandler {
 			.body(new ErrorMessage(request, HttpStatus.NOT_FOUND, ex.getMessage()));
 	}
 
-	@ExceptionHandler(UsernameUniqueViolationException.class)
-	public ResponseEntity<ErrorMessage> uniqueViolationException(RuntimeException ex, HttpServletRequest request) {
-		log.error(MSG_ERROR, ex);
+	@ExceptionHandler({ WellsStoreUniqueViolationException.class, WellsStoreDataIntegrityViolationException.class })
+	public ResponseEntity<ErrorMessage> conflictException(RuntimeException ex, HttpServletRequest request) {
+		log.error("Api Error - ", ex);
 		return ResponseEntity.status(HttpStatus.CONFLICT)
 			.contentType(MediaType.APPLICATION_JSON)
 			.body(new ErrorMessage(request, HttpStatus.CONFLICT, ex.getMessage()));
