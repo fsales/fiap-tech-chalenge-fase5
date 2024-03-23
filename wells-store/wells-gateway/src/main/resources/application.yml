@@ -40,12 +40,7 @@ spring:
             - Path=/usuarios/actuator/**
           filters:
             - StripPrefix=1
-#        - id: usuario-service-actuator
-#          uri: lb://wells-usuario
-#          predicates:
-#            - Path=/usuarios/actuator/**
-#          filters:
-#            - StripPrefix=1
+
 
   profiles:
     active: ${PROFILE_ENVIRONMENT:default}

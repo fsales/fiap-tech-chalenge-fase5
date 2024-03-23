@@ -1,10 +1,10 @@
 package br.com.wells.usuario.app.infrastructure.gateways.usuario.mapper;
 
-import br.com.wells.usuario.app.infrastructure.database.postgres.entity.UsuarioEntity;
+import java.util.stream.Collectors;
+
 import br.com.wells.core.domain.usuario.model.Role;
 import br.com.wells.core.domain.usuario.model.Usuario;
-
-import java.util.stream.Collectors;
+import br.com.wells.usuario.app.infrastructure.database.postgres.entity.UsuarioEntity;
 
 public final class UsuarioEntityMapper {
 
@@ -21,7 +21,6 @@ public final class UsuarioEntityMapper {
 			.username(usuario.username())
 			.senha(usuario.senha())
 			.roles(usuario.roles().stream().map(RolerEntityMapper::convertToRoleEntity).collect(Collectors.toSet()))
-
 			.build();
 	}
 

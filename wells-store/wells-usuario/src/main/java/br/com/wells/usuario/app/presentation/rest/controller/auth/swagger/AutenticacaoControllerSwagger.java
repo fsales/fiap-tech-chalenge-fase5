@@ -57,6 +57,8 @@ public interface AutenticacaoControllerSwagger {
 					@ApiResponse(responseCode = "422", description = "Campo(s) Inválido(s)",
 							content = @Content(mediaType = "application/json",
 									schema = @Schema(implementation = ErrorMessage.class))) })
-	ResponseEntity<GenericResponse<TokenResponseDTO>> validateToken(@Parameter(description = "Token gerado no login", required = true) String token, HttpServletRequest request);
+	ResponseEntity<GenericResponse<TokenResponseDTO>> validateToken(
+			@Parameter(description = "Token gerado no login", required = true) String token,
+			HttpServletRequest request);
 
 }

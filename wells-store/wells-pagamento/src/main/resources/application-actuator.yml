@@ -1,0 +1,23 @@
+#https://medium.com/@yohanesdwikiwitman/spring-boot-3-template-part-8-spring-actuator-07a5f9affe17
+spring:
+  config:
+    activate:
+      on-profile: actuator
+
+management:
+  info:
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,env,metrics, loggers
+  endpoint:
+    health:
+      show-details: always
+
+info:
+  app:
+    name: ${spring.application.name}
+    description: ${spring.application.description}
+    version: ${spring.application.version}
