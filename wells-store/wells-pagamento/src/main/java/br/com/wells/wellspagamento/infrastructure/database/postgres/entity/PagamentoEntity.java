@@ -39,7 +39,7 @@ public class PagamentoEntity {
 	@Column(name = "id", nullable = false)
 	private Long id;
 
-    @Positive
+	@Positive
 	@NotNull
 	@Column(name = "valor", nullable = false, precision = 19, scale = 2)
 	private BigDecimal valor;
@@ -77,22 +77,22 @@ public class PagamentoEntity {
 	@Column(name = "pedido_id", nullable = false)
 	private Long pedidoId;
 
-    @CreatedDate
+	@CreatedDate
 	@NotNull
 	@Column(name = "data_criacao", nullable = false)
 	private LocalDateTime dataCriacao;
 
-    @LastModifiedDate
+	@LastModifiedDate
 	@Column(name = "data_modificacao")
 	private LocalDateTime dataModificacao;
 
-    @CreatedBy
+	@CreatedBy
 	@Size(max = 255)
 	@NotNull
 	@Column(name = "criado_por", nullable = false)
 	private String criadoPor;
 
-    @LastModifiedBy
+	@LastModifiedBy
 	@Size(max = 255)
 	@Column(name = "modificado_por")
 	private String modificadoPor;

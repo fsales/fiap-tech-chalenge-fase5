@@ -1,5 +1,12 @@
 package br.com.wells.wellspagamento.presentation.rest.controller.pagamento;
 
+import br.com.wells.core.domain.pagamento.usecases.AlteraStatusPagamentoUseCase;
+import br.com.wells.core.domain.pagamento.usecases.AtualizarPagamentoUseCase;
+import br.com.wells.core.domain.pagamento.usecases.ConfirmarPagamentoUseCase;
+import br.com.wells.core.domain.pagamento.usecases.ConsultarPagamentoPorIdUseCase;
+import br.com.wells.core.domain.pagamento.usecases.ConsultarTodosPagamentoUseCase;
+import br.com.wells.core.domain.pagamento.usecases.CriarPagamentoUseCase;
+import br.com.wells.core.domain.pagamento.usecases.ExcluirPagamentoUseCase;
 import br.com.wells.wellspagamento.infrastructure.spring.config.app.ApiRoutes;
 import br.com.wells.wellspagamento.presentation.rest.controller.generic.dto.response.GenericResponse;
 import br.com.wells.wellspagamento.presentation.rest.controller.generic.validation.CreateInfo;
@@ -8,6 +15,8 @@ import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.dto.re
 import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.dto.response.PagamentoResponse;
 import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.swagger.PagamentoControllerSwagger;
 import jakarta.validation.constraints.NotNull;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -26,13 +35,33 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping(ApiRoutes.PAGAMENTO_URI)
+
+@RequiredArgsConstructor
+@Slf4j
 public class PagamentoController implements PagamentoControllerSwagger {
+
+	private final AlteraStatusPagamentoUseCase alteraStatusPagamentoUseCase;
+
+	private final AtualizarPagamentoUseCase atualizarPagamentoUseCase;
+
+	private final ConfirmarPagamentoUseCase confirmarPagamentoUseCase;
+
+	private final ConsultarPagamentoPorIdUseCase consultarPagamentoPorIdUseCase;
+
+	private final ConsultarTodosPagamentoUseCase consultarTodosPagamentoUseCase;
+
+	private final CriarPagamentoUseCase criarPagamentoUseCase;
+
+	private final ExcluirPagamentoUseCase excluirPagamentoUseCase;
 
 	@PostMapping
 	@Override
 	public ResponseEntity<GenericResponse<PagamentoResponse>> cadastrar(
 			@Validated(CreateInfo.class) @RequestBody PagamentoRequest pagamentoRequest,
 			UriComponentsBuilder uriComponentsBuilder) {
+
+		log.info("Cadastrando pagamento: {}", pagamentoRequest);
+
 		PagamentoResponse pagamentoResponse = null;
 		var uri = ApiRoutes.construirUriPagamentoPorId(pagamentoResponse.id());
 
@@ -43,27 +72,27 @@ public class PagamentoController implements PagamentoControllerSwagger {
 	@Override
 	public ResponseEntity<GenericResponse<PagamentoResponse>> atualizar(@PathVariable @NotNull Long id,
 			@RequestBody @Validated(UpdateInfo.class) PagamentoRequest pagamentoRequest) {
-
+		log.info("Atualizando pagamento: {}", pagamentoRequest);
 		return ResponseEntity.ok(GenericResponse.success(HttpStatus.OK, null));
 	}
 
 	@PatchMapping("/{id}/confirmar")
 	@Override
 	public void confirmarPagamento(@PathVariable @NotNull Long id) {
-
+		log.info("Confirmando pagamento: {}", id);
 	}
 
 	@DeleteMapping("/{id}")
 	@Override
 	public ResponseEntity<Void> remover(@PathVariable @NotNull Long id) {
-
+		log.info("Removendo pagamento: {}", id);
 		return ResponseEntity.noContent().build();
 	}
 
 	@GetMapping("/{id}")
 	@Override
 	public ResponseEntity<GenericResponse<PagamentoResponse>> consultarPagamentoPorId(@PathVariable @NotNull Long id) {
-
+		log.info("Consultando pagamento por id: {}", id);
 		return ResponseEntity.ok(GenericResponse.success(HttpStatus.OK, null));
 	}
 
@@ -71,6 +100,7 @@ public class PagamentoController implements PagamentoControllerSwagger {
 	@Override
 	public ResponseEntity<GenericResponse<Page<PagamentoResponse>>> listarTodos(
 			@PageableDefault(page = 0, size = 10) Pageable pageable) {
+		log.info("Listando todos os pagamentos");
 
 		return ResponseEntity.ok(GenericResponse.success(HttpStatus.OK, null));
 	}

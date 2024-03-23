@@ -6,8 +6,8 @@ import java.time.LocalDate;
 
 import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.dto.request.swagger.PagamentoRequestSwagger;
 
-public record PagamentoResponse(Long id,BigDecimal valor, String nome, String numero, LocalDate expiracao, String codigo,
-		Long pedidoId,
+public record PagamentoResponse(Long id, BigDecimal valor, String nome, String numero, LocalDate expiracao,
+		String codigo, Long pedidoId,
 
 		String status,
 

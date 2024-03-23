@@ -1,6 +1,5 @@
 package br.com.wells.wellspagamento.presentation.rest.controller.generic.dto.response;
 
-
 import br.com.wells.wellspagamento.presentation.exception.ErrorMessage;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import org.springframework.http.HttpStatus;
