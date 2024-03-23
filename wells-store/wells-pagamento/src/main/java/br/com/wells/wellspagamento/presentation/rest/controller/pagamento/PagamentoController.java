@@ -11,6 +11,7 @@ import br.com.wells.wellspagamento.infrastructure.spring.config.app.ApiRoutes;
 import br.com.wells.wellspagamento.presentation.rest.controller.generic.dto.response.GenericResponse;
 import br.com.wells.wellspagamento.presentation.rest.controller.generic.validation.CreateInfo;
 import br.com.wells.wellspagamento.presentation.rest.controller.generic.validation.UpdateInfo;
+import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.dto.mapper.PagamentoDtoMapper;
 import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.dto.request.PagamentoRequest;
 import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.dto.response.PagamentoResponse;
 import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.swagger.PagamentoControllerSwagger;
@@ -62,7 +63,8 @@ public class PagamentoController implements PagamentoControllerSwagger {
 
 		log.info("Cadastrando pagamento: {}", pagamentoRequest);
 
-		PagamentoResponse pagamentoResponse = null;
+		var pagamentoSalvo = criarPagamentoUseCase.execute(PagamentoDtoMapper.toPagamento(pagamentoRequest));
+		var pagamentoResponse = PagamentoDtoMapper.toPagamentoResponse(pagamentoSalvo);
 		var uri = ApiRoutes.construirUriPagamentoPorId(pagamentoResponse.id());
 
 		return ResponseEntity.created(uri).body(GenericResponse.success(HttpStatus.OK, pagamentoResponse));

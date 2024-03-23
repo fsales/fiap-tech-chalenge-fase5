@@ -5,6 +5,7 @@ import br.com.wells.core.domain.usuario.exception.SenhaInvalidaException;
 import br.com.wells.core.domain.usuario.exception.UsernameUniqueViolationException;
 import br.com.wells.core.domain.usuario.exception.UsuarioInvalidoException;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,7 +22,7 @@ public class ApiExceptionHandler {
 
 	private static final String MSG_ERROR = "[Error ] - ";
 
-	@ExceptionHandler({ SenhaInvalidaException.class, UsuarioInvalidoException.class })
+	@ExceptionHandler({ SenhaInvalidaException.class, UsuarioInvalidoException.class, IllegalArgumentException.class })
 	public ResponseEntity<ErrorMessage> erroBadRequest(RuntimeException ex, HttpServletRequest request) {
 		log.error(MSG_ERROR, ex);
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST)
@@ -45,7 +46,7 @@ public class ApiExceptionHandler {
 			.body(new ErrorMessage(request, HttpStatus.CONFLICT, ex.getMessage()));
 	}
 
-	@ExceptionHandler(MethodArgumentNotValidException.class)
+	@ExceptionHandler({MethodArgumentNotValidException.class})
 	public ResponseEntity<ErrorMessage> methodArgumentNotValidException(MethodArgumentNotValidException ex,
 			HttpServletRequest request, BindingResult result) {
 		log.error(MSG_ERROR, ex);
@@ -62,6 +63,14 @@ public class ApiExceptionHandler {
 			.contentType(MediaType.APPLICATION_JSON)
 			.body(new ErrorMessage(request, HttpStatus.BAD_REQUEST,
 					"Erro de leitura JSON: " + ex.getMostSpecificCause().getMessage()));
+	}
+
+	@ExceptionHandler(ValidationException.class)
+	public ResponseEntity<ErrorMessage> unexpectedTypeException(ValidationException ex, HttpServletRequest request) {
+		log.error(MSG_ERROR, ex);
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+				.contentType(MediaType.APPLICATION_JSON)
+				.body(new ErrorMessage(request, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage()));
 	}
 
 }

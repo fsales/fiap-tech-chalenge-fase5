@@ -1,5 +1,12 @@
 package br.com.wells.wellspagamento.infrastructure.spring.config.app;
 
+import br.com.wells.core.domain.pagamento.gateways.AlteraStatusPagamentoGateway;
+import br.com.wells.core.domain.pagamento.gateways.AtualizarPagamentoGateway;
+import br.com.wells.core.domain.pagamento.gateways.ConfirmarPagamentoGateway;
+import br.com.wells.core.domain.pagamento.gateways.ConsultarPagamentoPorIdGateway;
+import br.com.wells.core.domain.pagamento.gateways.ConsultarTodosPagamentoGateway;
+import br.com.wells.core.domain.pagamento.gateways.CriarPagamentoGateway;
+import br.com.wells.core.domain.pagamento.gateways.ExcluirPagamentoGateway;
 import br.com.wells.core.domain.pagamento.usecases.AlteraStatusPagamentoUseCase;
 import br.com.wells.core.domain.pagamento.usecases.AtualizarPagamentoUseCase;
 import br.com.wells.core.domain.pagamento.usecases.ConfirmarPagamentoUseCase;
@@ -14,6 +21,14 @@ import br.com.wells.core.domain.pagamento.usecases.impl.ConsultarPagamentoPorIdU
 import br.com.wells.core.domain.pagamento.usecases.impl.ConsultarTodosPagamentoUseCaseImpl;
 import br.com.wells.core.domain.pagamento.usecases.impl.CriarPagamentoUseCaseImpl;
 import br.com.wells.core.domain.pagamento.usecases.impl.ExcluirPagamentoUseCaseImpl;
+import br.com.wells.wellspagamento.infrastructure.database.postgres.repository.PagamentoEntityRepository;
+import br.com.wells.wellspagamento.infrastructure.gateways.pagamento.AlteraStatusPagamentoGatewayImpl;
+import br.com.wells.wellspagamento.infrastructure.gateways.pagamento.AtualizarPagamentoGatewayImpl;
+import br.com.wells.wellspagamento.infrastructure.gateways.pagamento.ConfirmarPagamentoGatewayImpl;
+import br.com.wells.wellspagamento.infrastructure.gateways.pagamento.ConsultarPagamentoPorIdGatewayImpl;
+import br.com.wells.wellspagamento.infrastructure.gateways.pagamento.ConsultarTodosPagamentoGatewayImpl;
+import br.com.wells.wellspagamento.infrastructure.gateways.pagamento.CriarPagamentoGatewayImpl;
+import br.com.wells.wellspagamento.infrastructure.gateways.pagamento.ExcluirPagamentoGatewayImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -46,13 +61,51 @@ public class CoreConfig {
 	}
 
 	@Bean
-	CriarPagamentoUseCase criarPagamentoUseCase() {
-		return new CriarPagamentoUseCaseImpl();
+	CriarPagamentoUseCase criarPagamentoUseCase(CriarPagamentoGateway criarPagamentoGateway) {
+		return new CriarPagamentoUseCaseImpl(criarPagamentoGateway);
 	}
 
 	@Bean
 	ExcluirPagamentoUseCase excluirPagamentoUseCase() {
 		return new ExcluirPagamentoUseCaseImpl();
+	}
+
+	/** gateway */
+	@Bean
+	AlteraStatusPagamentoGateway alteraStatusPagamentoGateway() {
+		return new AlteraStatusPagamentoGatewayImpl();
+
+	}
+
+	@Bean
+	AtualizarPagamentoGateway atualizarPagamentoGateway() {
+		return new AtualizarPagamentoGatewayImpl();
+	}
+
+	@Bean
+	ConfirmarPagamentoGateway confirmarPagamentoGateway() {
+		return new ConfirmarPagamentoGatewayImpl();
+
+	}
+
+	@Bean
+	ConsultarPagamentoPorIdGateway consultarPagamentoPorIdGateway() {
+		return new ConsultarPagamentoPorIdGatewayImpl();
+	}
+
+	@Bean
+	ConsultarTodosPagamentoGateway consultarTodosPagamentoGateway() {
+		return new ConsultarTodosPagamentoGatewayImpl();
+	}
+
+	@Bean
+	CriarPagamentoGateway criarPagamentoGateway(PagamentoEntityRepository pagamentoEntityRepository) {
+		return new CriarPagamentoGatewayImpl(pagamentoEntityRepository);
+	}
+
+	@Bean
+	ExcluirPagamentoGateway excluirPagamentoGateway() {
+		return new ExcluirPagamentoGatewayImpl();
 	}
 
 }

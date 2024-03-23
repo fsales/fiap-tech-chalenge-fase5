@@ -35,4 +35,5 @@ public class SpringDocOpenApiConfig {
 			.bearerFormat("JWT")
 			.name("security");
 	}
+
 }

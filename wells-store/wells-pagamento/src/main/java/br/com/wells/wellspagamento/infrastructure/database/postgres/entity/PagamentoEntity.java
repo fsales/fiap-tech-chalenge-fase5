@@ -63,12 +63,11 @@ public class PagamentoEntity {
 	@Column(name = "codigo", nullable = false, length = 3)
 	private String codigo;
 
-	@Size(max = 10)
+
 	@NotNull
 	@Column(name = "status", nullable = false, length = 10)
 	private StatusPagamentoEnum status;
 
-	@Size(max = 26)
 	@NotNull
 	@Column(name = "tipo_cartao", nullable = false, length = 26)
 	private TipoCartaoEnum tipoCartao;
@@ -78,9 +77,9 @@ public class PagamentoEntity {
 	private Long pedidoId;
 
 	@CreatedDate
-	@NotNull
 	@Column(name = "data_criacao", nullable = false)
-	private LocalDateTime dataCriacao;
+	@Builder.Default
+	private LocalDateTime dataCriacao = LocalDateTime.now();
 
 	@LastModifiedDate
 	@Column(name = "data_modificacao")
@@ -88,9 +87,9 @@ public class PagamentoEntity {
 
 	@CreatedBy
 	@Size(max = 255)
-	@NotNull
 	@Column(name = "criado_por", nullable = false)
-	private String criadoPor;
+	@Builder.Default
+	private String criadoPor = "system";
 
 	@LastModifiedBy
 	@Size(max = 255)

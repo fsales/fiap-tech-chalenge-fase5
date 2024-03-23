@@ -7,6 +7,8 @@ import java.time.LocalDate;
 import br.com.wells.wellspagamento.presentation.rest.controller.generic.validation.CreateInfo;
 import br.com.wells.wellspagamento.presentation.rest.controller.generic.validation.UpdateInfo;
 import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.dto.request.swagger.PagamentoRequestSwagger;
+import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.validation.Status;
+import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.validation.TipoCartao;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -37,9 +39,11 @@ public record PagamentoRequest(@NotNull(message = "Valor não pode ser nulo", gr
 
 		@NotNull(message = "PedidoId não pode ser nulo", groups = { CreateInfo.class, UpdateInfo.class }) Long pedidoId,
 
+		@Status(groups = { CreateInfo.class, UpdateInfo.class })
 		@NotEmpty(message = "Status não pode estar vazio",
 				groups = { CreateInfo.class, UpdateInfo.class }) String status,
 
+		@TipoCartao(groups = { CreateInfo.class, UpdateInfo.class })
 		@NotNull(message = "TipoCartao não pode ser nulo",
 				groups = { CreateInfo.class, UpdateInfo.class }) String tipoCartao)
 		implements
