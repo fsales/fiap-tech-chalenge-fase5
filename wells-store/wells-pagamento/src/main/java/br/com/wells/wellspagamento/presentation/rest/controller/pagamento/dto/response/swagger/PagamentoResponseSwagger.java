@@ -1,12 +1,12 @@
-package br.com.wells.wellspagamento.presentation.rest.controller.pagamento.dto.request.swagger;
+package br.com.wells.wellspagamento.presentation.rest.controller.pagamento.dto.response.swagger;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
-@Schema(description = "Detalhes sobre a requisição de pagamento")
-public interface PagamentoRequestSwagger {
+@Schema(description = "Detalhes sobre a resposta de pagamento")
+public interface PagamentoResponseSwagger {
 
 	@Schema(description = "Valor do pagamento", example = "100.00")
 	BigDecimal valor();

@@ -80,7 +80,8 @@ public class PagamentoController implements PagamentoControllerSwagger {
 
 		var pagamento = atualizarPagamentoUseCase.execute(id, PagamentoDtoMapper.toPagamento(pagamentoRequest));
 
-		return ResponseEntity.ok(GenericResponse.success(HttpStatus.OK, PagamentoDtoMapper.toPagamentoResponse(pagamento)));
+		return ResponseEntity
+			.ok(GenericResponse.success(HttpStatus.OK, PagamentoDtoMapper.toPagamentoResponse(pagamento)));
 	}
 
 	@PatchMapping("/{id}/confirmar")

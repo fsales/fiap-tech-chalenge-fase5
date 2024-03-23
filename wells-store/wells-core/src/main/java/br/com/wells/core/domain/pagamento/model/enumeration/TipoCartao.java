@@ -13,7 +13,8 @@ public enum TipoCartao {
 	ALELO_VALE_REFEICAO("Alelo", ModalidadeCartao.VALE_REFEICAO),
 	TICKET_RESTAURANTE("Ticket Restaurante", ModalidadeCartao.VALE_REFEICAO),
 	MASTERCARD_MAESTRO_DEBITO("MasterCard Maestro", ModalidadeCartao.CARTAO_DEBITO),
-	VISA_DEBITO("Visa Débito", ModalidadeCartao.CARTAO_DEBITO), ELO_DEBITO("Elo", ModalidadeCartao.CARTAO_DEBITO);
+	VISA_DEBITO("Visa Débito", ModalidadeCartao.CARTAO_DEBITO),
+	ELO_DEBITO("Elo Débito", ModalidadeCartao.CARTAO_DEBITO);
 
 	private final String nomeCartao;
 
