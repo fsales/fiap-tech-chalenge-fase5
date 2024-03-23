@@ -39,12 +39,10 @@ public record PagamentoRequest(@NotNull(message = "Valor não pode ser nulo", gr
 
 		@NotNull(message = "PedidoId não pode ser nulo", groups = { CreateInfo.class, UpdateInfo.class }) Long pedidoId,
 
-		@Status(groups = { CreateInfo.class, UpdateInfo.class })
-		@NotEmpty(message = "Status não pode estar vazio",
+		@Status(groups = { CreateInfo.class, UpdateInfo.class }) @NotEmpty(message = "Status não pode estar vazio",
 				groups = { CreateInfo.class, UpdateInfo.class }) String status,
 
-		@TipoCartao(groups = { CreateInfo.class, UpdateInfo.class })
-		@NotNull(message = "TipoCartao não pode ser nulo",
+		@TipoCartao(groups = { CreateInfo.class, UpdateInfo.class }) @NotNull(message = "TipoCartao não pode ser nulo",
 				groups = { CreateInfo.class, UpdateInfo.class }) String tipoCartao)
 		implements
 			Serializable,

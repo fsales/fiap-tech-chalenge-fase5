@@ -9,15 +9,16 @@ import java.lang.annotation.Target;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
-@Target({FIELD})
+@Target({ FIELD })
 @Retention(RUNTIME)
 @Documented
 @Constraint(validatedBy = StatusValidatorImpl.class)
 public @interface Status {
-    String message() default "O status do pagamento não existente.";
 
-    Class<?>[] groups() default {};
+	String message() default "O status do pagamento não existente.";
 
-    Class<? extends Payload>[] payload() default {};
+	Class<?>[] groups() default {};
+
+	Class<? extends Payload>[] payload() default {};
+
 }
-

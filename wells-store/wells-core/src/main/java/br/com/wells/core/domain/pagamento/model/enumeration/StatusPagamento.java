@@ -24,8 +24,8 @@ public enum StatusPagamento {
 					"Nenhum status de pagamento encontrado com a descrição fornecida: " + texto));
 	}
 
-    public static boolean contains(String value) {
-        return Arrays.stream(values())
-            .anyMatch(status -> status.descricao.equalsIgnoreCase(value));
-    }
+	public static boolean contains(String value) {
+		return Arrays.stream(values()).anyMatch(status -> status.descricao.equalsIgnoreCase(value));
+	}
+
 }

@@ -63,7 +63,6 @@ public class PagamentoEntity {
 	@Column(name = "codigo", nullable = false, length = 3)
 	private String codigo;
 
-
 	@NotNull
 	@Column(name = "status", nullable = false, length = 10)
 	private StatusPagamentoEnum status;

@@ -12,7 +12,7 @@ public class TipoCartaoValidatorImpl implements ConstraintValidator<TipoCartao, 
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
-		return value ==null || br.com.wells.core.domain.pagamento.model.enumeration.TipoCartao.contains(value);
+		return value == null || br.com.wells.core.domain.pagamento.model.enumeration.TipoCartao.contains(value);
 	}
 
 }

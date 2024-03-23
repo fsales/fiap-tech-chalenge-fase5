@@ -72,30 +72,30 @@ public class CoreConfig {
 
 	/** gateway */
 	@Bean
-	AlteraStatusPagamentoGateway alteraStatusPagamentoGateway() {
-		return new AlteraStatusPagamentoGatewayImpl();
+	AlteraStatusPagamentoGateway alteraStatusPagamentoGateway(PagamentoEntityRepository pagamentoEntityRepository) {
+		return new AlteraStatusPagamentoGatewayImpl(pagamentoEntityRepository);
 
 	}
 
 	@Bean
-	AtualizarPagamentoGateway atualizarPagamentoGateway() {
-		return new AtualizarPagamentoGatewayImpl();
+	AtualizarPagamentoGateway atualizarPagamentoGateway(PagamentoEntityRepository pagamentoEntityRepository) {
+		return new AtualizarPagamentoGatewayImpl(pagamentoEntityRepository);
 	}
 
 	@Bean
-	ConfirmarPagamentoGateway confirmarPagamentoGateway() {
-		return new ConfirmarPagamentoGatewayImpl();
+	ConfirmarPagamentoGateway confirmarPagamentoGateway(PagamentoEntityRepository pagamentoEntityRepository) {
+		return new ConfirmarPagamentoGatewayImpl(pagamentoEntityRepository);
 
 	}
 
 	@Bean
-	ConsultarPagamentoPorIdGateway consultarPagamentoPorIdGateway() {
-		return new ConsultarPagamentoPorIdGatewayImpl();
+	ConsultarPagamentoPorIdGateway consultarPagamentoPorIdGateway(PagamentoEntityRepository pagamentoEntityRepository) {
+		return new ConsultarPagamentoPorIdGatewayImpl(pagamentoEntityRepository);
 	}
 
 	@Bean
-	ConsultarTodosPagamentoGateway consultarTodosPagamentoGateway() {
-		return new ConsultarTodosPagamentoGatewayImpl();
+	ConsultarTodosPagamentoGateway consultarTodosPagamentoGateway(PagamentoEntityRepository pagamentoEntityRepository) {
+		return new ConsultarTodosPagamentoGatewayImpl(pagamentoEntityRepository);
 	}
 
 	@Bean
@@ -104,8 +104,8 @@ public class CoreConfig {
 	}
 
 	@Bean
-	ExcluirPagamentoGateway excluirPagamentoGateway() {
-		return new ExcluirPagamentoGatewayImpl();
+	ExcluirPagamentoGateway excluirPagamentoGateway(PagamentoEntityRepository pagamentoEntityRepository) {
+		return new ExcluirPagamentoGatewayImpl(pagamentoEntityRepository);
 	}
 
 }

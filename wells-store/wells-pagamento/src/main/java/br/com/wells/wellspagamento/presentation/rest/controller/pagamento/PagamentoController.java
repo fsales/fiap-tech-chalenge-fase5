@@ -82,6 +82,7 @@ public class PagamentoController implements PagamentoControllerSwagger {
 	@Override
 	public void confirmarPagamento(@PathVariable @NotNull Long id) {
 		log.info("Confirmando pagamento: {}", id);
+
 	}
 
 	@DeleteMapping("/{id}")
@@ -95,7 +96,10 @@ public class PagamentoController implements PagamentoControllerSwagger {
 	@Override
 	public ResponseEntity<GenericResponse<PagamentoResponse>> consultarPagamentoPorId(@PathVariable @NotNull Long id) {
 		log.info("Consultando pagamento por id: {}", id);
-		return ResponseEntity.ok(GenericResponse.success(HttpStatus.OK, null));
+
+		var pagamento = consultarPagamentoPorIdUseCase.execute(id);
+		return ResponseEntity
+			.ok(GenericResponse.success(HttpStatus.OK, PagamentoDtoMapper.toPagamentoResponse(pagamento)));
 	}
 
 	@GetMapping

@@ -9,14 +9,16 @@ import java.lang.annotation.Target;
 
 import jakarta.validation.Constraint;
 
-@Target({FIELD})
+@Target({ FIELD })
 @Retention(RUNTIME)
 @Documented
 @Constraint(validatedBy = TipoCartaoValidatorImpl.class)
 public @interface TipoCartao {
-    String message() default "O tipo do cartão não existente.";
 
-    Class<?>[] groups() default {};
+	String message() default "O tipo do cartão não existente.";
 
-    Class<?>[] payload() default {};
+	Class<?>[] groups() default {};
+
+	Class<?>[] payload() default {};
+
 }

@@ -32,8 +32,8 @@ public enum TipoCartao {
 					"Nenhum cartão encontrado com a descrição fornecida: " + nomeCartao));
 	}
 
-    public static boolean contains(String value) {
-        return Arrays.stream(values())
-            .anyMatch(tipo -> tipo.getNomeCartao().equalsIgnoreCase(value));
-    }
+	public static boolean contains(String value) {
+		return Arrays.stream(values()).anyMatch(tipo -> tipo.getNomeCartao().equalsIgnoreCase(value));
+	}
+
 }

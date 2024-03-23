@@ -13,7 +13,7 @@ public class StatusValidatorImpl implements ConstraintValidator<Status, String> 
 
 	@Override
 	public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
-		return value ==null || StatusPagamento.contains(value);
+		return value == null || StatusPagamento.contains(value);
 	}
 
 }

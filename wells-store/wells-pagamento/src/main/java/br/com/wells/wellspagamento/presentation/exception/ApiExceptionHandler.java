@@ -46,7 +46,7 @@ public class ApiExceptionHandler {
 			.body(new ErrorMessage(request, HttpStatus.CONFLICT, ex.getMessage()));
 	}
 
-	@ExceptionHandler({MethodArgumentNotValidException.class})
+	@ExceptionHandler({ MethodArgumentNotValidException.class })
 	public ResponseEntity<ErrorMessage> methodArgumentNotValidException(MethodArgumentNotValidException ex,
 			HttpServletRequest request, BindingResult result) {
 		log.error(MSG_ERROR, ex);
@@ -69,8 +69,8 @@ public class ApiExceptionHandler {
 	public ResponseEntity<ErrorMessage> unexpectedTypeException(ValidationException ex, HttpServletRequest request) {
 		log.error(MSG_ERROR, ex);
 		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-				.contentType(MediaType.APPLICATION_JSON)
-				.body(new ErrorMessage(request, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage()));
+			.contentType(MediaType.APPLICATION_JSON)
+			.body(new ErrorMessage(request, HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage()));
 	}
 
 }
