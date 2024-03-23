@@ -26,8 +26,7 @@ public interface PagamentoResponseSwagger {
 	@Schema(description = "ID do pedido", example = "1")
 	Long pedidoId();
 
-	@Schema(description = "Status do pagamento", example = "Criado",
-			allowableValues = "Criado, Confirmado, Cancelado")
+	@Schema(description = "Status do pagamento", example = "Criado", allowableValues = "Criado, Confirmado, Cancelado")
 	String status();
 
 	@Schema(description = "Tipo do cartão", example = "Visa",

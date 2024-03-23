@@ -1,17 +1,17 @@
 package br.com.wells.wellspagamento.presentation.rest.controller.pagamento;
 
-import br.com.wells.core.domain.pagamento.usecases.AlteraStatusPagamentoUseCase;
 import br.com.wells.core.domain.pagamento.usecases.AtualizarPagamentoUseCase;
 import br.com.wells.core.domain.pagamento.usecases.ConfirmarPagamentoUseCase;
 import br.com.wells.core.domain.pagamento.usecases.ConsultarPagamentoPorIdUseCase;
 import br.com.wells.core.domain.pagamento.usecases.ConsultarTodosPagamentoUseCase;
 import br.com.wells.core.domain.pagamento.usecases.CriarPagamentoUseCase;
-import br.com.wells.core.domain.pagamento.usecases.ExcluirPagamentoUseCase;
+import br.com.wells.core.domain.pagamento.usecases.CancelarPagamentoUseCase;
 import br.com.wells.wellspagamento.infrastructure.spring.config.app.ApiRoutes;
 import br.com.wells.wellspagamento.presentation.rest.controller.generic.dto.response.GenericResponse;
 import br.com.wells.wellspagamento.presentation.rest.controller.generic.validation.CreateInfo;
 import br.com.wells.wellspagamento.presentation.rest.controller.generic.validation.UpdateInfo;
 import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.dto.mapper.PagamentoDtoMapper;
+import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.dto.request.AtualizarPagamentoRequest;
 import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.dto.request.PagamentoRequest;
 import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.dto.response.PagamentoResponse;
 import br.com.wells.wellspagamento.presentation.rest.controller.pagamento.swagger.PagamentoControllerSwagger;
@@ -41,8 +41,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 @Slf4j
 public class PagamentoController implements PagamentoControllerSwagger {
 
-	private final AlteraStatusPagamentoUseCase alteraStatusPagamentoUseCase;
-
 	private final AtualizarPagamentoUseCase atualizarPagamentoUseCase;
 
 	private final ConfirmarPagamentoUseCase confirmarPagamentoUseCase;
@@ -53,7 +51,7 @@ public class PagamentoController implements PagamentoControllerSwagger {
 
 	private final CriarPagamentoUseCase criarPagamentoUseCase;
 
-	private final ExcluirPagamentoUseCase excluirPagamentoUseCase;
+	private final CancelarPagamentoUseCase cancelarPagamentoUseCase;
 
 	@PostMapping
 	@Override
@@ -74,7 +72,7 @@ public class PagamentoController implements PagamentoControllerSwagger {
 
 	@Override
 	public ResponseEntity<GenericResponse<PagamentoResponse>> atualizar(@PathVariable Long id,
-			@RequestBody @Validated(UpdateInfo.class) PagamentoRequest pagamentoRequest) {
+			@RequestBody @Validated(UpdateInfo.class) AtualizarPagamentoRequest pagamentoRequest) {
 
 		log.info("Atualizando pagamento: {}", pagamentoRequest);
 
@@ -86,23 +84,26 @@ public class PagamentoController implements PagamentoControllerSwagger {
 
 	@PatchMapping("/{id}/confirmar")
 	@Override
-	public void confirmarPagamento(@PathVariable Long id) {
+	public ResponseEntity<Void> confirmarPagamento(@PathVariable Long id) {
 		log.info("Confirmando pagamento: {}", id);
 
+		confirmarPagamentoUseCase.execute(id);
+
+		return ResponseEntity.noContent().build();
 	}
 
 	@DeleteMapping("/{id}")
 	@Override
-	public ResponseEntity<Void> remover(@PathVariable Long id) {
+	public ResponseEntity<Void> cancelar(@PathVariable Long id) {
 		log.info("Removendo pagamento: {}", id);
 
-		excluirPagamentoUseCase.execute(id);
+		cancelarPagamentoUseCase.execute(id);
 		return ResponseEntity.noContent().build();
 	}
 
 	@GetMapping("/{id}")
 	@Override
-	public ResponseEntity<GenericResponse<PagamentoResponse>> consultarPagamentoPorId(@PathVariable  Long id) {
+	public ResponseEntity<GenericResponse<PagamentoResponse>> consultarPagamentoPorId(@PathVariable Long id) {
 		log.info("Consultando pagamento por id: {}", id);
 
 		var pagamento = consultarPagamentoPorIdUseCase.execute(id);

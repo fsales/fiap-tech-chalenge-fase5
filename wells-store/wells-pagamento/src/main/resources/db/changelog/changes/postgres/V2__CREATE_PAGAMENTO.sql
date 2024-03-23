@@ -6,7 +6,7 @@ CREATE TABLE wells.pagamento
     nome                  VARCHAR(255) NOT NULL,   -- Nome completo do titular do pagamento
     numero                VARCHAR(19)  NOT NULL,   -- Número do pagamento
     expiracao             DATE         NOT NULL,   -- Data de expiração do pagamento
-    codigo                VARCHAR(3)   NOT NULL,   -- Código do pagamento
+    codigo                VARCHAR(6)   NOT NULL,   -- Código do pagamento
     status                VARCHAR(10)  NOT NULL CHECK (status IN ('CRIADO', 'CONFIRMADO', 'CANCELADO')), -- Status do pagamento (Deve ser um dos seguintes: CRIADO, CONFIRMADO, CANCELADO)
     tipo_cartao           VARCHAR(26)  NOT NULL CHECK (tipo_cartao IN ('VISA_CREDITO', 'MASTERCARD_CREDITO', 'AMEX_CREDITO', 'ELO_CREDITO', 'ALELO_VALE_REFEICAO', 'TICKET_RESTAURANTE', 'MASTERCARD_MAESTRO_DEBITO', 'VISA_DEBITO', 'ELO_DEBITO')), -- Nome do tipo de cartão associado ao pagamento
     pedido_id           BIGINT       NOT NULL,   -- ID do pedido associado ao pagamento

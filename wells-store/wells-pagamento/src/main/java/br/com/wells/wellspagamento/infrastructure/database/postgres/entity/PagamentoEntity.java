@@ -60,7 +60,7 @@ public class PagamentoEntity {
 
 	@Size(max = 3)
 	@NotNull
-	@Column(name = "codigo", nullable = false, length = 3)
+	@Column(name = "codigo", nullable = false, length = 6)
 	private String codigo;
 
 	@NotNull

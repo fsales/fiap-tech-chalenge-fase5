@@ -24,4 +24,5 @@ public class GroupedOpenApiConfig {
 		String[] paths = { String.format("%s%s", ApiRoutes.PAGAMENTO_URI, PATH_POSFIXO) };
 		return GroupedOpenApi.builder().group("Pagamento").pathsToMatch(paths).build();
 	}
+
 }

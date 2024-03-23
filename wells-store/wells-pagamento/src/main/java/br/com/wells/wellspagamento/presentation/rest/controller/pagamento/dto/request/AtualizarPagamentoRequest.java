@@ -16,7 +16,7 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
-public record PagamentoRequest(@NotNull(message = "Valor não pode ser nulo", groups = {
+public record AtualizarPagamentoRequest(@NotNull(message = "Valor não pode ser nulo", groups = {
 		CreateInfo.class, UpdateInfo.class }) @Positive(message = "Valor deve ser positivo",
 				groups = { CreateInfo.class, UpdateInfo.class }) BigDecimal valor,
 
@@ -36,8 +36,6 @@ public record PagamentoRequest(@NotNull(message = "Valor não pode ser nulo", gr
 		@NotNull(message = "Código não pode ser nulo", groups = { CreateInfo.class, UpdateInfo.class }) @Size(max = 6,
 				message = "O comprimento do código deve ser menor ou igual a 6",
 				groups = { CreateInfo.class, UpdateInfo.class }) String codigo,
-
-		@NotNull(message = "PedidoId não pode ser nulo", groups = { CreateInfo.class, UpdateInfo.class }) Long pedidoId,
 
 		@Status(groups = { CreateInfo.class, UpdateInfo.class }) @NotEmpty(message = "Status não pode estar vazio",
 				groups = { CreateInfo.class, UpdateInfo.class }) String status,
