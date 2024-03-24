@@ -61,7 +61,7 @@ public class PagamentoController implements PagamentoControllerSwagger {
 
 		log.info("Cadastrando pagamento: {}", pagamentoRequest);
 
-		var pagamentoSalvo = criarPagamentoUseCase.execute(PagamentoDtoMapper.toPagamento(pagamentoRequest));
+		var pagamentoSalvo = criarPagamentoUseCase.execute(PagamentoDtoMapper.cadastar(pagamentoRequest));
 		var pagamentoResponse = PagamentoDtoMapper.toPagamentoResponse(pagamentoSalvo);
 		var uri = ApiRoutes.construirUriPagamentoPorId(pagamentoResponse.id());
 

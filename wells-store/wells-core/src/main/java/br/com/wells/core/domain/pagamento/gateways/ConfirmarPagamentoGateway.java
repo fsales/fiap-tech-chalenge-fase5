@@ -4,6 +4,6 @@ import br.com.wells.core.domain.pagamento.model.Pagamento;
 
 public interface ConfirmarPagamentoGateway {
 
-	Pagamento execute(Long id);
+	Pagamento execute(Pagamento pagamento);
 
 }
