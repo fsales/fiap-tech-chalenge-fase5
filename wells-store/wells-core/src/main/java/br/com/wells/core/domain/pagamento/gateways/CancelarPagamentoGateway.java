@@ -4,6 +4,6 @@ import br.com.wells.core.domain.pagamento.model.Pagamento;
 
 public interface CancelarPagamentoGateway {
 
-	Pagamento execute(final Long id);
+	Pagamento execute(final Pagamento pagamento);
 
 }

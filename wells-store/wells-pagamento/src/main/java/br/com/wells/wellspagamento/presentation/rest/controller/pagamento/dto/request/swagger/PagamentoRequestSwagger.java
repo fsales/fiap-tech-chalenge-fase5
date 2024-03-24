@@ -28,9 +28,6 @@ public interface PagamentoRequestSwagger {
 		return null;
 	};
 
-	@Schema(description = "Status do pagamento", example = "Criado", allowableValues = "Criado, Confirmado, Cancelado")
-	String status();
-
 	@Schema(description = "Tipo do cartão", example = "Visa",
 			allowableValues = "MasterCard, Amex, Alelo,Ticket Restaurante, MasterCard Maestro, Visa Débito, Elo, Elo Débito")
 	String tipoCartao();
