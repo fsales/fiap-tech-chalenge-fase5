@@ -355,6 +355,166 @@
 						}
 					],
 					"description": "Realizando a chamada ao serviço de usuário pelo Gateway"
+				},
+				{
+					"name": "API de pagamento",
+					"item": [
+						{
+							"name": "Listar",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url-gateway}}/api/v1/pagamentos",
+									"host": [
+										"{{url-gateway}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"pagamentos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrar",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"valor\": 100.00,\r\n  \"nome\": \"Nome do Titular\",\r\n  \"numero\": \"1234567890123456\",\r\n  \"expiracao\": \"2023-12-31\",\r\n  \"codigo\": \"123\",\r\n  \"pedidoId\": 1,\r\n  \"status\": \"Criado\",\r\n  \"tipoCartao\": \"Visa\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url-gateway}}/api/v1/pagamentos",
+									"host": [
+										"{{url-gateway}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"pagamentos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Detalhar",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url-gateway}}/api/v1/pagamentos/1",
+									"host": [
+										"{{url-gateway}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"pagamentos",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cancelar",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"valor\": 100.00,\r\n  \"nome\": \"Nome do Titular\",\r\n  \"numero\": \"1234567890123456\",\r\n  \"expiracao\": \"2023-12-31\",\r\n  \"codigo\": \"123\",\r\n  \"pedidoId\": 1,\r\n  \"status\": \"Criado\",\r\n  \"tipoCartao\": \"Visa\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url-gateway}}/api/v1/pagamentos/1",
+									"host": [
+										"{{url-gateway}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"pagamentos",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Confirmar",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"valor\": 100.00,\r\n  \"nome\": \"Nome do Titular\",\r\n  \"numero\": \"1234567890123456\",\r\n  \"expiracao\": \"2023-12-31\",\r\n  \"codigo\": \"123\",\r\n  \"pedidoId\": 1,\r\n  \"status\": \"Criado\",\r\n  \"tipoCartao\": \"Visa\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url-gateway}}/api/v1/pagamentos/4/confirmar",
+									"host": [
+										"{{url-gateway}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"pagamentos",
+										"4",
+										"confirmar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alterar",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"valor\": 100,\r\n  \"nome\": \"Nome do Titular\",\r\n  \"numero\": \"1234567890123456\",\r\n  \"expiracao\": \"2023-12-31\",\r\n  \"codigo\": \"123\",\r\n  \"status\": \"Criado\",\r\n  \"tipoCartao\": \"Elo\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url-gateway}}/api/v1/pagamentos/2",
+									"host": [
+										"{{url-gateway}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"pagamentos",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			],
 			"description": "Api Gateway"
@@ -585,6 +745,205 @@
 				}
 			],
 			"description": "Api de Gerenciamento de usuário"
+		},
+		{
+			"name": "Wells Pagamento",
+			"item": [
+				{
+					"name": "API de pagamento",
+					"item": [
+						{
+							"name": "Listar",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url-pagamentos}}/api/v1/pagamentos",
+									"host": [
+										"{{url-pagamentos}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"pagamentos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cadastrar",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"valor\": 100.00,\r\n  \"nome\": \"Nome do Titular\",\r\n  \"numero\": \"1234567890123456\",\r\n  \"expiracao\": \"2023-12-31\",\r\n  \"codigo\": \"123\",\r\n  \"pedidoId\": 1,\r\n  \"status\": \"Criado\",\r\n  \"tipoCartao\": \"Visa\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url-pagamentos}}/api/v1/pagamentos",
+									"host": [
+										"{{url-pagamentos}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"pagamentos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Detalhar",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url-pagamentos}}/api/v1/pagamentos/1",
+									"host": [
+										"{{url-pagamentos}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"pagamentos",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Cancelar",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"valor\": 100.00,\r\n  \"nome\": \"Nome do Titular\",\r\n  \"numero\": \"1234567890123456\",\r\n  \"expiracao\": \"2023-12-31\",\r\n  \"codigo\": \"123\",\r\n  \"pedidoId\": 1,\r\n  \"status\": \"Criado\",\r\n  \"tipoCartao\": \"Visa\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url-pagamentos}}/api/v1/pagamentos/1",
+									"host": [
+										"{{url-pagamentos}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"pagamentos",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Confirmar",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"valor\": 100.00,\r\n  \"nome\": \"Nome do Titular\",\r\n  \"numero\": \"1234567890123456\",\r\n  \"expiracao\": \"2023-12-31\",\r\n  \"codigo\": \"123\",\r\n  \"pedidoId\": 1,\r\n  \"status\": \"Criado\",\r\n  \"tipoCartao\": \"Visa\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url-pagamentos}}/api/v1/pagamentos/4/confirmar",
+									"host": [
+										"{{url-pagamentos}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"pagamentos",
+										"4",
+										"confirmar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Alterar",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"valor\": 100,\r\n  \"nome\": \"Nome do Titular\",\r\n  \"numero\": \"1234567890123456\",\r\n  \"expiracao\": \"2023-12-31\",\r\n  \"codigo\": \"123\",\r\n  \"status\": \"Criado\",\r\n  \"tipoCartao\": \"Elo\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url-pagamentos}}/api/v1/pagamentos/2",
+									"host": [
+										"{{url-pagamentos}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"pagamentos",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Wells Carrinho",
+			"item": [
+				{
+					"name": "Checkout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"valor\": 100.00,\r\n  \"nome\": \"Nome do Titular\",\r\n  \"numero\": \"1234567890123456\",\r\n  \"expiracao\": \"2023-12-31\",\r\n  \"codigo\": \"123\",\r\n  \"pedidoId\": 1,\r\n  \"status\": \"Criado\",\r\n  \"tipoCartao\": \"Visa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-carrinho}}/api/v1/carrinho/checkout",
+							"host": [
+								"{{url-carrinho}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"carrinho",
+								"checkout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"variable": [

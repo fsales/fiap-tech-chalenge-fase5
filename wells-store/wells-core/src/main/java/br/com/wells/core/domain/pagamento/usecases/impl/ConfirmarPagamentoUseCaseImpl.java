@@ -2,6 +2,7 @@ package br.com.wells.core.domain.pagamento.usecases.impl;
 
 import java.util.logging.Logger;
 
+import br.com.wells.core.domain.exception.WellsStoreDataIntegrityViolationException;
 import br.com.wells.core.domain.pagamento.gateways.ConfirmarPagamentoGateway;
 import br.com.wells.core.domain.pagamento.model.Pagamento;
 import br.com.wells.core.domain.pagamento.usecases.ConfirmarPagamentoUseCase;
@@ -27,11 +28,11 @@ public class ConfirmarPagamentoUseCaseImpl implements ConfirmarPagamentoUseCase 
 
 		var pagamento = consultarPagamentoPorIdUseCase.execute(id);
 		if (pagamento.isConfirmado()) {
-			throw new IllegalStateException("Pagamento já confirmado");
+			throw new WellsStoreDataIntegrityViolationException("Pagamento já confirmado");
 		}
 
 		if (pagamento.isCancelado()) {
-			throw new IllegalStateException("Pagamento cancelado");
+			throw new WellsStoreDataIntegrityViolationException("Pagamento cancelado");
 		}
 
 		return confirmarPagamentoGateway.execute(pagamento);

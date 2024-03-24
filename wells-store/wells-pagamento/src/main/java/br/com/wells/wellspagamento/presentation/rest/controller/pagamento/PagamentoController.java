@@ -76,7 +76,7 @@ public class PagamentoController implements PagamentoControllerSwagger {
 
 		log.info("Atualizando pagamento: {}", pagamentoRequest);
 
-		var pagamento = atualizarPagamentoUseCase.execute(id, PagamentoDtoMapper.toPagamento(pagamentoRequest));
+		var pagamento = atualizarPagamentoUseCase.execute(id, PagamentoDtoMapper.atualizar(id, pagamentoRequest));
 
 		return ResponseEntity
 			.ok(GenericResponse.success(HttpStatus.OK, PagamentoDtoMapper.toPagamentoResponse(pagamento)));

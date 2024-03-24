@@ -26,6 +26,14 @@ public class PagamentoDtoMapper {
 		);
 	}
 
+	public static Pagamento atualizar(Long id, AtualizarPagamentoRequest pagamentoRequest) {
+
+		return Pagamento.atualizar(id, pagamentoRequest.valor(), pagamentoRequest.nome(), pagamentoRequest.numero(),
+				pagamentoRequest.expiracao(), pagamentoRequest.codigo(), pagamentoRequest.tipoCartao()
+
+		);
+	}
+
 	public static Pagamento toPagamento(AtualizarPagamentoRequest pagamentoRequest) {
 		return new Pagamento(pagamentoRequest.valor(), pagamentoRequest.nome(), pagamentoRequest.numero(),
 				pagamentoRequest.expiracao(), pagamentoRequest.codigo(), pagamentoRequest.status(),

@@ -1,6 +1,7 @@
 package br.com.wells.core.domain.pagamento.model;
 
 import static br.com.wells.core.domain.pagamento.usecases.validation.PagamentoValidation.validarCamposObrigatorios;
+import static br.com.wells.core.domain.pagamento.usecases.validation.PagamentoValidation.validarCamposObrigatoriosAtualizar;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -30,6 +31,16 @@ public record Pagamento(Long id, BigDecimal valor, String nome, String numero, L
 		var pag = new Pagamento(null, valor, nome, numero, expiracao, codigo, StatusPagamento.CRIADO,
 				TipoCartao.fromNomeCartao(tipoCartao), pedidoId);
 		validarCamposObrigatorios(pag);
+		return pag;
+
+	}
+
+	public static Pagamento atualizar(Long id, BigDecimal valor, String nome, String numero, LocalDate expiracao,
+			String codigo, String tipoCartao) {
+
+		var pag = new Pagamento(id, valor, nome, numero, expiracao, codigo, StatusPagamento.CRIADO,
+				TipoCartao.fromNomeCartao(tipoCartao), null);
+		validarCamposObrigatoriosAtualizar(pag);
 		return pag;
 
 	}
