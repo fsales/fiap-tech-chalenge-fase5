@@ -18,5 +18,7 @@ springdoc:
         name: API Gateway Service
       - url: /wells-usuario/v3/api-docs
         name: API Wells Usuário
+      - url: /wells-pagamento/v3/api-docs
+        name: API Wells Pagamento
     urls-primary-name: API Gateway Service
 

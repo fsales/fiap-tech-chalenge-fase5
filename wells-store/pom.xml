@@ -51,7 +51,7 @@
         <module>wells-usuario</module>
         <module>wells-produto</module>
         <module>wells-pagamento</module>
-
+        <module>wells-carrinho</module>
         <module>wells-gateway</module>
     </modules>
     <dependencyManagement>

@@ -1,5 +1,7 @@
 package br.com.wells.core.domain.pagamento.model;
 
+import static br.com.wells.core.domain.pagamento.usecases.validation.PagamentoValidation.validarCamposObrigatorios;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -22,21 +24,7 @@ public record Pagamento(Long id, BigDecimal valor, String nome, String numero, L
 		this(id, null, null, null, null, null, null, null, null);
 	}
 
-	private static void validarCamposObrigatorios(Pagamento pagamento) {
-		Objects.requireNonNull(pagamento.nome(), "O campo 'nome' é obrigatório.");
-		Objects.requireNonNull(pagamento.numero(), "O campo 'numero' é obrigatório.");
-		Objects.requireNonNull(pagamento.expiracao(), "O campo 'expiracao' é obrigatório.");
-		Objects.requireNonNull(pagamento.codigo(), "O campo 'codigo' é obrigatório.");
-		Objects.requireNonNull(pagamento.status(), "O campo 'status' é obrigatório.");
-		Objects.requireNonNull(pagamento.tipoCartao(), "O campo 'tipoCartao' é obrigatório.");
-		Objects.requireNonNull(pagamento.pedidoId(), "O campo 'pedidoId' é obrigatório.");
-
-		validarCampoNaoVazio(pagamento.nome(), "nome");
-		validarCampoNaoVazio(pagamento.numero(), "numero");
-		validarCampoNaoVazio(pagamento.codigo(), "codigo");
-	}
-
-	public static Pagamento cadastar(BigDecimal valor, String nome, String numero, LocalDate expiracao, String codigo,
+	public static Pagamento criar(BigDecimal valor, String nome, String numero, LocalDate expiracao, String codigo,
 			String tipoCartao, Long pedidoId) {
 
 		var pag = new Pagamento(null, valor, nome, numero, expiracao, codigo, StatusPagamento.CRIADO,
@@ -44,12 +32,6 @@ public record Pagamento(Long id, BigDecimal valor, String nome, String numero, L
 		validarCamposObrigatorios(pag);
 		return pag;
 
-	}
-
-	private static void validarCampoNaoVazio(String valor, String nomeCampo) {
-		if (valor.trim().isEmpty()) {
-			throw new IllegalArgumentException("O campo '" + nomeCampo + "' não pode estar em branco.");
-		}
 	}
 
 	public Pagamento confirmar() {
@@ -62,5 +44,13 @@ public record Pagamento(Long id, BigDecimal valor, String nome, String numero, L
 		Objects.requireNonNull(id, "O campo 'id' é obrigatório.");
 		return new Pagamento(id, valor, nome, numero, expiracao, codigo, StatusPagamento.CANCELADO, tipoCartao,
 				pedidoId);
+	}
+
+	public boolean isConfirmado() {
+		return StatusPagamento.CONFIRMADO.equals(status);
+	}
+
+	public boolean isCancelado() {
+		return StatusPagamento.CANCELADO.equals(status);
 	}
 }

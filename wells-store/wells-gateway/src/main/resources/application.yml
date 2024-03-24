@@ -41,14 +41,38 @@ spring:
           filters:
             - StripPrefix=1
 
+        - id: wells-pagamento-v3-api-docs
+          uri: lb://wells-pagamento-service
+          predicates:
+            - Path=/wells-pagamento/v3/api-docs/**
+          filters:
+            - RewritePath=/wells-pagamento/v3/api-docs/(?<path>.*), /$\{path}/v3/api-docs
+
+        - id: api-v1-pagamentos
+          uri: lb://wells-pagamento-service
+          predicates:
+            - Path=/api/v1/pagamentos/**
+          filters:
+            - AuthenticationFilter
+
+        - id: pagamento-service-actuator
+          uri: lb://wells-pagamento-service
+          predicates:
+            - Path=/pagamentos/actuator/**
+          filters:
+            - StripPrefix=1
+
 
   profiles:
     active: ${PROFILE_ENVIRONMENT:default}
-    include: actuator, springdoc, app, service-registry
+    include: management, springdoc, app, service-registry
 
+#logging:
+#  pattern:
+#    console: "%d{ABSOLUTE_MICROS} [%-5level] [%t] %c{1} - %msg%n"
 logging:
   pattern:
-    console: "%d{ABSOLUTE_MICROS} [%-5level] [%t] %c{1} - %msg%n"
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]  [%t] %c{1} - %msg%n'
   level:
     root: INFO
     org.springframework.cloud.consul.discovery.web: INFO

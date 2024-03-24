@@ -1,0 +1,16 @@
+
+
+spring:
+  application:
+    name: wells-carrinho
+
+  profiles:
+    include: amqp, management
+server:
+  port: ${PORT:8083}
+
+logging:
+  pattern:
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]  [%t] %c{1} - %msg%n'
+  level:
+    root: INFO

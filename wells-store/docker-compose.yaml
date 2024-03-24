@@ -77,50 +77,63 @@ services:
           cpus: '0.25'
           memory: 64M
 
+  # RabbitMQ
+  # RabbitMQ
   rabbitmq-wells-store:
-    image: rabbitmq:3.13.0-management-alpine
+    image: rabbitmq:3-management-alpine
     container_name: rabbitmq-wells-store
     ports:
-      - "15672:15672"
       - "5672:5672"
-      - "25672:25672"
-      - "15671:15671"
-      - "4369:4369"
       - "5671:5671"
+      - "4369:4369"
+      - "15672:15672"
+      - "15671:15671"
     restart: on-failure
-    networks:
-      - rabbitmq-wells-store-net
-      - consul-wells-store-net
-    volumes:
-      - rabbitmq-wells-store-data:/var/lib/rabbitmq
-#    depends_on:
-#      consul-wells-store:
-#        condition: service_healthy
-    healthcheck:
-      test: rabbitmq-diagnostics -q ping
-      interval: 10s
-      timeout: 5s
-      retries: 3
     environment:
       RABBITMQ_DEFAULT_USER: wellsstore
       RABBITMQ_DEFAULT_PASS: wellsstore
-    deploy:
-      resources:
-        limits:
-          cpus: '0.50'
-          memory: 512M
-        reservations:
-          cpus: '0.25'
-          memory: 64M
+    volumes:
+      - rabbitmq-wells-store-data:/var/lib/rabbitmq
+      - rabbitmq-wells-store-log:/var/log/rabbitmq
+    networks:
+      - wells-store-app-net
+    healthcheck:
+      test: [ "CMD", "rabbitmqctl", "status" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    command: >
+      rabbitmq-server && 
+      rabbitmqctl add_vhost /zipkin && 
+      rabbitmqctl add_user zipkin_user zipkin_password && 
+      rabbitmqctl set_permissions -p /zipkin zipkin_user ".*" ".*" ".*" &&
+      rabbitmqctl set_policy -p /zipkin ha-all "" '{"ha-mode":"all","ha-sync-mode":"automatic"}' &&
+      rabbitmqadmin declare queue name=zipkin durable=true
+
+  # Zipkin
+  zipkin-wells-store:
+    image: openzipkin/zipkin
+    container_name: zipkin-wells-store
+    ports:
+      - "9410:9410"
+      - "9411:9411"
+    depends_on:
+      rabbitmq-wells-store:
+        condition: service_healthy
+    environment:
+      RABBIT_URI: "amqp://wellsstore:wellsstore@rabbitmq-wells-store:5672"
+    networks:
+      - wells-store-app-net
 
 networks:
-  consul-wells-store-net:
-  wells-usuario-db-net:
   wells-pagamento-db-net:
-  rabbitmq-wells-store-net:
+  wells-usuario-db-net:
+  consul-wells-store-net:
+  wells-store-app-net:
 
 volumes:
   wells-pagamento-db-data:
   wells-usuario-db-data:
   consul-wells-store-data:
   rabbitmq-wells-store-data:
+  rabbitmq-wells-store-log:
