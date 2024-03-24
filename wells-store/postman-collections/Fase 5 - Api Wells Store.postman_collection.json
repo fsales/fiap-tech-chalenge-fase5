@@ -362,6 +362,16 @@
 						{
 							"name": "Listar",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ3ZWxscy11c3VhcmlvIiwicm9sZSI6IlJPTEVfQ0xJRU5URSIsImlhdCI6MTcxMTMxNDc0NCwic3ViIjoiY2xpZW50ZUB3ZWxsc3N0b3JlLmJyIiwiZXhwIjoxNzExMzE2NTQ0LCJqdGkiOiJkNWU4OTRmZC1hYjg4LTRmNTMtOTk4Zi0xNTQ2ZTkzZjRlMGMiLCJuYmYiOjE3MTEzMTQ3NDV9.XtPCn2zOYKNCSB0kaoJsLdpXnHq1uCU5XVdOCZ-SC9wuxR4zYc7CLnnf6E0Cdp_vghFw4lbS1Wl45tXy7YnCO4ROVUekSYaGc_Hs4Vz0dY6zKks8CgBPcv6uEQn-C98CKdK5NN4Zhgz42bVfqmsx5sbjMU8mvj9VY4daWllBH7dRUF4BKXU2dOhomfuug0l8pvUybAzYGDWSacX90qQCQXo4Imrc__4Pm5eUEJTn4GJl3yI-53y1UNGfm1BuJsePpbVn3ZBopLEgKzsjIVUdALV72iwdx1-UKpLCQlk4r3R5GG_mBjtHF4x-FIeOnRc8QZq4YrFusegW7Mkokupmog",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
@@ -381,6 +391,16 @@
 						{
 							"name": "Cadastrar",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ3ZWxscy11c3VhcmlvIiwicm9sZSI6IlJPTEVfQ0xJRU5URSIsImlhdCI6MTcxMTMxNDc0NCwic3ViIjoiY2xpZW50ZUB3ZWxsc3N0b3JlLmJyIiwiZXhwIjoxNzExMzE2NTQ0LCJqdGkiOiJkNWU4OTRmZC1hYjg4LTRmNTMtOTk4Zi0xNTQ2ZTkzZjRlMGMiLCJuYmYiOjE3MTEzMTQ3NDV9.XtPCn2zOYKNCSB0kaoJsLdpXnHq1uCU5XVdOCZ-SC9wuxR4zYc7CLnnf6E0Cdp_vghFw4lbS1Wl45tXy7YnCO4ROVUekSYaGc_Hs4Vz0dY6zKks8CgBPcv6uEQn-C98CKdK5NN4Zhgz42bVfqmsx5sbjMU8mvj9VY4daWllBH7dRUF4BKXU2dOhomfuug0l8pvUybAzYGDWSacX90qQCQXo4Imrc__4Pm5eUEJTn4GJl3yI-53y1UNGfm1BuJsePpbVn3ZBopLEgKzsjIVUdALV72iwdx1-UKpLCQlk4r3R5GG_mBjtHF4x-FIeOnRc8QZq4YrFusegW7Mkokupmog",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"body": {
@@ -409,6 +429,16 @@
 						{
 							"name": "Detalhar",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ3ZWxscy11c3VhcmlvIiwicm9sZSI6IlJPTEVfQ0xJRU5URSIsImlhdCI6MTcxMTMxNDc0NCwic3ViIjoiY2xpZW50ZUB3ZWxsc3N0b3JlLmJyIiwiZXhwIjoxNzExMzE2NTQ0LCJqdGkiOiJkNWU4OTRmZC1hYjg4LTRmNTMtOTk4Zi0xNTQ2ZTkzZjRlMGMiLCJuYmYiOjE3MTEzMTQ3NDV9.XtPCn2zOYKNCSB0kaoJsLdpXnHq1uCU5XVdOCZ-SC9wuxR4zYc7CLnnf6E0Cdp_vghFw4lbS1Wl45tXy7YnCO4ROVUekSYaGc_Hs4Vz0dY6zKks8CgBPcv6uEQn-C98CKdK5NN4Zhgz42bVfqmsx5sbjMU8mvj9VY4daWllBH7dRUF4BKXU2dOhomfuug0l8pvUybAzYGDWSacX90qQCQXo4Imrc__4Pm5eUEJTn4GJl3yI-53y1UNGfm1BuJsePpbVn3ZBopLEgKzsjIVUdALV72iwdx1-UKpLCQlk4r3R5GG_mBjtHF4x-FIeOnRc8QZq4YrFusegW7Mkokupmog",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
@@ -429,6 +459,16 @@
 						{
 							"name": "Cancelar",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ3ZWxscy11c3VhcmlvIiwicm9sZSI6IlJPTEVfQ0xJRU5URSIsImlhdCI6MTcxMTMxNDc0NCwic3ViIjoiY2xpZW50ZUB3ZWxsc3N0b3JlLmJyIiwiZXhwIjoxNzExMzE2NTQ0LCJqdGkiOiJkNWU4OTRmZC1hYjg4LTRmNTMtOTk4Zi0xNTQ2ZTkzZjRlMGMiLCJuYmYiOjE3MTEzMTQ3NDV9.XtPCn2zOYKNCSB0kaoJsLdpXnHq1uCU5XVdOCZ-SC9wuxR4zYc7CLnnf6E0Cdp_vghFw4lbS1Wl45tXy7YnCO4ROVUekSYaGc_Hs4Vz0dY6zKks8CgBPcv6uEQn-C98CKdK5NN4Zhgz42bVfqmsx5sbjMU8mvj9VY4daWllBH7dRUF4BKXU2dOhomfuug0l8pvUybAzYGDWSacX90qQCQXo4Imrc__4Pm5eUEJTn4GJl3yI-53y1UNGfm1BuJsePpbVn3ZBopLEgKzsjIVUdALV72iwdx1-UKpLCQlk4r3R5GG_mBjtHF4x-FIeOnRc8QZq4YrFusegW7Mkokupmog",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [],
 								"body": {
@@ -458,6 +498,16 @@
 						{
 							"name": "Confirmar",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ3ZWxscy11c3VhcmlvIiwicm9sZSI6IlJPTEVfQ0xJRU5URSIsImlhdCI6MTcxMTMxNDc0NCwic3ViIjoiY2xpZW50ZUB3ZWxsc3N0b3JlLmJyIiwiZXhwIjoxNzExMzE2NTQ0LCJqdGkiOiJkNWU4OTRmZC1hYjg4LTRmNTMtOTk4Zi0xNTQ2ZTkzZjRlMGMiLCJuYmYiOjE3MTEzMTQ3NDV9.XtPCn2zOYKNCSB0kaoJsLdpXnHq1uCU5XVdOCZ-SC9wuxR4zYc7CLnnf6E0Cdp_vghFw4lbS1Wl45tXy7YnCO4ROVUekSYaGc_Hs4Vz0dY6zKks8CgBPcv6uEQn-C98CKdK5NN4Zhgz42bVfqmsx5sbjMU8mvj9VY4daWllBH7dRUF4BKXU2dOhomfuug0l8pvUybAzYGDWSacX90qQCQXo4Imrc__4Pm5eUEJTn4GJl3yI-53y1UNGfm1BuJsePpbVn3ZBopLEgKzsjIVUdALV72iwdx1-UKpLCQlk4r3R5GG_mBjtHF4x-FIeOnRc8QZq4YrFusegW7Mkokupmog",
+											"type": "string"
+										}
+									]
+								},
 								"method": "PATCH",
 								"header": [],
 								"body": {
@@ -488,6 +538,16 @@
 						{
 							"name": "Alterar",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJ3ZWxscy11c3VhcmlvIiwicm9sZSI6IlJPTEVfQ0xJRU5URSIsImlhdCI6MTcxMTMxNDc0NCwic3ViIjoiY2xpZW50ZUB3ZWxsc3N0b3JlLmJyIiwiZXhwIjoxNzExMzE2NTQ0LCJqdGkiOiJkNWU4OTRmZC1hYjg4LTRmNTMtOTk4Zi0xNTQ2ZTkzZjRlMGMiLCJuYmYiOjE3MTEzMTQ3NDV9.XtPCn2zOYKNCSB0kaoJsLdpXnHq1uCU5XVdOCZ-SC9wuxR4zYc7CLnnf6E0Cdp_vghFw4lbS1Wl45tXy7YnCO4ROVUekSYaGc_Hs4Vz0dY6zKks8CgBPcv6uEQn-C98CKdK5NN4Zhgz42bVfqmsx5sbjMU8mvj9VY4daWllBH7dRUF4BKXU2dOhomfuug0l8pvUybAzYGDWSacX90qQCQXo4Imrc__4Pm5eUEJTn4GJl3yI-53y1UNGfm1BuJsePpbVn3ZBopLEgKzsjIVUdALV72iwdx1-UKpLCQlk4r3R5GG_mBjtHF4x-FIeOnRc8QZq4YrFusegW7Mkokupmog",
+											"type": "string"
+										}
+									]
+								},
 								"method": "PATCH",
 								"header": [],
 								"body": {

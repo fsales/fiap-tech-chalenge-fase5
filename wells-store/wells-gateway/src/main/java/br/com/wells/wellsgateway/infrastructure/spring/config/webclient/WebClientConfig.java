@@ -1,4 +1,4 @@
-package br.com.wells.wellsgateway.infrastructure.spring.config.feign;
+package br.com.wells.wellsgateway.infrastructure.spring.config.webclient;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
