@@ -5,7 +5,7 @@ spring:
     version: @project.version@
   profiles:
     active: ${PROFILE_ENVIRONMENT:prod}
-    include: actuator, springdoc, app, service-registry
+    include: management, springdoc, app, service-registry, amqp
 
   datasource:
     url: ${WELLS_PAGAMENTO_SPRING_DATASOURCE_URL:}
@@ -24,9 +24,12 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     database: postgresql
 
+#logging:
+#  pattern:
+#    console: "%d{ABSOLUTE_MICROS} [%-5level] [%t] %c{1} - %msg%n"
 logging:
   pattern:
-    console: "%d{ABSOLUTE_MICROS} [%-5level] [%t] %c{1} - %msg%n"
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]  [%t] %c{1} - %msg%n'
   level:
     br.com.wells: info
 

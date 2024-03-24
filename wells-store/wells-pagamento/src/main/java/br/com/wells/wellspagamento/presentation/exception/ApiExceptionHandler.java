@@ -1,8 +1,9 @@
 package br.com.wells.wellspagamento.presentation.exception;
 
-import br.com.wells.core.domain.exception.WellsStoreEntityNotFoundException;
 import br.com.wells.core.domain.exception.WellsStoreDataIntegrityViolationException;
+import br.com.wells.core.domain.exception.WellsStoreEntityNotFoundException;
 import br.com.wells.core.domain.exception.WellsStoreUniqueViolationException;
+import br.com.wells.core.domain.exception.WellsStoreValidationException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ValidationException;
 import lombok.extern.slf4j.Slf4j;
@@ -45,9 +46,9 @@ public class ApiExceptionHandler {
 			.body(new ErrorMessage(request, HttpStatus.CONFLICT, ex.getMessage()));
 	}
 
-	@ExceptionHandler({ MethodArgumentNotValidException.class })
-	public ResponseEntity<ErrorMessage> methodArgumentNotValidException(MethodArgumentNotValidException ex,
-			HttpServletRequest request, BindingResult result) {
+	@ExceptionHandler({ MethodArgumentNotValidException.class, WellsStoreValidationException.class })
+	public ResponseEntity<ErrorMessage> methodArgumentNotValidException(RuntimeException ex, HttpServletRequest request,
+			BindingResult result) {
 		log.error(MSG_ERROR, ex);
 		return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
 			.contentType(MediaType.APPLICATION_JSON)

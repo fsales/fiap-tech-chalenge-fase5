@@ -1,7 +1,9 @@
 package br.com.wells.core.domain.pagamento.usecases;
 
+import br.com.wells.core.domain.pagamento.model.Pagamento;
+
 public interface ConfirmarPagamentoUseCase {
 
-	void execute(Long id);
+	Pagamento execute(Long id);
 
 }

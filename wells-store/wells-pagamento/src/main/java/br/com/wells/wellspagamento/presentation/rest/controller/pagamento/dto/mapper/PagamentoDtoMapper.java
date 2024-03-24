@@ -19,9 +19,17 @@ public class PagamentoDtoMapper {
 
 	public static Pagamento cadastar(PagamentoRequest pagamentoRequest) {
 
-		return Pagamento.cadastar(pagamentoRequest.valor(), pagamentoRequest.nome(), pagamentoRequest.numero(),
+		return Pagamento.criar(pagamentoRequest.valor(), pagamentoRequest.nome(), pagamentoRequest.numero(),
 				pagamentoRequest.expiracao(), pagamentoRequest.codigo(), pagamentoRequest.tipoCartao(),
 				pagamentoRequest.pedidoId()
+
+		);
+	}
+
+	public static Pagamento atualizar(Long id, AtualizarPagamentoRequest pagamentoRequest) {
+
+		return Pagamento.atualizar(id, pagamentoRequest.valor(), pagamentoRequest.nome(), pagamentoRequest.numero(),
+				pagamentoRequest.expiracao(), pagamentoRequest.codigo(), pagamentoRequest.tipoCartao()
 
 		);
 	}
