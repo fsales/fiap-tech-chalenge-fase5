@@ -66,6 +66,9 @@ Pós-Graduação em Arquitetura e Desenvolvimento Java
 
 ### Aluno(s)
 
+|[<img src="https://avatars.githubusercontent.com/u/816101?v=4" width=115><br><sub>Fábio de Oliveira Sales</sub>](https://github.com/fsales) | [<img src="https://avatars.githubusercontent.com/u/61765803?v=4" width=115><br><sub>Vinicius Santana dos Reis</sub>](https://github.com/vinicius-Sdr)
+| :---: | :---:|
+
 ## Pré-requisitos
 
 Antes de começar, você precisará ter as seguintes ferramentas instaladas em sua máquina:
@@ -107,12 +110,20 @@ A implementação da Clean Architecture no Projeto Wells segue a seguinte estrut
 - **Gateways e Adaptadores:** A camada externa conecta-se ao núcleo através de gateways que definem interfaces. Os adaptadores implementam essas interfaces, lidando com detalhes externos.
 
 - **Frameworks e Drivers:** A camada mais externa contém os frameworks e drivers, interagindo diretamente com a infraestrutura.
+ 
+![Clean Architecture](https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg)
 
 ## Módulos
 
 - [wells-store](wells-store/README.md#descrição-do-projeto)
   - [wells-core](wells-store/wells-core/README.md)
+  - [wells-carrinho](wells-store/wells-carrinho/README.md)
+  - [wells-gateway](wells-store/wells-gateway/README.md)
+  - [wells-produto](wells-store/wells-produto/README.md)
+  - [wells-pagamento](wells-store/wells-pagamento/README.md)
   - [wells-usuario](wells-store/wells-usuario/README.md)
+  
+![Diagrama C4 Model - Container](doc/diagrama/wells-store-Container.drawio.png)
 
 ## Referência Bibliográfica
 
