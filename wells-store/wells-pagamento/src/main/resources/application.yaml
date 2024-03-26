@@ -24,16 +24,16 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     database: postgresql
 
-#logging:
-#  pattern:
-#    console: "%d{ABSOLUTE_MICROS} [%-5level] [%t] %c{1} - %msg%n"
 logging:
   pattern:
-    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]  [%t] %c{1} - %msg%n'
+    console: "%d{ABSOLUTE_MICROS} [%-5level] [%t] %c{1} - %msg%n"
+#logging:
+#  pattern:
+#    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]  [%t] %c{1} - %msg%n'
   level:
     br.com.wells: info
 
 server:
-  error:
-    include-stacktrace: never # desabilitar stacktrace no json que e retornado em caso de erro
+#  error:
+#    include-stacktrace: never # desabilitar stacktrace no json que e retornado em caso de erro
   port: ${PORT:0}

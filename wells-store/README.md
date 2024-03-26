@@ -64,7 +64,7 @@ A estrutura do projeto é a seguinte:
   - **[wells-usuario:](/wells-store/wells-usuario/README.md)** Módulo de gerenciamento de usuários.
   
 - **Ferramentas de Integração:** Ferramentas utilizadas para integração entre os módulos.
-  - **[Wells Gateway:](/wells-store/wells-gateway/README.md)** Atua como ponto de entrada único para a aplicação, fornecendo interface para comunicação com os microserviços.
+  - **Wells Gateway:** Atua como ponto de entrada único para a aplicação, fornecendo interface para comunicação com os microserviços.
   - **Consul:** Sistema de descoberta de serviços que permite aos microserviços se registrarem e localizarem outros serviços quando necessário.
   - **RabbitMQ:** Utilizado na integração entre o serviço de carrinho (wells-carrinho) e o de pagamento (wells-pagamento), garantindo uma comunicação eficiente entre eles.
   

@@ -13,8 +13,8 @@ services:
     depends_on:
       consul:
         condition: service_healthy
-      zipkin:
-        condition: service_healthy
+#      zipkin:
+#        condition: service_healthy
     networks:
       - consul-net
       - wells-store-app-net
@@ -38,8 +38,8 @@ services:
         condition: service_healthy
       consul:
         condition: service_healthy
-      zipkin:
-        condition: service_healthy
+#      zipkin:
+#        condition: service_healthy
       rabbitmq:
         condition: service_healthy
     networks:
@@ -89,8 +89,8 @@ services:
         condition: service_healthy
       consul:
         condition: service_healthy
-      zipkin:
-        condition: service_healthy
+#      zipkin:
+#        condition: service_healthy
     networks:
       - wells-usuario-db-net
       - wells-store-app-net
@@ -135,8 +135,8 @@ services:
     depends_on:
       consul:
         condition: service_healthy
-      zipkin:
-        condition: service_healthy
+#      zipkin:
+#        condition: service_healthy
       rabbitmq:
         condition: service_healthy
     networks:
@@ -209,15 +209,15 @@ services:
       timeout: 10s
       retries: 5
 
-  # Zipkin
-  zipkin:
-    image: openzipkin/zipkin
-    container_name: zipkin
-    ports:
-      - "9410:9410"
-      - "9411:9411"
-    networks:
-      - wells-store-app-net
+#  # Zipkin
+#  zipkin:
+#    image: openzipkin/zipkin
+#    container_name: zipkin
+#    ports:
+#      - "9410:9410"
+#      - "9411:9411"
+#    networks:
+#      - wells-store-app-net
 
 networks:
   wells-pagamento-db-net:

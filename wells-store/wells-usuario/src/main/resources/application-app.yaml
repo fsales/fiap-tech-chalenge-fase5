@@ -10,9 +10,10 @@ app:
         withIssuer: wells-usuario
         public-key: classpath:app-public.pem
         private-key: classpath:app-private.pem
-
+  gateway:
+    url: ${GATEWAY_HOST:http://localhost:8125}
   swagger:
-    url: http://localhost:8125 # url do gateway
+    url: ${app.gateway.url}/wells-usuario
     application:
       title: ${spring.application.name}
       description: ${spring.application.description}

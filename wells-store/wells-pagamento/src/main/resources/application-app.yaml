@@ -5,7 +5,10 @@ spring:
 app:
   name: ${spring.application.name}
 
+  gateway:
+    url: ${GATEWAY_HOST:http://localhost:8125}
   swagger:
+    url: ${app.gateway.url}/wells-usuario
     application:
       title: ${spring.application.name}
       description: ${spring.application.description}
