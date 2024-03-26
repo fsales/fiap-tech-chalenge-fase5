@@ -117,9 +117,9 @@ A implementação da Clean Architecture no Projeto Wells segue a seguinte estrut
 
 - [wells-store](wells-store/README.md#descrição-do-projeto)
   - [wells-core](wells-store/wells-core/README.md)
-  - [wells-carrinho](wells-store/wells-carrinho/README.md)
-  - [wells-gateway](wells-store/wells-gateway/README.md)
-  - [wells-produto](wells-store/wells-produto/README.md)
+  - wells-carrinho
+  - [wells-gateway](wells-store/wells-gateway)
+  - wells-produto
   - [wells-pagamento](wells-store/wells-pagamento/README.md)
   - [wells-usuario](wells-store/wells-usuario/README.md)
   
