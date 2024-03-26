@@ -122,4 +122,3 @@ docker_push_image_carrinho:
 
 docker_push_all: $(DOCKER_PUSH_TARGETS)
 	@echo "Pushing all Docker images..."
-
