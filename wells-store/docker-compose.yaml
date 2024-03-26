@@ -102,13 +102,13 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
-    command: >
-      rabbitmq-server && 
-      rabbitmqctl add_vhost /zipkin && 
-      rabbitmqctl add_user zipkin_user zipkin_password && 
-      rabbitmqctl set_permissions -p /zipkin zipkin_user ".*" ".*" ".*" &&
-      rabbitmqctl set_policy -p /zipkin ha-all "" '{"ha-mode":"all","ha-sync-mode":"automatic"}' &&
-      rabbitmqadmin declare queue name=zipkin durable=true
+#    command: >
+#      rabbitmq-server &&
+#      rabbitmqctl add_vhost /zipkin &&
+#      rabbitmqctl add_user zipkin_user zipkin_password &&
+#      rabbitmqctl set_permissions -p /zipkin zipkin_user ".*" ".*" ".*" &&
+#      rabbitmqctl set_policy -p /zipkin ha-all "" '{"ha-mode":"all","ha-sync-mode":"automatic"}' &&
+#      rabbitmqadmin declare queue name=zipkin durable=true
 
   # Zipkin
   zipkin-wells-store:
@@ -120,8 +120,8 @@ services:
     depends_on:
       rabbitmq-wells-store:
         condition: service_healthy
-    environment:
-      RABBIT_URI: "amqp://wellsstore:wellsstore@rabbitmq-wells-store:5672"
+#    environment:
+#      RABBIT_URI: "amqp://wellsstore:wellsstore@rabbitmq-wells-store:5672"
     networks:
       - wells-store-app-net
 

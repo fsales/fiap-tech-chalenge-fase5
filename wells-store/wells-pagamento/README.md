@@ -48,8 +48,13 @@
       - [Arquivo `.env`](#arquivo-env)
   - [Funcionalidades](#funcionalidades)
   - [Endpoints do Módulo](#endpoints-do-módulo)
-    - [Pagamento](#pagamento)
-  - [Configuração](#configuração)
+    - [API de Pagamento](#api-de-pagamento)
+      - [Cria um novo pagamento](#cria-um-novo-pagamento)
+      - [Atualiza um pagamento existente](#atualiza-um-pagamento-existente)
+      - [Confirma um pagamento](#confirma-um-pagamento)
+      - [Cancela um pagamento](#cancela-um-pagamento)
+      - [Consulta um pagamento por ID](#consulta-um-pagamento-por-id)
+      - [Lista todos os pagamentos](#lista-todos-os-pagamentos)
 
 # Projeto Wells Pagamento
 
@@ -183,15 +188,483 @@ Ao iniciar o módulo Wells Usuário, será realizado a migração do banco de da
 | admin@wellsstore.br   | 123456 | ADMIN  |
 | cliente@wellsstore.br | 123456 | CLIENTE|
 
-### Pagamento
+### API de Pagamento
 
-- `POST /api/v1/pagamentos`: Cria um novo pagamento.
-- `PATCH /api/v1/pagamentos/{id}`: Atualiza um pagamento existente.
-- `PATCH /api/v1/pagamentos/{id}/confirmar`: Confirma um pagamento.
-- `DELETE /api/v1/pagamentos/{id}`: Cancela um pagamento.
-- `GET /api/v1/pagamentos/{id}`: Consulta um pagamento por ID.
-- `GET /api/v1/pagamentos`: Lista todos os pagamentos.
+- **API**
+  - `API Gateway:`: http://localhost:8125
+  - `API Usuário:`: http://localhost:[porta aleatória definida pelo Spring Boot]
+  
+- **Swagger**
+  - `API Gateway:` http://localhost:8125/swagger-ui.html`
+  - `API Usuário:` http://localhost:[porta aleatória definida pelo Spring Boot]/wells-pagamento/swagger-ui.html`
 
-## Configuração
+#### Cria um novo pagamento
 
-Este projeto utiliza o Spring Boot, portanto, pode ser facilmente executado a partir da linha de comando com o Maven ou diretamente de uma IDE que suporte o Spring Boot.
+- `POST /api/v1/pagamentos`: Endpoint da API Wells Pagamento para Cria um novo pagamento.
+
+1. `Endpoint`: /api/v1/pagamentos
+2. `Método`: POST
+3. **Autenticação:**
+   - **Requer Token:** Sim
+
+**Exemplo de requisição:**
+
+curl:
+
+```bash
+curl -X 'POST' \
+  'http://192.168.1.4:8082/api/v1/pagamentos' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "valor": 250,
+  "nome": "Fernando Silva",
+  "numero": "1234567890123456",
+  "expiracao": "2024-05-31",
+  "codigo": "123",
+  "pedidoId": 10,
+  "tipoCartao": "Visa"
+}'
+```
+
+```json
+    {
+  "valor": 250,
+  "nome": "Fernando Silva",
+  "numero": "1234567890123456",
+  "expiracao": "2024-05-31",
+  "codigo": "123",
+  "pedidoId": 10,
+  "tipoCartao": "Visa"
+}
+```
+
+Resposta:
+
+```json
+{
+  "status": "OK",
+  "data": {
+    "id": 27,
+    "valor": 250,
+    "nome": "Fernando Silva",
+    "numero": "1234567890123456",
+    "expiracao": "2024-05-31",
+    "codigo": "123",
+    "pedidoId": 10,
+    "status": "Criado",
+    "tipoCartao": "Visa"
+  }
+}
+```
+
+#### Atualiza um pagamento existente
+
+- `PATCH /api/v1/pagamentos/{id}`: Endpoint da API Wells Pagamento para Atualiza um pagamento existente.
+
+1. `Endpoint`: /api/v1/pagamentos/{id}
+2. `Método`: PATCH
+3. **Autenticação:**
+   - **Requer Token:** Sim
+
+**Exemplo de requisição:**
+
+curl:
+
+```bash
+curl -X 'PATCH' \
+  'http://192.168.1.4:8082/api/v1/pagamentos/27' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "valor": 50,
+  "nome": "Fernando Castro",
+  "numero": "1234567890123456",
+  "expiracao": "2023-12-31",
+  "codigo": "123",
+  "status": "Cancelado",
+  "tipoCartao": "Elo"
+}'
+```
+
+```json
+{
+  "valor": 50,
+  "nome": "Fernando Castro",
+  "numero": "1234567890123456",
+  "expiracao": "2023-12-31",
+  "codigo": "123",
+  "status": "Cancelado",
+  "tipoCartao": "Elo"
+}    
+```
+
+Resposta:
+
+```json
+{
+  "status": "OK",
+  "data": {
+    "id": 27,
+    "valor": 50,
+    "nome": "Fernando Castro",
+    "numero": "1234567890123456",
+    "expiracao": "2023-12-31",
+    "codigo": "123",
+    "pedidoId": 10,
+    "status": "Criado",
+    "tipoCartao": "Elo"
+  }
+}
+```
+
+#### Confirma um pagamento
+
+- `PATCH /api/v1/pagamentos/{id}/confirmar`: Endpoint da API Wells Pagamento para Confirma um pagamento.
+
+1. `Endpoint`: /api/v1/pagamentos/{id}/confirmar
+2. `Método`: PATCH
+3. **Autenticação:**
+   - **Requer Token:** Sim
+
+**Exemplo de requisição:**
+
+curl:
+
+```bash
+curl -X 'PATCH' \
+  'http://192.168.1.4:8082/api/v1/pagamentos/27/confirmar' \
+  -H 'accept: */*'
+```
+
+#### Cancela um pagamento
+
+- `DELETE /api/v1/pagamentos/{id}`: Endpoint da API Wells Pagamento para Cancela um pagamento.
+
+1. `Endpoint`: /api/v1/pagamentos/{id}
+2. `Método`: DELETE
+3. **Autenticação:**
+   - **Requer Token:** Sim
+
+**Exemplo de requisição:**
+
+curl:
+
+```bash
+curl -X 'DELETE' \
+  'http://192.168.1.4:8082/api/v1/pagamentos/27' \
+  -H 'accept: */*'
+```
+#### Consulta um pagamento por ID
+
+- `GET /api/v1/pagamentos/{id}`: Endpoint da API Wells Pagamento para Consulta um pagamento por ID.
+
+1. `Endpoint`: /api/v1/pagamentos/{id}
+2. `Método`: GET
+3. **Autenticação:**
+   - **Requer Token:** Sim
+
+**Exemplo de requisição:**
+
+curl:
+
+```bash
+curl -X 'GET' \
+  'http://192.168.1.4:8082/api/v1/pagamentos/27' \
+  -H 'accept: */*'
+```
+
+Resposta:
+
+```json
+{
+  "status": "OK",
+  "data": {
+    "id": 27,
+    "valor": 50,
+    "nome": "Fernando Castro",
+    "numero": "1234567890123456",
+    "expiracao": "2023-12-31",
+    "codigo": "123",
+    "pedidoId": 10,
+    "status": "Cancelado",
+    "tipoCartao": "Elo"
+  }
+}
+```
+
+#### Lista todos os pagamentos
+
+- `GET /api/v1/pagamentos`: Endpoint da API Wells Pagamento para Lista todos os pagamentos.
+
+1. `Endpoint`: /api/v1/pagamentos
+2. `Método`: GET
+3. **Autenticação:**
+   - **Requer Token:** Sim
+
+**Exemplo de requisição:**
+
+curl:
+
+```bash
+curl -X 'GET' \
+  'http://192.168.1.4:8082/api/v1/pagamentos?page=0&size=20' \
+  -H 'accept: */*'
+```
+
+Resposta:
+
+```json
+{
+  "status": "OK",
+  "data": {
+    "content": [
+      {
+        "id": 1,
+        "valor": 100,
+        "nome": "João Silva",
+        "numero": "1234567890123456",
+        "expiracao": "2024-04-30",
+        "codigo": "123",
+        "pedidoId": 1,
+        "status": "Criado",
+        "tipoCartao": "Visa"
+      },
+      {
+        "id": 2,
+        "valor": 150,
+        "nome": "Maria Souza",
+        "numero": "9876543210987654",
+        "expiracao": "2024-05-31",
+        "codigo": "456",
+        "pedidoId": 2,
+        "status": "Confirmado",
+        "tipoCartao": "MasterCard"
+      },
+      {
+        "id": 3,
+        "valor": 75.5,
+        "nome": "Carlos Ferreira",
+        "numero": "5432167890123456",
+        "expiracao": "2024-06-30",
+        "codigo": "789",
+        "pedidoId": 3,
+        "status": "Cancelado",
+        "tipoCartao": "Amex"
+      },
+      {
+        "id": 4,
+        "valor": 200,
+        "nome": "Ana Santos",
+        "numero": "1234987650123456",
+        "expiracao": "2024-07-31",
+        "codigo": "321",
+        "pedidoId": 4,
+        "status": "Criado",
+        "tipoCartao": "Elo"
+      },
+      {
+        "id": 6,
+        "valor": 120,
+        "nome": "Pedro Rocha",
+        "numero": "1234789012345678",
+        "expiracao": "2024-09-30",
+        "codigo": "987",
+        "pedidoId": 6,
+        "status": "Cancelado",
+        "tipoCartao": "Ticket Restaurante"
+      },
+      {
+        "id": 7,
+        "valor": 80,
+        "nome": "Mariana Lima",
+        "numero": "9876123450987609",
+        "expiracao": "2024-10-31",
+        "codigo": "654",
+        "pedidoId": 7,
+        "status": "Criado",
+        "tipoCartao": "MasterCard Maestro"
+      },
+      {
+        "id": 8,
+        "valor": 300,
+        "nome": "Lucas Vieira",
+        "numero": "1234789012345612",
+        "expiracao": "2024-11-30",
+        "codigo": "987",
+        "pedidoId": 8,
+        "status": "Confirmado",
+        "tipoCartao": "Visa Débito"
+      },
+      {
+        "id": 9,
+        "valor": 110,
+        "nome": "Camila Costa",
+        "numero": "9876123450987698",
+        "expiracao": "2024-12-31",
+        "codigo": "654",
+        "pedidoId": 9,
+        "status": "Cancelado",
+        "tipoCartao": "Elo Débito"
+      },
+      {
+        "id": 10,
+        "valor": 180,
+        "nome": "Rafaela Gomes",
+        "numero": "1234789012345678",
+        "expiracao": "2025-01-31",
+        "codigo": "987",
+        "pedidoId": 10,
+        "status": "Criado",
+        "tipoCartao": "Visa"
+      },
+      {
+        "id": 11,
+        "valor": 250,
+        "nome": "Gustavo Almeida",
+        "numero": "9876123450987698",
+        "expiracao": "2025-02-28",
+        "codigo": "654",
+        "pedidoId": 11,
+        "status": "Confirmado",
+        "tipoCartao": "MasterCard"
+      },
+      {
+        "id": 12,
+        "valor": 95,
+        "nome": "Aline Pereira",
+        "numero": "1234789012345678",
+        "expiracao": "2025-03-31",
+        "codigo": "987",
+        "pedidoId": 12,
+        "status": "Cancelado",
+        "tipoCartao": "Amex"
+      },
+      {
+        "id": 13,
+        "valor": 150,
+        "nome": "Juliana Rodrigues",
+        "numero": "9876123450987698",
+        "expiracao": "2025-04-30",
+        "codigo": "654",
+        "pedidoId": 13,
+        "status": "Criado",
+        "tipoCartao": "Elo"
+      },
+      {
+        "id": 14,
+        "valor": 200,
+        "nome": "Bruno Martins",
+        "numero": "1234789012345678",
+        "expiracao": "2025-05-31",
+        "codigo": "987",
+        "pedidoId": 14,
+        "status": "Confirmado",
+        "tipoCartao": "Alelo"
+      },
+      {
+        "id": 15,
+        "valor": 100,
+        "nome": "Fábio Oliveira",
+        "numero": "9876123450987698",
+        "expiracao": "2025-06-30",
+        "codigo": "654",
+        "pedidoId": 15,
+        "status": "Cancelado",
+        "tipoCartao": "Ticket Restaurante"
+      },
+      {
+        "id": 16,
+        "valor": 175,
+        "nome": "Patrícia Mendes",
+        "numero": "1234789012345678",
+        "expiracao": "2025-07-31",
+        "codigo": "987",
+        "pedidoId": 16,
+        "status": "Criado",
+        "tipoCartao": "MasterCard Maestro"
+      },
+      {
+        "id": 17,
+        "valor": 220,
+        "nome": "Tatiane Sousa",
+        "numero": "9876123450987698",
+        "expiracao": "2025-08-31",
+        "codigo": "654",
+        "pedidoId": 17,
+        "status": "Confirmado",
+        "tipoCartao": "Visa Débito"
+      },
+      {
+        "id": 18,
+        "valor": 130,
+        "nome": "Marcelo Barbosa",
+        "numero": "1234789012345678",
+        "expiracao": "2025-09-30",
+        "codigo": "987",
+        "pedidoId": 18,
+        "status": "Cancelado",
+        "tipoCartao": "Elo Débito"
+      },
+      {
+        "id": 19,
+        "valor": 190,
+        "nome": "Eduarda Silva",
+        "numero": "1234789012345678",
+        "expiracao": "2025-10-31",
+        "codigo": "987",
+        "pedidoId": 19,
+        "status": "Criado",
+        "tipoCartao": "Visa"
+      },
+      {
+        "id": 20,
+        "valor": 270,
+        "nome": "Roberto Santos",
+        "numero": "9876123450987698",
+        "expiracao": "2025-11-30",
+        "codigo": "654",
+        "pedidoId": 20,
+        "status": "Confirmado",
+        "tipoCartao": "MasterCard"
+      },
+      {
+        "id": 21,
+        "valor": 105,
+        "nome": "Fabiana Oliveira",
+        "numero": "1234789012345678",
+        "expiracao": "2025-12-31",
+        "codigo": "987",
+        "pedidoId": 21,
+        "status": "Cancelado",
+        "tipoCartao": "Amex"
+      }
+    ],
+    "pageable": {
+      "pageNumber": 0,
+      "pageSize": 20,
+      "sort": {
+        "empty": true,
+        "sorted": false,
+        "unsorted": true
+      },
+      "offset": 0,
+      "paged": true,
+      "unpaged": false
+    },
+    "last": false,
+    "totalPages": 2,
+    "totalElements": 28,
+    "size": 20,
+    "number": 0,
+    "sort": {
+      "empty": true,
+      "sorted": false,
+      "unsorted": true
+    },
+    "first": true,
+    "numberOfElements": 20,
+    "empty": false
+  }
+}
+```

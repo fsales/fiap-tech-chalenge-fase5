@@ -57,10 +57,10 @@ A estrutura do projeto é a seguinte:
 ```
 
 - **[wells-store:](/wells-store/README.md)** Projeto principal que contém os módulos do projeto.
-  - **[Wells Carrinho:](/wells-store/wells-carrinho/README.md)** Módulo de gerenciamento de carrinho.
+  - **Wells Carrinho:** Módulo de gerenciamento de carrinho.
   - **[wells-core:](/wells-store/wells-core/README.md)** Estrutura da camada de domínio, classes principais e princípios do Clean Architecture.
   - **[Wells Pagamento:](/wells-store/wells-pagamento/README.md)** Módulo de gerenciamento de pagamentos.
-  - **[Wells Produto:](/wells-store/wells-produto/README.md)**  Módulo de gerenciamento de produtos.
+  - **Wells Produto:**  Módulo de gerenciamento de produtos.
   - **[wells-usuario:](/wells-store/wells-usuario/README.md)** Módulo de gerenciamento de usuários.
   
 - **Ferramentas de Integração:** Ferramentas utilizadas para integração entre os módulos.
