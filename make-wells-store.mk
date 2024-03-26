@@ -48,7 +48,7 @@ clean:
 DOCKER_VERSION_LABEL_IMAGE = 1.0-SNAPSHOT
 
 # DOCKER NAMESPACE
-DOCKER_NAMESPACE = wells-store
+DOCKER_NAMESPACE = fosales
 
 # Docker Build Command
 DOCKER_BUILD_CMD = docker build \
@@ -58,8 +58,13 @@ DOCKER_BUILD_CMD = docker build \
 	-t $(DOCKER_NAMESPACE)/$(PROJECT_NAME)-$$NAME_APP:$(DOCKER_VERSION_LABEL_IMAGE) \
 	-t $(DOCKER_NAMESPACE)/$(PROJECT_NAME)-$$NAME_APP:latest .
 
+# Docker Push Command
+DOCKER_PUSH_CMD = docker push $(DOCKER_NAMESPACE)/$(PROJECT_NAME)-$$NAME_APP:$(DOCKER_VERSION_LABEL_IMAGE) && \
+	docker push $(DOCKER_NAMESPACE)/$(PROJECT_NAME)-$$NAME_APP:latest
+
 ##############DOCKER BUILD IMAGES######################
 DOCKER_TARGETS = docker_build_image_usuario docker_build_image_pagamento docker_build_image_gateway docker_build_image_produto docker_build_image_carrinho
+DOCKER_PUSH_TARGETS = docker_push_image_usuario docker_push_image_pagamento docker_push_image_gateway docker_push_image_produto docker_push_image_carrinho
 
 docker_build_image_usuario:
 	@echo "Building Docker image for carrinho..."
@@ -88,3 +93,33 @@ docker_build_image_carrinho:
 
 docker_build_all: java_package $(DOCKER_TARGETS)
 	@echo "Building all Docker images..."
+
+##############DOCKER PUSH IMAGES######################
+docker_push_image_usuario:
+	@echo "Pushing Docker image for carrinho..."
+	@NAME_APP=wells-usuario && \
+	$(DOCKER_PUSH_CMD)
+
+docker_push_image_pagamento:
+	@echo "Pushing Docker image for carrinho..."
+	@NAME_APP=wells-pagamento && \
+	$(DOCKER_PUSH_CMD)
+
+docker_push_image_gateway:
+	@echo "Pushing Docker image for carrinho..."
+	@NAME_APP=wells-gateway && \
+	$(DOCKER_PUSH_CMD)
+
+docker_push_image_produto:
+	@echo "Pushing Docker image for carrinho..."
+	@NAME_APP=wells-produto && \
+	$(DOCKER_PUSH_CMD)
+
+docker_push_image_carrinho:
+	@echo "Pushing Docker image for carrinho..."
+	@NAME_APP=wells-carrinho && \
+	$(DOCKER_PUSH_CMD)
+
+docker_push_all: $(DOCKER_PUSH_TARGETS)
+	@echo "Pushing all Docker images..."
+

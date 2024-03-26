@@ -4,7 +4,7 @@ spring:
       on-profile: amqp
 
   rabbitmq:
-    host: localhost
+    host: ${AMQP_HOST:localhost}
     port: 5672
     username: wellsstore
     password: wellsstore
