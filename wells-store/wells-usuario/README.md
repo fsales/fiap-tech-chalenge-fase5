@@ -34,6 +34,16 @@
   - [Estrutura do Projeto](#estrutura-do-projeto)
     - [Ambiente de Desenvolvimento](#ambiente-de-desenvolvimento)
       - [Configuração Comuns](#configuração-comuns)
+        - [Wells Usuário Makefile](#wells-usuário-makefile)
+          - [Construir o Projeto Java](#construir-o-projeto-java)
+          - [Instalar Artefatos Maven](#instalar-artefatos-maven)
+          - [Construir a Imagem Docker e Executar docker-compose para wells-usuario](#construir-a-imagem-docker-e-executar-docker-compose-para-wells-usuario)
+          - [Parar docker-compose para wells-usuario](#parar-docker-compose-para-wells-usuario)
+          - [Parar docker-compose removendo volumes](#parar-docker-compose-removendo-volumes)
+          - [Limpar Artefatos de Construção](#limpar-artefatos-de-construção)
+          - [Executar docker-compose do banco Postgres de desenvolvimento para wells-usuario](#executar-docker-compose-do-banco-postgres-de-desenvolvimento-para-wells-usuario)
+          - [Parar docker-compose o banco Postgres de desenvolvimento para wells-usuario](#parar-docker-compose-o-banco-postgres-de-desenvolvimento-para-wells-usuario)
+    - [Banco de Dados](#banco-de-dados)
       - [Banco de dados de desenvolvimento](#banco-de-dados-de-desenvolvimento)
     - [Arquivos de Configuração](#arquivos-de-configuração)
       - [Configuração no Spring Boot \[^1\]](#configuração-no-spring-boot-1)
@@ -138,6 +148,82 @@ Pré-requisitos e [configurações do ambiente de desenvolvimento](../README.md#
 - [Realizar do clone do projeto](../README.md#realizar-do-clone-do-projeto)
 - [GNU Make](../README.md#gnu-make)
   - [Construção e Execução](../README.md#construção-e-execução)
+
+##### [Wells Usuário Makefile](/wells-store/make-wells-usuario.mk)
+
+**Passos para Executar a Partir do módulo `wells-store`**
+
+###### Construir o Projeto Java
+
+- Abra um terminal e navegue até o diretório `wells-usuario`.
+- Execute o seguinte comando para construir, verificar e empacotar o projeto Java:
+
+```bash
+make -f make-wells-usuario.mk java_build
+```
+
+###### Instalar Artefatos Maven
+
+- Ainda no terminal no diretório `wells-usuario`, execute o seguinte comando para instalar os arquivos JAR no repositório local Maven:
+
+```bash
+make -f make-wells-usuario.mk java_install
+```
+
+###### Construir a Imagem Docker e Executar docker-compose para wells-usuario
+
+- Execute os seguintes comandos para construir a imagem Docker e iniciar o serviço usando docker-compose:
+
+```bash
+make -f make-wells-usuario.mk docker_build
+make -f make-wells-usuario.mk docker_compose_up_wells_usuario
+```
+
+###### Parar docker-compose para wells-usuario
+
+- Caso seja necessário parar o serviço, execute o seguinte comando:
+
+```bash
+make -f make-wells-usuario.mk docker_compose_down_wells_usuario
+```
+
+###### Parar docker-compose removendo volumes
+
+- Se desejar parar o serviço e remover os volumes, use o comando a seguir:
+
+```bash
+make -f make-wells-usuario.mk docker_compose_down_wells_usuario_remove_volumes
+```
+
+###### Limpar Artefatos de Construção
+
+- Para limpar todos os artefatos de construção, incluindo a imagem Docker, utilize o seguinte comando:
+
+```bash
+make -f make-wells-usuario.mk clean
+```
+
+###### Executar docker-compose do banco Postgres de desenvolvimento para wells-usuario
+
+- Execute Execute o seguinte comando para iniciar o serviço usando docker-compose:
+
+```bash
+make -f make-wells-usuario.mk docker_compose_up_wells_usuario_postgres
+```
+
+###### Parar docker-compose o banco Postgres de desenvolvimento para wells-usuario
+
+- Caso seja necessário parar o serviço, execute o seguinte comando:
+
+```bash
+make -f make-wells-usuario.mk docker_compose_down_wells_usuario_postgres
+```
+
+Estes comandos devem ser executados no diretório `wells-store`, onde o arquivo `make-wells-usuario.mk` está localizado e onde o projeto `wells-store` está armazenado. Certifique-se de ajustar o diretório conforme necessário antes de executar os comandos.
+
+### Banco de Dados
+
+Foi escolhido o banco de dados Postgres para armazenar os dados da aplicação. O banco de dados é executado em um contêiner Docker, que pode ser iniciado com o comando descrito em  [Docker - Postgres](../docker/README.md#docker-compose-do-postgres).
 
 #### Banco de dados de desenvolvimento
 
