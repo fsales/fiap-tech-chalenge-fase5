@@ -9,12 +9,14 @@ services:
     env_file:
       - ../docker/env/.env-wells-gateway
     ports:
-      - "8080:8125"
+      - "8125:8125"
     depends_on:
-      consul-wells-store:
+      consul:
+        condition: service_healthy
+      zipkin:
         condition: service_healthy
     networks:
-      - consul-wells-store-net
+      - consul-net
       - wells-store-app-net
     deploy:
       resources:
@@ -34,12 +36,16 @@ services:
     depends_on:
       wells-pagamento-db:
         condition: service_healthy
-      consul-wells-store:
+      consul:
+        condition: service_healthy
+      zipkin:
+        condition: service_healthy
+      rabbitmq:
         condition: service_healthy
     networks:
       - wells-pagamento-db-net
-      - consul-wells-store-net
-      - wells-store-rabbitmq-net
+      - consul-net
+      - rabbitmq-net
       - wells-store-app-net
     deploy:
       resources:
@@ -49,6 +55,7 @@ services:
         reservations:
           cpus: '0.25'
           memory: 64M
+
   wells-pagamento-db:
     container_name: wells-pagamento-db
     image: postgres:latest
@@ -80,12 +87,14 @@ services:
     depends_on:
       wells-usuario-db:
         condition: service_healthy
-      consul-wells-store:
+      consul:
+        condition: service_healthy
+      zipkin:
         condition: service_healthy
     networks:
       - wells-usuario-db-net
-      - consul-wells-store-net
       - wells-store-app-net
+      - consul-net
     deploy:
       resources:
         limits:
@@ -94,6 +103,7 @@ services:
         reservations:
           cpus: '0.25'
           memory: 64M
+
   wells-usuario-db:
     container_name: wells-usuario-db
     image: postgres:latest
@@ -122,13 +132,16 @@ services:
     image: fosales/wells-store-wells-carrinho:latest
     env_file:
       - ../docker/env/.env-wells-carrinho
-    ports:
-      - "8080:8125"
     depends_on:
-      consul-wells-store:
+      consul:
+        condition: service_healthy
+      zipkin:
+        condition: service_healthy
+      rabbitmq:
         condition: service_healthy
     networks:
-      - consul-wells-store-net
+      - consul-net
+      - rabbitmq-net
       - wells-store-app-net
     deploy:
       resources:
@@ -139,10 +152,11 @@ services:
           cpus: '0.25'
           memory: 64M
 
+  ### Ferramentas de Integração
   # Consul
-  consul-wells-store:
+  consul:
     image: consul:1.15.4
-    container_name: consul-wells-store
+    container_name: consul
     ports:
       - "8400:8400"
       - "8500:8500"
@@ -152,12 +166,12 @@ services:
       - "CONSUL_LOCAL_CONFIG={\"skip_leave_on_interrupt\": true}"
     command: "agent  -server -ui -client=0.0.0.0  -bootstrap-expect=1 "
     healthcheck:
-      test: [ "CMD", "curl", "-f", "http://localhost:8500/v1/status/leader" ]
+      test: [ "CMD", "curl", "-f", "http://consul:8500/v1/status/leader" ]
       interval: 10s
       timeout: 5s
       retries: 3
     networks:
-      - consul-wells-store-net
+      - consul-net
       - wells-store-app-net
     volumes:
       - consul-wells-store-data:/consul/data
@@ -171,10 +185,9 @@ services:
           memory: 64M
 
   # RabbitMQ
-  # RabbitMQ
-  rabbitmq-wells-store:
+  rabbitmq:
     image: rabbitmq:3-management-alpine
-    container_name: rabbitmq-wells-store
+    container_name: rabbitmq
     ports:
       - "5672:5672"
       - "5671:5671"
@@ -189,7 +202,7 @@ services:
       - rabbitmq-wells-store-data:/var/lib/rabbitmq
       - rabbitmq-wells-store-log:/var/log/rabbitmq
     networks:
-      - wells-store-rabbitmq-net
+      - rabbitmq-net
     healthcheck:
       test: [ "CMD", "rabbitmqctl", "status" ]
       interval: 30s
@@ -197,23 +210,20 @@ services:
       retries: 5
 
   # Zipkin
-  zipkin-wells-store:
+  zipkin:
     image: openzipkin/zipkin
-    container_name: zipkin-wells-store
+    container_name: zipkin
     ports:
       - "9410:9410"
       - "9411:9411"
-    depends_on:
-      rabbitmq-wells-store:
-        condition: service_healthy
     networks:
       - wells-store-app-net
 
 networks:
   wells-pagamento-db-net:
   wells-usuario-db-net:
-  consul-wells-store-net:
-  wells-store-rabbitmq-net:
+  consul-net:
+  rabbitmq-net:
   wells-store-app-net:
 
 volumes:
