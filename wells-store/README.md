@@ -79,6 +79,13 @@ A estrutura do projeto é a seguinte:
 - Docker
 - Git
 
+- Aplicações que devem ser executadas no container Docker:
+  - PostgreSQL
+  - RabbitMQ
+  - Consul
+
+* No diretorio **[wells-store](/wells-store/)** tem um **[docker-compose.yml](/wells-store/docker-compose.yaml)** que pode ser executado para testar a aplicação
+
 ### Realizar do clone do projeto
 
 1. Abrir o terminal e navegar até o diretório onde o projeto será clonado.

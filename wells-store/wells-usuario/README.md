@@ -30,6 +30,7 @@
 
 - [Módulo Wells Usuário](#módulo-wells-usuário)
   - [Descrição do Projeto](#descrição-do-projeto)
+  - [Tecnologias utilizadas](#tecnologias-utilizadas)
   - [Clean Architecture](#clean-architecture)
   - [Estrutura do Projeto](#estrutura-do-projeto)
     - [Ambiente de Desenvolvimento](#ambiente-de-desenvolvimento)
@@ -56,6 +57,7 @@
         - [Estrutura do Banco de Dados](#estrutura-do-banco-de-dados)
       - [Arquivo `.env`](#arquivo-env)
   - [Endpoints do Módulo Wells Usuário](#endpoints-do-módulo-wells-usuário)
+  - [Endereço](#endereço)
     - [Autenticação](#autenticação)
     - [Cadastrar Usuário](#cadastrar-usuário)
     - [Alterar Senha do Usuário](#alterar-senha-do-usuário)
@@ -70,6 +72,13 @@
 Este módulo é parte do projeto Wells Store, que é uma aplicação que utiliza a arquitetura Clean Architecture para fornecer uma estrutura modular e organizada.
 
 O módulo Wells Usuário é responsável por prover as funcionalidades de usuário do sistema.
+
+## Tecnologias utilizadas
+- Java
+- Maven
+- Spring Boot
+- PostgreSQL
+- Consul
 
 ## Clean Architecture
 
@@ -143,6 +152,8 @@ A estrutura do projeto foi organizada de acordo com a Clean Architecture. A estr
 Pré-requisitos e [configurações do ambiente de desenvolvimento](../README.md#configuração-do-ambiente-de-desenvolvimento).
 
 #### Configuração Comuns
+
+Este projeto utiliza o Spring Boot, portanto, pode ser facilmente executado a partir da linha de comando com o Maven ou diretamente de uma IDE que suporte o Spring Boot.
 
 - [Pré-requisitos](../README.md#pré-requisitos)
 - [Realizar do clone do projeto](../README.md#realizar-do-clone-do-projeto)
@@ -297,7 +308,7 @@ O arquivo está disponível no repositório do projeto através do link [`.env`]
 
 ## Endpoints do Módulo Wells Usuário
 
-Nesta seção, apresentamos a lista de endpoints disponíveis no módulo Wells Usuário, todos devidamente documentados no Swagger. A documentação pode ser acessada por meio do link [Swagger](http://localhost:8125/docs-wells-usuario.html).
+Nesta seção, apresentamos a lista de endpoints disponíveis no módulo Wells Usuário, todos devidamente documentados no Swagger. A documentação pode ser acessada por meio do link [Swagger](http://localhost:8125/swagger-ui.html).
 
 Para realizar requisições HTTP, sugerimos a utilização do Swagger para uma exploração interativa ou do Postman. A coleção de requisições está disponível no diretório [`postman-collections`](/wells-store/postman-collections/).
 
@@ -309,6 +320,28 @@ Ao iniciar o módulo Wells Usuário, será realizado a migração do banco de da
 | cliente@wellsstore.br | 123456 | CLIENTE|
 
 O Wells Usuário permite apenas a criação de usuários com perfil `CLIENTE` ou `ADMIN`.
+
+## Endereço
+
+- Endpoint Usuário
+  - `POST /api/v1/usuarios`: Cadastra um novo usuário.
+  - `GET /api/v1/usuarios/{id}`: Consulta um usuário por ID.
+  - `PATCH /api/v1/usuarios/{id}/senha`: Altera a senha de um usuário.
+  - `GET /api/v1/usuarios`: Lista todos os usuários.
+
+- Endpoint Autenticação
+  - `POST /api/v1/auth/login`: Autentica um usuário e retorna um token JWT.
+  - `POST /api/v1/auth/token`: Gera um novo token JWT para um usuário autenticado.
+  - `GET /api/v1/auth/validate`: Valida um token JWT.
+
+- **API**
+  - `API Gateway:`: http://localhost:8125
+  - `API Usuário:`: http://localhost:[porta aleatória definida pelo Spring Boot]
+  
+- **Swagger**
+  - `API Gateway:` http://localhost:8125/swagger-ui.html`
+  - `API Usuário:` http://localhost:[porta aleatória definida pelo Spring Boot]/wells-usuario/swagger-ui.html`
+
 
 **Lista de endpoints disponíveis no módulo Wells Usuário:**
 
