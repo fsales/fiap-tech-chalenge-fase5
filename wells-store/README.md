@@ -56,15 +56,15 @@ A estrutura do projeto é a seguinte:
     └───wells-usuario
 ```
 
-- **wells-store:** Projeto principal que contém os módulos do projeto.
-  - **Wells Carrinho:** Módulo de gerenciamento de carrinho.
-  - **wells-core:** Estrutura da camada de domínio, classes principais e princípios do Clean Architecture.
-  - **Wells Pagamento:** Módulo de gerenciamento de pagamentos.
-  - **Wells Produto:**  Módulo de gerenciamento de produtos.
-  - **wells-usuario:** Módulo de gerenciamento de usuários.
+- **[wells-store:](/wells-store/README.md)** Projeto principal que contém os módulos do projeto.
+  - **[Wells Carrinho:](/wells-store/wells-carrinho/README.md)** Módulo de gerenciamento de carrinho.
+  - **[wells-core:](/wells-store/wells-core/README.md)** Estrutura da camada de domínio, classes principais e princípios do Clean Architecture.
+  - **[Wells Pagamento:](/wells-store/wells-pagamento/README.md)** Módulo de gerenciamento de pagamentos.
+  - **[Wells Produto:](/wells-store/wells-produto/README.md)**  Módulo de gerenciamento de produtos.
+  - **[wells-usuario:](/wells-store/wells-usuario/README.md)** Módulo de gerenciamento de usuários.
   
 - **Ferramentas de Integração:** Ferramentas utilizadas para integração entre os módulos.
-  - **Wells Gateway:** Atua como ponto de entrada único para a aplicação, fornecendo interface para comunicação com os microserviços.
+  - **[Wells Gateway:](/wells-store/wells-gateway/README.md)** Atua como ponto de entrada único para a aplicação, fornecendo interface para comunicação com os microserviços.
   - **Consul:** Sistema de descoberta de serviços que permite aos microserviços se registrarem e localizarem outros serviços quando necessário.
   - **RabbitMQ:** Utilizado na integração entre o serviço de carrinho (wells-carrinho) e o de pagamento (wells-pagamento), garantindo uma comunicação eficiente entre eles.
   
