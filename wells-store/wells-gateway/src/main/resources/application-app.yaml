@@ -19,6 +19,8 @@ app:
       methods: [ POST ]
     - path: /api/v1/auth/validate
       methods: [ GET ]
+    - path: /wells-usuario/v3/api-docs
+    - path: /wells-pagamento/v3/api-docs
 
   swagger:
     application:

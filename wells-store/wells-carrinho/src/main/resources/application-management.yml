@@ -14,13 +14,13 @@ management:
   endpoint:
     health:
       show-details: always
-  tracing:
-    enabled: true
-    sampling:
-        probability: 1
-  zipkin:
-    tracing:
-      endpoint: ${ZIPKIN_ENDPOINT:http://localhost:9411/api/v2/spans}
+#  tracing:
+#    enabled: true
+#    sampling:
+#        probability: 1
+#  zipkin:
+#    tracing:
+#      endpoint: ${ZIPKIN_ENDPOINT:http://localhost:9411/api/v2/spans}
 
 info:
   app:

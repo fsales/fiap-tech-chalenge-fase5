@@ -7,7 +7,7 @@ spring:
   profiles:
     include: amqp, management
 server:
-  port: ${PORT:8083}
+  port: ${PORT:0}
 
 logging:
   pattern:

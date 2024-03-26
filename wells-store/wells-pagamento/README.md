@@ -213,7 +213,7 @@ curl:
 
 ```bash
 curl -X 'POST' \
-  'http://192.168.1.4:8082/api/v1/pagamentos' \
+  'http://127.0.0.1:8125/api/v1/pagamentos' \
   -H 'accept: */*' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -273,7 +273,7 @@ curl:
 
 ```bash
 curl -X 'PATCH' \
-  'http://192.168.1.4:8082/api/v1/pagamentos/27' \
+  'http://127.0.0.1:8125/api/v1/pagamentos/27' \
   -H 'accept: */*' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -333,7 +333,7 @@ curl:
 
 ```bash
 curl -X 'PATCH' \
-  'http://192.168.1.4:8082/api/v1/pagamentos/27/confirmar' \
+  'http://127.0.0.1:8125/api/v1/pagamentos/27/confirmar' \
   -H 'accept: */*'
 ```
 
@@ -352,7 +352,7 @@ curl:
 
 ```bash
 curl -X 'DELETE' \
-  'http://192.168.1.4:8082/api/v1/pagamentos/27' \
+  'http://127.0.0.1:8125/api/v1/pagamentos/27' \
   -H 'accept: */*'
 ```
 #### Consulta um pagamento por ID
@@ -370,7 +370,7 @@ curl:
 
 ```bash
 curl -X 'GET' \
-  'http://192.168.1.4:8082/api/v1/pagamentos/27' \
+  'http://127.0.0.1:8125/api/v1/pagamentos/27' \
   -H 'accept: */*'
 ```
 
@@ -408,7 +408,7 @@ curl:
 
 ```bash
 curl -X 'GET' \
-  'http://192.168.1.4:8082/api/v1/pagamentos?page=0&size=20' \
+  'http://127.0.0.1:8125/api/v1/pagamentos?page=0&size=20' \
   -H 'accept: */*'
 ```
 

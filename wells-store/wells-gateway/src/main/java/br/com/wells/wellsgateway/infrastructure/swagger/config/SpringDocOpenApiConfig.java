@@ -37,36 +37,34 @@ public class SpringDocOpenApiConfig {
 			.license(new License().name("MIT License")));
 	}
 
-	@Bean
-	public CorsWebFilter corsWebFilter() {
-		CorsConfiguration corsConfig = new CorsConfiguration();
-		// corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
-		corsConfig.setAllowedOrigins(corsConfig.getAllowedOrigins());
-		corsConfig.setMaxAge(3600L);
-		corsConfig.addAllowedMethod("*");
-		corsConfig.addAllowedHeader("Requestor-Type");
-		corsConfig.addExposedHeader("X-Get-Header");
-
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", corsConfig);
-
-		return new CorsWebFilter(source);
-	}
-
 	// @Bean
-	// public List<GroupedOpenApi> apis() {
-	// List<GroupedOpenApi> groups = new ArrayList<>();
-	// List<RouteDefinition> definitions =
-	// locator.getRouteDefinitions().collectList().block();
-	// assert definitions != null;
-	// definitions.stream()
-	// .filter(routeDefinition -> routeDefinition.getId().matches(".*-service"))
-	// .forEach(routeDefinition -> {
-	// String name = routeDefinition.getId().replaceAll("-service", "");
-	// groups.add(GroupedOpenApi.builder().pathsToMatch("/" + name +
-	// "/**").group(name).build());
-	// });
-	// return groups;
+	// public CorsWebFilter corsWebFilter() {
+	// CorsConfiguration corsConfig = new CorsConfiguration();
+	// // corsConfig.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+	// corsConfig.setAllowedOrigins(corsConfig.getAllowedOrigins());
+	// corsConfig.setMaxAge(3600L);
+	// corsConfig.addAllowedMethod("*");
+	// corsConfig.addAllowedHeader("Requestor-Type");
+	// corsConfig.addExposedHeader("X-Get-Header");
+	//
+	// UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	// source.registerCorsConfiguration("/**", corsConfig);
+	//
+	// return new CorsWebFilter(source);
 	// }
+
+//	@Bean
+//	public List<GroupedOpenApi> apis() {
+//		List<GroupedOpenApi> groups = new ArrayList<>();
+//		List<RouteDefinition> definitions = locator.getRouteDefinitions().collectList().block();
+//		assert definitions != null;
+//		definitions.stream()
+//			.filter(routeDefinition -> routeDefinition.getId().matches(".*-service"))
+//			.forEach(routeDefinition -> {
+//				String name = routeDefinition.getId().replaceAll("-service", "");
+//				groups.add(GroupedOpenApi.builder().pathsToMatch("/" + name + "/**").group(name).build());
+//			});
+//		return groups;
+//	}
 
 }
