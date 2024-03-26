@@ -297,9 +297,9 @@ O arquivo está disponível no repositório do projeto através do link [`.env`]
 
 ## Endpoints do Módulo Wells Usuário
 
-Nesta seção, apresentamos a lista de endpoints disponíveis no módulo Wells Usuário, todos devidamente documentados no Swagger. A documentação pode ser acessada por meio do link [Swagger](http://localhost:8081/docs-wells-usuario.html).
+Nesta seção, apresentamos a lista de endpoints disponíveis no módulo Wells Usuário, todos devidamente documentados no Swagger. A documentação pode ser acessada por meio do link [Swagger](http://localhost:8125/docs-wells-usuario.html).
 
-Para realizar requisições HTTP, sugerimos a utilização do Swagger para uma exploração interativa ou do Postman. A coleção de requisições está disponível no diretório [`postman-collections`](postman-collections/).
+Para realizar requisições HTTP, sugerimos a utilização do Swagger para uma exploração interativa ou do Postman. A coleção de requisições está disponível no diretório [`postman-collections`](/wells-store/postman-collections/).
 
 Ao iniciar o módulo Wells Usuário, será realizado a migração do banco de dados e a inserção de dois usuários para testes.
 
@@ -329,7 +329,7 @@ curl:
 
 ```bash
 curl -X 'POST' \
-  'http://127.0.0.1:8081/api/v1/auth/login' \
+  'http://127.0.0.1:8125/api/v1/auth/login' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -370,7 +370,7 @@ curl:
 
 ```bash
 curl -X 'POST' \
-  'http://127.0.0.1:8081/api/v1/usuarios' \
+  'http://127.0.0.1:8125/api/v1/usuarios' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -426,7 +426,7 @@ curl:
 
 ```bash
 curl -X 'PATCH' \
-  'http://127.0.0.1:8081/api/v1/usuarios/3/senha' \
+  'http://127.0.0.1:8125/api/v1/usuarios/3/senha' \
   -H 'accept: */*' \
   -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoLWFwaSIsInJvbGUiOiJST0xFX0NMSUVOVEUiLCJpYXQiOjE3MTAxMTM4NjMsInN1YiI6ImFuZHJlQHdlbGxzc3RvcmUuYnIiLCJleHAiOjE3MTAxMTU2NjN9.jgmwldn-xv4LxxC2PiVdFPElsjo3_2MUb9ZBfnzyPws' \
   -H 'Content-Type: application/json' \
@@ -471,7 +471,7 @@ curl:
 
 ```bash
 curl -X 'GET' \
-  'http://127.0.0.1:8081/api/v1/usuarios?page=0&size=20' \
+  'http://127.0.0.1:8125/api/v1/usuarios?page=0&size=20' \
   -H 'accept: application/json' \
   -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoLWFwaSIsInJvbGUiOiJST0xFX0NMSUVOVEUiLCJpYXQiOjE3MTAxMTM4NjMsInN1YiI6ImFuZHJlQHdlbGxzc3RvcmUuYnIiLCJleHAiOjE3MTAxMTU2NjN9.jgmwldn-xv4LxxC2PiVdFPElsjo3_2MUb9ZBfnzyPws'
 ```
@@ -554,7 +554,7 @@ curl:
 
 ```bash
 curl -X 'GET' \
-  'http://127.0.0.1:8081/api/v1/usuarios/3' \
+  'http://127.0.0.1:8125/api/v1/usuarios/3' \
   -H 'accept: application/json' \
   -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoLWFwaSIsInJvbGUiOiJST0xFX0NMSUVOVEUiLCJpYXQiOjE3MTAxMTM4NjMsInN1YiI6ImFuZHJlQHdlbGxzc3RvcmUuYnIiLCJleHAiOjE3MTAxMTU2NjN9.jgmwldn-xv4LxxC2PiVdFPElsjo3_2MUb9ZBfnzyPws'
 ```
