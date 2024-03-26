@@ -5,7 +5,7 @@ FROM public.ecr.aws/amazoncorretto/amazoncorretto:17
 ARG USER_UID="1000" \
 ARG USER_GID="1000"
 ARG USER_NAME="wells.usuario"
-ARG JAR_FILE=/target/wells-usuario-1.0-SNAPSHOT.jar
+ARG JAR_FILE=/target/wells-usuario.jar
 ARG VERSION="1.0"
 
 # Variáveis de ambiente

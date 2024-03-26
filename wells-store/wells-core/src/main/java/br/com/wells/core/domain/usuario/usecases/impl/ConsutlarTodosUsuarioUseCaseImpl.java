@@ -14,7 +14,7 @@ public class ConsutlarTodosUsuarioUseCaseImpl implements ConsutlarTodosUsuarioUs
 	}
 
 	@Override
-	public Pagina<Usuario> find(int pageNumber, int pageSize) {
+	public Pagina<Usuario> find(final int pageNumber, final int pageSize) {
 		return consutlarTodosUsuarioGateway.find(pageNumber, pageSize);
 	}
 

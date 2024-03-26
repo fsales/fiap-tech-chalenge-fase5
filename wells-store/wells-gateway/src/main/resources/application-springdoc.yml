@@ -1,0 +1,24 @@
+spring:
+  config:
+    activate:
+      on-profile: springdoc
+
+springdoc:
+  show-actuator: true
+  api-docs:
+    enabled: true
+    groups:
+      enabled: true
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+    urls:
+      - url: /v3/api-docs
+        name: API Gateway Service
+      - url: /wells-usuario/v3/api-docs
+        name: API Wells Usuário
+      - url: /wells-pagamento/v3/api-docs
+        name: API Wells Pagamento
+    urls-primary-name: API Gateway Service
+

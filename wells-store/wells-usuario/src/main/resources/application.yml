@@ -1,6 +1,6 @@
 spring:
   application:
-    name: @project.name@
+    name: @project.name@-service
     description: @project.description@
     version: @project.version@
 
@@ -23,11 +23,14 @@ spring:
 
   profiles:
     active: ${PROFILE_ENVIRONMENT:prod}
-    include: actuator, springdoc, app
+    include: management, springdoc, app, service-registry
 
+#logging:
+#  pattern:
+#    console: "%d{ABSOLUTE_MICROS} [%-5level] [%t] %c{1} - %msg%n"
 logging:
   pattern:
-    console: "%d{ABSOLUTE_MICROS} [%-5level] [%t] %c{1} - %msg%n"
+    level: '%5p [${spring.application.name:},%X{traceId:-},%X{spanId:-}]  [%t] %c{1} - %msg%n'
   level:
     br.com.wells: info
 

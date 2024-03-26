@@ -5,9 +5,12 @@ spring:
 
 springdoc:
   show-actuator: true
-  swagger-ui:
-    path: /docs-${spring.application.name}.html
   api-docs:
+    enabled: true
     groups:
       enabled: true
-    path: /docs-${spring.application.name}
+    path: /wells-usuario/v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /wells-usuario/swagger-ui.html
+

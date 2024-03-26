@@ -1,0 +1,139 @@
+version: '3.8'
+
+services:
+  # Servico de Pagamento
+  wells-pagamento-db:
+    container_name: wells-pagamento-db
+    image: postgres:latest
+    env_file:
+      - ../docker/env/.env-wells-pagamento-db
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
+    networks:
+      - wells-pagamento-db-net
+    volumes:
+      - wells-pagamento-db-data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 64M
+
+  # Servico de Usuário
+  wells-usuario-db:
+    container_name: wells-usuario-db
+    image: postgres:latest
+    env_file:
+      - ../docker/env/.env-wells-usuario-db
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+    networks:
+      - wells-usuario-db-net
+    volumes:
+      - wells-usuario-db-data:/var/lib/postgresql/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 64M
+
+  # Consul
+  consul-wells-store:
+    image: consul:1.15.4
+    container_name: consul-wells-store
+    ports:
+      - "8400:8400"
+      - "8500:8500"
+      - "8600:8600/udp"
+    environment:
+      - CONSUL_BIND_INTERFACE=eth0
+      - "CONSUL_LOCAL_CONFIG={\"skip_leave_on_interrupt\": true}"
+    command: "agent  -server -ui -client=0.0.0.0  -bootstrap-expect=1 "
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:8500/v1/status/leader" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - consul-wells-store-net
+    volumes:
+      - consul-wells-store-data:/consul/data
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 256M
+        reservations:
+          cpus: '0.25'
+          memory: 64M
+
+  # RabbitMQ
+  # RabbitMQ
+  rabbitmq-wells-store:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq-wells-store
+    ports:
+      - "5672:5672"
+      - "5671:5671"
+      - "4369:4369"
+      - "15672:15672"
+      - "15671:15671"
+    restart: on-failure
+    environment:
+      RABBITMQ_DEFAULT_USER: wellsstore
+      RABBITMQ_DEFAULT_PASS: wellsstore
+    volumes:
+      - rabbitmq-wells-store-data:/var/lib/rabbitmq
+      - rabbitmq-wells-store-log:/var/log/rabbitmq
+    networks:
+      - wells-store-app-net
+    healthcheck:
+      test: [ "CMD", "rabbitmqctl", "status" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    command: >
+      rabbitmq-server && 
+      rabbitmqctl add_vhost /zipkin && 
+      rabbitmqctl add_user zipkin_user zipkin_password && 
+      rabbitmqctl set_permissions -p /zipkin zipkin_user ".*" ".*" ".*" &&
+      rabbitmqctl set_policy -p /zipkin ha-all "" '{"ha-mode":"all","ha-sync-mode":"automatic"}' &&
+      rabbitmqadmin declare queue name=zipkin durable=true
+
+  # Zipkin
+  zipkin-wells-store:
+    image: openzipkin/zipkin
+    container_name: zipkin-wells-store
+    ports:
+      - "9410:9410"
+      - "9411:9411"
+    depends_on:
+      rabbitmq-wells-store:
+        condition: service_healthy
+    environment:
+      RABBIT_URI: "amqp://wellsstore:wellsstore@rabbitmq-wells-store:5672"
+    networks:
+      - wells-store-app-net
+
+networks:
+  wells-pagamento-db-net:
+  wells-usuario-db-net:
+  consul-wells-store-net:
+  wells-store-app-net:
+
+volumes:
+  wells-pagamento-db-data:
+  wells-usuario-db-data:
+  consul-wells-store-data:
+  rabbitmq-wells-store-data:
+  rabbitmq-wells-store-log:

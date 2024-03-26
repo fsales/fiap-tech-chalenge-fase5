@@ -1,0 +1,22 @@
+spring:
+  cloud:
+
+    discovery:
+      enabled: true
+    consul:
+      host: ${CONSUL_HOST:http://localhost}
+      port: ${CONSUL_PORT:8500}
+
+      discovery:
+        #register-health-check: false
+        health-check-path: /actuator/health
+        prefer-ip-address: true
+        instance-id: ${spring.application.name}-${server.port}-${random.int[1,99]}
+        register: true
+        enabled: true
+        service-name: ${spring.application.name}
+
+      enabled: true
+
+
+

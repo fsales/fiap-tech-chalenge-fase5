@@ -1,6 +1,6 @@
 package br.com.wells.core.domain.usuario.usecases.impl;
 
-import br.com.wells.core.domain.usuario.exception.EntityNotFoundException;
+import br.com.wells.core.domain.exception.WellsStoreEntityNotFoundException;
 import br.com.wells.core.domain.usuario.gateways.ConsultarUsuarioPorUsernameGateway;
 import br.com.wells.core.domain.usuario.model.Usuario;
 import br.com.wells.core.domain.usuario.usecases.ConsultarUsuarioPorUsernameUseCase;
@@ -68,10 +68,11 @@ class ConsultarUsuarioPorUsernameUseCaseIT {
 			when(consultarUsuarioPorUsernameGateway.find(username)).thenReturn(Optional.empty());
 
 			// Act & Assert
-			assertThrows(EntityNotFoundException.class, () -> consultarUsuarioPorUsernameUseCase.find(username));
+			assertThrows(WellsStoreEntityNotFoundException.class,
+					() -> consultarUsuarioPorUsernameUseCase.find(username));
 
 			assertThatThrownBy(() -> consultarUsuarioPorUsernameUseCase.find(username))
-				.isInstanceOf(EntityNotFoundException.class)
+				.isInstanceOf(WellsStoreEntityNotFoundException.class)
 				.hasMessageContaining(String.format("Usuario com '%s' não encontrado", username));
 		}
 

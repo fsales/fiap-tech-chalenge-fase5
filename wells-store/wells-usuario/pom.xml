@@ -6,6 +6,7 @@
         <groupId>br.com.wells</groupId>
         <artifactId>wells-store</artifactId>
         <version>1.0-SNAPSHOT</version>
+
     </parent>
 
     <artifactId>wells-usuario</artifactId>
@@ -14,7 +15,7 @@
     <packaging>jar</packaging>
 
     <properties>
-        <main.class>br.com.wells.usuario.WellsUsuarioApplication</main.class>
+        <main.class>br.com.wells.usuario.app.WellsUsuarioAppApllication</main.class>
     </properties>
 
     <dependencies>
@@ -55,17 +56,31 @@
             <optional>true</optional>
         </dependency>
 
+        <!-- spring cloud -->
         <dependency>
-            <groupId>org.liquibase</groupId>
-            <artifactId>liquibase-core</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-consul-discovery</artifactId>
         </dependency>
 
+        <!--Observabilidade -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-tracing-bridge-brave</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.zipkin.reporter2</groupId>
+            <artifactId>zipkin-reporter-brave</artifactId>
+        </dependency>
 
         <!-- Postgres -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
         </dependency>
 
         <!-- Wells -->
@@ -114,6 +129,7 @@
                     <execution>
                         <goals>
                             <goal>repackage</goal>
+                            <goal>build-info</goal>
                         </goals>
                         <configuration>
 <!--                            <archive>-->

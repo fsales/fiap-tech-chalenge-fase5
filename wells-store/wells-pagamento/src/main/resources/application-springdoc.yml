@@ -1,0 +1,16 @@
+spring:
+  config:
+    activate:
+      on-profile: springdoc
+
+springdoc:
+  show-actuator: true
+  api-docs:
+    enabled: true
+    groups:
+      enabled: true
+    path: /wells-pagamento/v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /wells-pagamento/swagger-ui.html
+

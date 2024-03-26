@@ -30,10 +30,21 @@
 
 - [Módulo Wells Usuário](#módulo-wells-usuário)
   - [Descrição do Projeto](#descrição-do-projeto)
+  - [Tecnologias utilizadas](#tecnologias-utilizadas)
   - [Clean Architecture](#clean-architecture)
   - [Estrutura do Projeto](#estrutura-do-projeto)
     - [Ambiente de Desenvolvimento](#ambiente-de-desenvolvimento)
       - [Configuração Comuns](#configuração-comuns)
+        - [Wells Usuário Makefile](#wells-usuário-makefile)
+          - [Construir o Projeto Java](#construir-o-projeto-java)
+          - [Instalar Artefatos Maven](#instalar-artefatos-maven)
+          - [Construir a Imagem Docker e Executar docker-compose para wells-usuario](#construir-a-imagem-docker-e-executar-docker-compose-para-wells-usuario)
+          - [Parar docker-compose para wells-usuario](#parar-docker-compose-para-wells-usuario)
+          - [Parar docker-compose removendo volumes](#parar-docker-compose-removendo-volumes)
+          - [Limpar Artefatos de Construção](#limpar-artefatos-de-construção)
+          - [Executar docker-compose do banco Postgres de desenvolvimento para wells-usuario](#executar-docker-compose-do-banco-postgres-de-desenvolvimento-para-wells-usuario)
+          - [Parar docker-compose o banco Postgres de desenvolvimento para wells-usuario](#parar-docker-compose-o-banco-postgres-de-desenvolvimento-para-wells-usuario)
+    - [Banco de Dados](#banco-de-dados)
       - [Banco de dados de desenvolvimento](#banco-de-dados-de-desenvolvimento)
     - [Arquivos de Configuração](#arquivos-de-configuração)
       - [Configuração no Spring Boot \[^1\]](#configuração-no-spring-boot-1)
@@ -46,6 +57,7 @@
         - [Estrutura do Banco de Dados](#estrutura-do-banco-de-dados)
       - [Arquivo `.env`](#arquivo-env)
   - [Endpoints do Módulo Wells Usuário](#endpoints-do-módulo-wells-usuário)
+  - [Endereço](#endereço)
     - [Autenticação](#autenticação)
     - [Cadastrar Usuário](#cadastrar-usuário)
     - [Alterar Senha do Usuário](#alterar-senha-do-usuário)
@@ -60,6 +72,13 @@
 Este módulo é parte do projeto Wells Store, que é uma aplicação que utiliza a arquitetura Clean Architecture para fornecer uma estrutura modular e organizada.
 
 O módulo Wells Usuário é responsável por prover as funcionalidades de usuário do sistema.
+
+## Tecnologias utilizadas
+- Java
+- Maven
+- Spring Boot
+- PostgreSQL
+- Consul
 
 ## Clean Architecture
 
@@ -134,10 +153,88 @@ Pré-requisitos e [configurações do ambiente de desenvolvimento](../README.md#
 
 #### Configuração Comuns
 
+Este projeto utiliza o Spring Boot, portanto, pode ser facilmente executado a partir da linha de comando com o Maven ou diretamente de uma IDE que suporte o Spring Boot.
+
 - [Pré-requisitos](../README.md#pré-requisitos)
 - [Realizar do clone do projeto](../README.md#realizar-do-clone-do-projeto)
 - [GNU Make](../README.md#gnu-make)
   - [Construção e Execução](../README.md#construção-e-execução)
+
+##### [Wells Usuário Makefile](/wells-store/make-wells-usuario.mk)
+
+**Passos para Executar a Partir do módulo `wells-store`**
+
+###### Construir o Projeto Java
+
+- Abra um terminal e navegue até o diretório `wells-usuario`.
+- Execute o seguinte comando para construir, verificar e empacotar o projeto Java:
+
+```bash
+make -f make-wells-usuario.mk java_build
+```
+
+###### Instalar Artefatos Maven
+
+- Ainda no terminal no diretório `wells-usuario`, execute o seguinte comando para instalar os arquivos JAR no repositório local Maven:
+
+```bash
+make -f make-wells-usuario.mk java_install
+```
+
+###### Construir a Imagem Docker e Executar docker-compose para wells-usuario
+
+- Execute os seguintes comandos para construir a imagem Docker e iniciar o serviço usando docker-compose:
+
+```bash
+make -f make-wells-usuario.mk docker_build
+make -f make-wells-usuario.mk docker_compose_up_wells_usuario
+```
+
+###### Parar docker-compose para wells-usuario
+
+- Caso seja necessário parar o serviço, execute o seguinte comando:
+
+```bash
+make -f make-wells-usuario.mk docker_compose_down_wells_usuario
+```
+
+###### Parar docker-compose removendo volumes
+
+- Se desejar parar o serviço e remover os volumes, use o comando a seguir:
+
+```bash
+make -f make-wells-usuario.mk docker_compose_down_wells_usuario_remove_volumes
+```
+
+###### Limpar Artefatos de Construção
+
+- Para limpar todos os artefatos de construção, incluindo a imagem Docker, utilize o seguinte comando:
+
+```bash
+make -f make-wells-usuario.mk clean
+```
+
+###### Executar docker-compose do banco Postgres de desenvolvimento para wells-usuario
+
+- Execute Execute o seguinte comando para iniciar o serviço usando docker-compose:
+
+```bash
+make -f make-wells-usuario.mk docker_compose_up_wells_usuario_postgres
+```
+
+###### Parar docker-compose o banco Postgres de desenvolvimento para wells-usuario
+
+- Caso seja necessário parar o serviço, execute o seguinte comando:
+
+```bash
+make -f make-wells-usuario.mk docker_compose_down_wells_usuario_postgres
+```
+
+Estes comandos devem ser executados no diretório `wells-store`, onde o arquivo `make-wells-usuario.mk` está localizado e onde o projeto `wells-store` está armazenado. Certifique-se de ajustar o diretório conforme necessário antes de executar os comandos.
+
+### Banco de Dados
+
+Foi escolhido o banco de dados Postgres para armazenar os dados da aplicação. O banco de dados é executado em um contêiner Docker, que pode ser iniciado com o comando descrito em  [Docker - Postgres](../docker/README.md#docker-compose-do-postgres).
 
 #### Banco de dados de desenvolvimento
 
@@ -211,9 +308,9 @@ O arquivo está disponível no repositório do projeto através do link [`.env`]
 
 ## Endpoints do Módulo Wells Usuário
 
-Nesta seção, apresentamos a lista de endpoints disponíveis no módulo Wells Usuário, todos devidamente documentados no Swagger. A documentação pode ser acessada por meio do link [Swagger](http://localhost:8081/docs-wells-usuario.html).
+Nesta seção, apresentamos a lista de endpoints disponíveis no módulo Wells Usuário, todos devidamente documentados no Swagger. A documentação pode ser acessada por meio do link [Swagger](http://localhost:8125/swagger-ui.html).
 
-Para realizar requisições HTTP, sugerimos a utilização do Swagger para uma exploração interativa ou do Postman. A coleção de requisições está disponível no diretório [`postman-collections`](postman-collections/).
+Para realizar requisições HTTP, sugerimos a utilização do Swagger para uma exploração interativa ou do Postman. A coleção de requisições está disponível no diretório [`postman-collections`](/wells-store/postman-collections/).
 
 Ao iniciar o módulo Wells Usuário, será realizado a migração do banco de dados e a inserção de dois usuários para testes.
 
@@ -223,6 +320,28 @@ Ao iniciar o módulo Wells Usuário, será realizado a migração do banco de da
 | cliente@wellsstore.br | 123456 | CLIENTE|
 
 O Wells Usuário permite apenas a criação de usuários com perfil `CLIENTE` ou `ADMIN`.
+
+## Endereço
+
+- Endpoint Usuário
+  - `POST /api/v1/usuarios`: Cadastra um novo usuário.
+  - `GET /api/v1/usuarios/{id}`: Consulta um usuário por ID.
+  - `PATCH /api/v1/usuarios/{id}/senha`: Altera a senha de um usuário.
+  - `GET /api/v1/usuarios`: Lista todos os usuários.
+
+- Endpoint Autenticação
+  - `POST /api/v1/auth/login`: Autentica um usuário e retorna um token JWT.
+  - `POST /api/v1/auth/token`: Gera um novo token JWT para um usuário autenticado.
+  - `GET /api/v1/auth/validate`: Valida um token JWT.
+
+- **API**
+  - `API Gateway:`: http://localhost:8125
+  - `API Usuário:`: http://localhost:[porta aleatória definida pelo Spring Boot]
+  
+- **Swagger**
+  - `API Gateway:` http://localhost:8125/swagger-ui.html`
+  - `API Usuário:` http://localhost:[porta aleatória definida pelo Spring Boot]/wells-usuario/swagger-ui.html`
+
 
 **Lista de endpoints disponíveis no módulo Wells Usuário:**
 
@@ -243,7 +362,7 @@ curl:
 
 ```bash
 curl -X 'POST' \
-  'http://127.0.0.1:8081/api/v1/auth/login' \
+  'http://127.0.0.1:8125/api/v1/auth/login' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -284,7 +403,7 @@ curl:
 
 ```bash
 curl -X 'POST' \
-  'http://127.0.0.1:8081/api/v1/usuarios' \
+  'http://127.0.0.1:8125/api/v1/usuarios' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -340,7 +459,7 @@ curl:
 
 ```bash
 curl -X 'PATCH' \
-  'http://127.0.0.1:8081/api/v1/usuarios/3/senha' \
+  'http://127.0.0.1:8125/api/v1/usuarios/3/senha' \
   -H 'accept: */*' \
   -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoLWFwaSIsInJvbGUiOiJST0xFX0NMSUVOVEUiLCJpYXQiOjE3MTAxMTM4NjMsInN1YiI6ImFuZHJlQHdlbGxzc3RvcmUuYnIiLCJleHAiOjE3MTAxMTU2NjN9.jgmwldn-xv4LxxC2PiVdFPElsjo3_2MUb9ZBfnzyPws' \
   -H 'Content-Type: application/json' \
@@ -385,7 +504,7 @@ curl:
 
 ```bash
 curl -X 'GET' \
-  'http://127.0.0.1:8081/api/v1/usuarios?page=0&size=20' \
+  'http://127.0.0.1:8125/api/v1/usuarios?page=0&size=20' \
   -H 'accept: application/json' \
   -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoLWFwaSIsInJvbGUiOiJST0xFX0NMSUVOVEUiLCJpYXQiOjE3MTAxMTM4NjMsInN1YiI6ImFuZHJlQHdlbGxzc3RvcmUuYnIiLCJleHAiOjE3MTAxMTU2NjN9.jgmwldn-xv4LxxC2PiVdFPElsjo3_2MUb9ZBfnzyPws'
 ```
@@ -468,7 +587,7 @@ curl:
 
 ```bash
 curl -X 'GET' \
-  'http://127.0.0.1:8081/api/v1/usuarios/3' \
+  'http://127.0.0.1:8125/api/v1/usuarios/3' \
   -H 'accept: application/json' \
   -H 'Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhdXRoLWFwaSIsInJvbGUiOiJST0xFX0NMSUVOVEUiLCJpYXQiOjE3MTAxMTM4NjMsInN1YiI6ImFuZHJlQHdlbGxzc3RvcmUuYnIiLCJleHAiOjE3MTAxMTU2NjN9.jgmwldn-xv4LxxC2PiVdFPElsjo3_2MUb9ZBfnzyPws'
 ```

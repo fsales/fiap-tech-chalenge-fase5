@@ -1,0 +1,20 @@
+spring:
+  config:
+    activate:
+      on-profile: amqp
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: wellsstore
+    password: wellsstore
+
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 3
+          initial-interval: 5000
+          multiplier: 1
+          max-interval: 300000
+
