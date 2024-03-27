@@ -8,7 +8,7 @@ spring:
       port: ${CONSUL_PORT:8500}
 
       discovery:
-        register-health-check: false
+        #register-health-check: false
         health-check-path: /actuator/health
         prefer-ip-address: true
         instance-id: ${spring.application.name}-${spring.cloud.client.ip-address}-${random.int[1,99]}
