@@ -10,10 +10,6 @@
 
     <groupId>br.com.wells.app</groupId>
     <artifactId>wells-produto</artifactId>
-<<<<<<< HEAD
-=======
-    <version>0.0.1-SNAPSHOT</version>
->>>>>>> feature/produto
     <name>wells-produto</name>
     <description>wells-produto</description>
 

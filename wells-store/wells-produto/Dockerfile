@@ -37,8 +37,4 @@ COPY ${JAR_FILE} ${DEPENDENCY}/app.jar
 ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} -jar ${DEPENDENCY}/app.jar ${0} ${@}"]
 
 # Exposição da porta
-<<<<<<< HEAD
 #EXPOSE ${PORT}
-=======
-EXPOSE ${PORT}
->>>>>>> feature/produto

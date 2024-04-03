@@ -23,11 +23,7 @@ spring:
 
   profiles:
     active: ${PROFILE_ENVIRONMENT:prod}
-<<<<<<< HEAD
     include: management, springdoc, app
-=======
-    include: actuator, springdoc, app
->>>>>>> feature/produto
 
 logging:
   pattern:
@@ -38,9 +34,5 @@ logging:
 server:
   error:
     include-stacktrace: never # desabilitar stacktrace no json que e retornado em caso de erro
-<<<<<<< HEAD
   port: ${PORT:0}
-=======
-  port: ${PORT:8081}
->>>>>>> feature/produto
 
