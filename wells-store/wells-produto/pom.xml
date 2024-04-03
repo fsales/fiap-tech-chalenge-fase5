@@ -10,6 +10,10 @@
 
     <groupId>br.com.wells.app</groupId>
     <artifactId>wells-produto</artifactId>
+<<<<<<< HEAD
+=======
+    <version>0.0.1-SNAPSHOT</version>
+>>>>>>> feature/produto
     <name>wells-produto</name>
     <description>wells-produto</description>
 
@@ -40,10 +44,17 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+<<<<<<< HEAD
 <!--        <dependency>-->
 <!--            <groupId>org.springframework.boot</groupId>-->
 <!--            <artifactId>spring-boot-starter-security</artifactId>-->
 <!--        </dependency>-->
+=======
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+>>>>>>> feature/produto
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -69,6 +80,7 @@
             <scope>runtime</scope>
         </dependency>
 
+<<<<<<< HEAD
         <!--Observabilidade -->
 <!--        <dependency>-->
 <!--            <groupId>io.micrometer</groupId>-->
@@ -79,6 +91,8 @@
 <!--            <artifactId>zipkin-reporter-brave</artifactId>-->
 <!--        </dependency>-->
 
+=======
+>>>>>>> feature/produto
         <!-- Wells -->
         <dependency>
             <groupId>br.com.wells</groupId>
