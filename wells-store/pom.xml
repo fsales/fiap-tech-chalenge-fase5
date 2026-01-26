@@ -40,7 +40,7 @@
         <spring-security-crypto.version>6.1.5</spring-security-crypto.version>
         <commons-logging.version>1.3.0</commons-logging.version>
         <commons-validator.version>1.8.0</commons-validator.version>
-        <assertj-core.version>3.25.3</assertj-core.version>
+        <assertj-core.version>3.27.7</assertj-core.version>
         <springdoc.version>2.4.0</springdoc.version>
         <postgresql.version>42.2.14</postgresql.version>
         <jwks-rsa.version>0.22.1</jwks-rsa.version>
